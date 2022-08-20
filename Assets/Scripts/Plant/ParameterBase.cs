@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class ParameterBase : MonoBehaviour
 {
-	public abstract void UpdateState();
+	public abstract void Simulate(float delta);
 }

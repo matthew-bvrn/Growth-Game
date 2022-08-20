@@ -6,11 +6,11 @@ public class GrowthComponent : MonoBehaviour
 {
 	float m_growth;
 
-  void UpdateState()
+  public void Simulate(float delta)
 	{
 		foreach(ParameterBase parameter in GetComponentsInChildren<ParameterBase>())
 		{
-			parameter.UpdateState();
+			parameter.Simulate(float delta);
 		}
 
 		ModelHandler modelHandler = GetComponentInChildren<ModelHandler>();

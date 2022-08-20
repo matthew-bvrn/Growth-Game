@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ParameterPot : ParameterBase
 {
-	public override void UpdateState()
+	public override void Simulate(float delta)
 	{
 		throw new System.NotImplementedException();
 	}
