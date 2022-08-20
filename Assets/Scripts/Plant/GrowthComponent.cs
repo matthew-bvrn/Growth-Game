@@ -15,6 +15,12 @@ public class GrowthComponent : MonoBehaviour
 
 	public void Simulate(float delta)
 	{
+		if (!GetComponent<PlantComponent>().m_isInitialised)
+		{
+			Debug.LogWarning("Plant component not initialised, simulation wont occur");
+			return;
+		}
+
 		foreach(SimulatableBase parameter in GetComponentsInChildren<SimulatableBase>())
 		{
 			parameter.Simulate(delta);
