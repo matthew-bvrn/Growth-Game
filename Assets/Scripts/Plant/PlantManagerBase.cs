@@ -2,6 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlantManagerBase : MonoBehaviour
+public class PlantManagerBase : MonoBehaviour
 {
 }

@@ -6,18 +6,18 @@ public class GrowthComponent : MonoBehaviour
 {
 	float m_growth;
 
-  public void Simulate(float delta)
+	public void Start()
 	{
-		foreach(ParameterBase parameter in GetComponentsInChildren<ParameterBase>())
-		{
-			parameter.Simulate(float delta);
-		}
-
 		ModelHandler modelHandler = GetComponentInChildren<ModelHandler>();
-
-		if (modelHandler)
-			modelHandler.UpdateState();
-		else
+		if (!modelHandler)
 			Debug.LogError("Model handler component is missing.");
+	}
+
+	public void Simulate(float delta)
+	{
+		foreach(SimulatableBase parameter in GetComponentsInChildren<SimulatableBase>())
+		{
+			parameter.Simulate(delta);
+		}
 	}
 }
