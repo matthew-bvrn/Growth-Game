@@ -1,0 +1,16 @@
+{
+    "name": "Plant",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e41331459a1be774d93aa62a522d3aa9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

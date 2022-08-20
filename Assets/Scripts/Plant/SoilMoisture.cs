@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class SoilMoisture : SimulatableBase
 {
-	public override void Simulate(float delta)
+	float m_waterSaturation;
+
+	public override void Simulate(float deltaTime)
 	{
-		throw new System.NotImplementedException();
+		float dryRate = GetComponentInParent<PlantComponent>().Parameters.GetDrainingFactor();
+
+		float timeInHours = deltaTime / 3600;
+		float equivTime = -dryRate * Mathf.Log(m_waterSaturation);
+		float totalTime = timeInHours + equivTime;
+		m_waterSaturation = Mathf.Exp(-totalTime / dryRate);
 	}
 }

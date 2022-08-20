@@ -4,4 +4,16 @@ using UnityEngine;
 
 public class PlantComponent : MonoBehaviour
 {
+	Parameters.PlantParameters m_plantParameters;
+	internal bool m_isInitialised = false;
+
+	internal Parameters.PlantParameters Parameters { get => m_plantParameters; }
+
+	//TODO temporary until loop for getting new plants is implemented
+	public void TestInitialise()
+	{
+		m_plantParameters = new Parameters.PlantParameters();
+		m_plantParameters.Initialise();
+		m_isInitialised = true;
+	}
 }
