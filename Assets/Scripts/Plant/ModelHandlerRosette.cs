@@ -5,17 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class LeafParametersRosette : LeafParametersBase
 {
-	public float m_initialRotation = -90;
-	public float m_maxRotation = -65;
+	public float m_initialRotation = -50;
+	public float m_maxRotation = -80;
 
-	public float m_rotationSpeed = 0.01f;
 	public float m_growthScaleSpeed = 0.01f;
 	public float m_deathScaleSpeed = 0.03f;
 }
 
 public class ModelHandlerRosette : ModelHandler
 {
-	List<LeafRosette> m_leaves;
+	List<LeafRosette> m_leaves = new List<LeafRosette>();
 	[SerializeField] int m_leafThreshold = 300;
 	[SerializeField] LeafParametersRosette m_leafParameters = new LeafParametersRosette();
 	[SerializeField] float m_newLeafRotIncrement = 80;
@@ -23,6 +22,8 @@ public class ModelHandlerRosette : ModelHandler
 
 	float m_newLeafRot = 0;
 	float m_plantHeight = 0;
+
+	List<LeafRosette> m_leafRemoveBuffer;
 
 	internal sealed override void Simulate(float deltaSeconds)
 	{
@@ -36,9 +37,14 @@ public class ModelHandlerRosette : ModelHandler
 			leaf.UpdateGrowth(deltaGrowth, m_leafParameters);
 			if (leaf.State == Leaf.EState.Dead)
 			{
-				m_leaves.Remove(leaf);
-				Destroy(leaf);
+				m_leafRemoveBuffer.Add(leaf);
 			}
+		}
+
+		foreach(LeafRosette leaf in m_leaves)
+		{
+			m_leaves.Remove(leaf);
+			Destroy(leaf);
 		}
 
 		//add new leaves
@@ -50,11 +56,11 @@ public class ModelHandlerRosette : ModelHandler
 			m_plantHeight += m_newLeafHeightIncrement;
 			m_newLeafRot += m_newLeafRotIncrement;
 
-			Object leafPrefab = Resources.Load("Prefabs/Plants/" + GetComponent<PlantComponent>().Name + "Leaf");
+			Object leafPrefab = Resources.Load("Prefabs/Plants/" + GetComponentInParent<PlantComponent>().Name + "Leaf");
 
 			if (leafPrefab == null)
 			{
-				Debug.LogError("Leaf prefab is missing for plant with name " + GetComponent<PlantComponent>().Name);
+				Debug.LogError("Leaf prefab is missing for plant with name " + GetComponentInParent<PlantComponent>().Name);
 				return;
 			}
 
@@ -63,6 +69,7 @@ public class ModelHandlerRosette : ModelHandler
 
 			GameObject newLeaf = (GameObject)Instantiate(leafPrefab, leafPosition, leafRotation, transform);
 
+			newLeaf.GetComponent<Leaf>().Initialise(GetComponentInParent<PlantComponent>().Parameters);
 			newLeaf.transform.localScale = new Vector3(1, 1, 1);
 			newLeaf.GetComponent<Leaf>().UpdateGrowth(leafGrowth, m_leafParameters);
 

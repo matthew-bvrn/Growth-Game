@@ -56,11 +56,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500889b8e9f5ea146bbb014a779e05cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_leafThreshold: 300
+  m_leafThreshold: 250
   m_leafParameters:
-    m_initialRotation: -90
-    m_maxRotation: -65
-    m_rotationSpeed: 0.01
+    m_initialRotation: -50
+    m_maxRotation: -80
     m_growthScaleSpeed: 0.01
     m_deathScaleSpeed: 0.03
   m_newLeafRotIncrement: 80
@@ -123,3 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446b50005d22dec4eb6ce1621195ed78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_growth: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrowthComponent : MonoBehaviour
 {
-	float m_growth = 0;
+	[SerializeField] float m_growth = 0;
 	float m_deltaGrowth = 0;
 	float m_growthFactor;
 
@@ -27,7 +27,7 @@ public class GrowthComponent : MonoBehaviour
 		}
 
 		CalculateGrowthFactor();
-		m_deltaGrowth = (deltaSeconds / 1000) * m_growthFactor;
+		m_deltaGrowth = deltaSeconds * m_growthFactor;
 		m_growth += m_deltaGrowth;
 
 		foreach(SimulatableBase parameter in GetComponentsInChildren<SimulatableBase>())

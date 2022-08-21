@@ -14,6 +14,12 @@ public class PlantComponent : MonoBehaviour
 	internal Parameters.PlantParameters Parameters { get => m_plantParameters; }
 
 	//TODO temporary until loop for getting new plants is implemented
+	public void Start()
+	{
+		TestInitialise();
+	}
+
+	//TODO temporary until loop for getting new plants is implemented
 	public void TestInitialise()
 	{
 		m_plantParameters = new Parameters.PlantParameters();

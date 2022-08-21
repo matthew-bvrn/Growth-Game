@@ -6,14 +6,26 @@ using UnityEngine;
 public class PlantManagerRealtime : PlantManagerBase
 {
 	double m_lastSimulationTime;
-	List<PlantComponent> m_plants;
+
+	[SerializeField] float m_testDeltaMultiplier = 100;
+
+	public void Start()
+	{
+		m_lastSimulationTime = GetTime();
+	}
+
+	//TODO temporary, this should eventually be put into a game state manager
+	public void Update()
+	{
+		Simulate();
+	}
 
 	void Simulate()
 	{
 		double time = GetTime();
-		float delta = (float)(time - m_lastSimulationTime);
+		float delta = (float)(time - m_lastSimulationTime) * m_testDeltaMultiplier;
 
-		foreach(PlantComponent plant in m_plants)
+		foreach(PlantComponent plant in GetComponentsInChildren<PlantComponent>())
 		{
 			plant.GetComponent<GrowthComponent>().Simulate(delta);
 		}

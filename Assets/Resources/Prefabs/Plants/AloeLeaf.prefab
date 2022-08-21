@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7999522784435796715}
+  - component: {fileID: 1132454399753265704}
   m_Layer: 0
   m_Name: AloeLeaf
   m_TagString: Untagged
@@ -31,6 +32,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1132454399753265704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2166743695326200294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ce6da03d93df842b04b41b87fdd08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2495358619656163969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56,15 +69,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2892810079636892257, guid: 0053fcbbbc4b8214ab0e0838965141ae, type: 3}
       propertyPath: m_LocalScale.x
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2892810079636892257, guid: 0053fcbbbc4b8214ab0e0838965141ae, type: 3}
       propertyPath: m_LocalScale.y
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2892810079636892257, guid: 0053fcbbbc4b8214ab0e0838965141ae, type: 3}
       propertyPath: m_LocalScale.z
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2892810079636892257, guid: 0053fcbbbc4b8214ab0e0838965141ae, type: 3}
       propertyPath: m_LocalPosition.x
