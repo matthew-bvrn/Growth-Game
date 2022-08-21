@@ -23,7 +23,7 @@ public class ModelHandlerRosette : ModelHandler
 	float m_newLeafRot = 0;
 	float m_plantHeight = 0;
 
-	List<LeafRosette> m_leafRemoveBuffer;
+	List<LeafRosette> m_leafRemoveBuffer = new List<LeafRosette>();
 
 	internal sealed override void Simulate(float deltaSeconds)
 	{
@@ -41,7 +41,7 @@ public class ModelHandlerRosette : ModelHandler
 			}
 		}
 
-		foreach(LeafRosette leaf in m_leaves)
+		foreach(LeafRosette leaf in m_leafRemoveBuffer)
 		{
 			m_leaves.Remove(leaf);
 			Destroy(leaf);
