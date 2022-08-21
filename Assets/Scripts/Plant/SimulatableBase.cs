@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class SimulatableBase : MonoBehaviour
 {
-	public abstract void Simulate(float delta);
+	internal abstract void Simulate(float deltaSeconds);
 }

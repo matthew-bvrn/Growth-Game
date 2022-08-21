@@ -17,19 +17,19 @@ public class SoilMoisture : SimulatableBase
 	static float s_standardDrainingTime = 6; //hours
 	static int s_maxPollValues = 30;
 
-	public override void Simulate(float deltaTime)
+	public override void Simulate(float deltaSeconds)
 	{
 		//loop to add poll values 
-		while(deltaTime > s_pollInterval)
+		while(deltaSeconds > s_pollInterval)
 		{
 			UpdateSaturation(s_pollInterval);
-			deltaTime -= s_pollInterval;
+			deltaSeconds -= s_pollInterval;
 			AddPollValue();
 		}
 
-		UpdateSaturation(deltaTime);
+		UpdateSaturation(deltaSeconds);
 
-		m_timeSinceLastPoll += deltaTime;
+		m_timeSinceLastPoll += deltaSeconds;
 
 		if(m_timeSinceLastPoll >= s_pollInterval)
 		{

@@ -6,11 +6,6 @@ namespace Parameters
 {
 	public class Soil
 	{
-		public float GetDrainingFactor()
-		{
-			//TODO temporary unitl logic implemented
-
-			return 1;
-		}
+		public float DrainingFactor { get => 1; } 	//TODO temporary unitl logic implemented
 	}
 }

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GrowthComponent : MonoBehaviour
 {
-	float m_growth;
+	float m_growth = 0;
+	float m_deltaGrowth = 0;
+	float m_growthFactor;
+
+	public float Growth { get => m_growth; }
+	public float DeltaGrowth { get => m_deltaGrowth; }
 
 	public void Start()
 	{
@@ -13,7 +18,7 @@ public class GrowthComponent : MonoBehaviour
 			Debug.LogError("Model handler component is missing.");
 	}
 
-	public void Simulate(float delta)
+	public void Simulate(float deltaSeconds)
 	{
 		if (!GetComponent<PlantComponent>().m_isInitialised)
 		{
@@ -21,9 +26,22 @@ public class GrowthComponent : MonoBehaviour
 			return;
 		}
 
+		CalculateGrowthFactor();
+		m_deltaGrowth = (deltaSeconds / 1000) * m_growthFactor;
+		m_growth += m_deltaGrowth;
+
 		foreach(SimulatableBase parameter in GetComponentsInChildren<SimulatableBase>())
 		{
-			parameter.Simulate(delta);
+			parameter.Simulate(deltaSeconds);
 		}
+	}
+
+	public void CalculateGrowthFactor()
+	{
+		float baseFactor = GetComponent<PlantComponent>().Parameters.BaseGrowthFactor;
+
+		//TODO do stuff to this based on plant parameters such as water saturation, light level etc.
+
+		m_growthFactor = baseFactor;
 	}
 }

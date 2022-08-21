@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Parameters
 {
-	public enum EPotSize
+	internal enum EPotSize
 	{
 		Tiny,
 		Small,
@@ -13,13 +13,13 @@ namespace Parameters
 		Giant
 	}
 
-	public enum EPotMaterial
+	internal enum EPotMaterial
 	{
 		Plastic,
 		Terracotta
 	}
 
-	public class Pot
+	internal class Pot
 	{
 		//TODO make these data driven
 		static Dictionary<EPotSize, float> s_potSizeFactor = new Dictionary<EPotSize, float>()
@@ -37,18 +37,16 @@ namespace Parameters
 			{EPotMaterial.Terracotta, 1.2f}
 		};
 
-		public Pot(EPotSize _size, EPotMaterial _material)
+		internal Pot(EPotSize _size, EPotMaterial _material)
 		{
 			Size = _size;
 			Material = _material;
 		}
 
-		public EPotSize Size { get; }
-		public EPotMaterial Material { get; }
+		internal EPotSize Size { get; }
+		internal EPotMaterial Material { get; }
 
-		internal float GetDrainingFactor()
-		{
-			return s_potMaterialDrainingFactor[Material];
-		}
+		internal float SizeFactor { get => s_potSizeFactor[Size]; }
+		internal float DrainingFactor { get => s_potMaterialDrainingFactor[Material]; }
 	}
 }
