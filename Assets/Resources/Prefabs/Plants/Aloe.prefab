@@ -56,6 +56,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500889b8e9f5ea146bbb014a779e05cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_leafThreshold: 300
+  m_leafParameters:
+    m_initialRotation: -90
+    m_maxRotation: -65
+    m_rotationSpeed: 0.01
+    m_growthScaleSpeed: 0.01
+    m_deathScaleSpeed: 0.03
+  m_newLeafRotIncrement: 80
+  m_newLeafHeightIncrement: 0.005
 --- !u!1 &2450521972573996371
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,7 +77,7 @@ GameObject:
   - component: {fileID: 2450521972573996368}
   - component: {fileID: 2450521972573996369}
   m_Layer: 0
-  m_Name: AloePlant
+  m_Name: Aloe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea471c9f74c1b9c4a8714a21ffbbb086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_plantName: Aloe
 --- !u!114 &2450521972573996369
 MonoBehaviour:
   m_ObjectHideFlags: 0
