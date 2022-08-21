@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500889b8e9f5ea146bbb014a779e05cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_leafThreshold: 250
+  m_leafThreshold: 200
   m_leafParameters:
     m_initialRotation: -50
     m_maxRotation: -80
