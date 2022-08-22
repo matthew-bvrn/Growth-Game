@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 internal class LeafRosette : Leaf
 {
@@ -12,10 +13,24 @@ internal class LeafRosette : Leaf
 
 		m_age += deltaGrowth;
 
+		float ageProgress = m_age / m_maxAge;
+
 		if (m_state == EState.Growing)
 		{
 			gameObject.transform.localScale = rosetteParams.m_growthScaleSpeed * m_age * onesVec;
-			gameObject.transform.rotation = Quaternion.Euler(m_age/m_maxAge * rosetteParams.m_maxRotation + (1-m_age/m_maxAge)*rosetteParams.m_initialRotation, gameObject.transform.rotation.eulerAngles.y, 0);
+			float rotation = ageProgress * rosetteParams.m_maxRotation + (1 - ageProgress) * rosetteParams.m_initialRotation;
+			gameObject.transform.rotation = Quaternion.Euler(rotation, gameObject.transform.rotation.eulerAngles.y, 0);
+
+			float animation = ageProgress * 1 + (1 - ageProgress) * 0;
+			var alembicPlayer = transform.GetChild(0).GetComponent("AlembicStreamPlayer");
+
+			if(alembicPlayer != null)
+			{
+				var so = new SerializedObject(alembicPlayer);
+				var prop = so.FindProperty("currentTime");
+				prop.floatValue = animation;
+				so.ApplyModifiedProperties();
+			}
 
 			if (m_age >= m_maxAge)
 			{
