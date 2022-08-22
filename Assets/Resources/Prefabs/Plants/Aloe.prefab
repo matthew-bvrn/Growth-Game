@@ -58,8 +58,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_leafThreshold: 200
   m_leafParameters:
-    m_initialRotation: -50
-    m_maxRotation: -80
+    m_initialRotation: -15
+    m_maxRotation: 15
     m_growthScaleSpeed: 0.01
     m_deathScaleSpeed: 0.03
   m_newLeafRotIncrement: 80
