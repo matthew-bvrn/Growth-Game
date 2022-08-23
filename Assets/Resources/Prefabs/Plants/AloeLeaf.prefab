@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7999522784435796715}
   - component: {fileID: 1132454399753265704}
+  - component: {fileID: 5083003582870444960}
   m_Layer: 0
   m_Name: AloeLeaf
   m_TagString: Untagged
@@ -44,6 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ce6da03d93df842b04b41b87fdd08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5083003582870444960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2166743695326200294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260ed0bc49cfecd45a5777fb73c2e5a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_growthRangeStart: 0
+  m_growthRangeEnd: 1
 --- !u!1001 &2495358619656163969
 PrefabInstance:
   m_ObjectHideFlags: 0
