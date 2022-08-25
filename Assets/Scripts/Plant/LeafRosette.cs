@@ -7,7 +7,7 @@ internal class LeafRosette : Leaf
 	internal override void UpdateGrowth(float deltaGrowth, LeafParametersBase leafParams)
 	{
 		LeafParametersRosette rosetteParams = (LeafParametersRosette)leafParams;
-		m_maxAge = m_plantParameters.PotFactor * 50;
+		m_maxAge = m_parametersComponent.PotFactor * 50;
 		Vector3 onesVec = new Vector3(1, 1, 1);
 
 		m_age += deltaGrowth;

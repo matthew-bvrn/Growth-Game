@@ -58,7 +58,7 @@ public class SoilMoisture : SimulatableBase
 
 	private void UpdateSaturation(float delta)
 	{
-		float dryRate = s_standardDrainingTime * (1/GetComponentInParent<PlantComponent>().Parameters.GetDrainingFactor());
+		float dryRate = s_standardDrainingTime * (1/GetComponentInParent<Parameters.ParametersComponent>().DrainingFactor);
 
 		float timeInHours = delta / 3600;
 		float equivTime = -dryRate * Mathf.Log(m_saturation);

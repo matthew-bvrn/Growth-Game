@@ -4,9 +4,9 @@ using UnityEngine;
 
 internal abstract class Leaf : MonoBehaviour
 {
-	public void Initialise(Parameters.PlantParameters parameters)
+	public void Initialise(Parameters.ParametersComponent parameters)
 	{
-		m_plantParameters = parameters;
+		m_parametersComponent = parameters;
 	}
 
 	internal enum EState
@@ -16,7 +16,7 @@ internal abstract class Leaf : MonoBehaviour
 		Dead
 	}
 
-	protected Parameters.PlantParameters m_plantParameters;
+	protected Parameters.ParametersComponent m_parametersComponent;
 
 	protected float m_age = 0;
 	protected float m_maxAge = 0;

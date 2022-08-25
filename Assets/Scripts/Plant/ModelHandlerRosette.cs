@@ -69,7 +69,7 @@ public class ModelHandlerRosette : ModelHandler
 
 			GameObject newLeaf = (GameObject)Instantiate(leafPrefab, leafPosition, leafRotation, transform);
 
-			newLeaf.GetComponent<Leaf>().Initialise(GetComponentInParent<PlantComponent>().Parameters);
+			newLeaf.GetComponent<Leaf>().Initialise(GetComponentInParent<Parameters.ParametersComponent>());
 			newLeaf.transform.localScale = new Vector3(1, 1, 1);
 			newLeaf.GetComponent<Leaf>().UpdateGrowth(leafGrowth, m_leafParameters);
 
