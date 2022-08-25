@@ -7,7 +7,7 @@ public class SoilSaturation : SimulatableBase
 {
 	public float SaturationRollingAverage { get; private set; }
 
-	float m_saturation;
+	[ReadOnly] [SerializeField] float m_saturation = 0.5f;
 
 	List<float> m_saturationPollValues = new List<float>();
 
