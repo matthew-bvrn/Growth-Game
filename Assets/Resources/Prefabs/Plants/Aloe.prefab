@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2450521972573996368, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_plantName
+      value: Aloe
+      objectReference: {fileID: 0}
     - target: {fileID: 2450521972573996370, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
       propertyPath: m_RootOrder
       value: 0
