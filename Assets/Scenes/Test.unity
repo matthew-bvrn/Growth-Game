@@ -312,8 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feae31fe8e5b7d94a89c51146206e5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
-  fastMovementSpeed: 100
+  movementSpeed: 8
+  fastMovementSpeed: 30
   freeLookSensitivity: 3
   zoomSensitivity: 10
   fastZoomSensitivity: 50
