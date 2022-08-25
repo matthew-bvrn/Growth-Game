@@ -22,6 +22,11 @@ namespace Parameters
 			return m_speciesParameters.GetSaturationFactor(value);
 		}
 
+		public float GetAverageSaturationFactor(float start, float end)
+		{
+			return m_speciesParameters.GetAverageSaturationFactor(start, end);
+		}
+
 		public void Initialise(bool useDefaultParameters)
 		{
 			m_userParameters = new UserParameters();

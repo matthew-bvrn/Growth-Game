@@ -7,6 +7,7 @@ public class GrowthComponent : MonoBehaviour
 	[SerializeField] float m_growth = 0;
 	float m_deltaGrowth = 0;
 	[ReadOnly] [SerializeField] float m_growthFactor;
+	float m_prevSaturation = -1;
 
 	static float s_growthMultiplier = 0.05f;
 
@@ -18,6 +19,13 @@ public class GrowthComponent : MonoBehaviour
 		ModelHandler modelHandler = GetComponentInChildren<ModelHandler>();
 		if (!modelHandler)
 			Debug.LogError("Model handler component is missing.");
+	}
+
+	public void SimulatePeriod(float deltaSeconds)
+	{
+		m_prevSaturation = GetComponentInChildren<SoilSaturation>().SaturationRollingAverage;
+		Simulate(deltaSeconds);
+		m_prevSaturation = -1;
 	}
 
 	public void Simulate(float deltaSeconds)
@@ -43,9 +51,17 @@ public class GrowthComponent : MonoBehaviour
 		Parameters.ParametersComponent parametersComponent = GetComponent<Parameters.ParametersComponent>();
 
 		float baseFactor = parametersComponent.BaseGrowthFactor;
-		float saturation = GetComponentInChildren<SoilSaturation>().SaturationRollingAverage;
 
-		float saturationFactor = parametersComponent.GetSaturationFactor(saturation);
+		float saturation;
+		float saturationFactor;
+
+		saturation = GetComponentInChildren<SoilSaturation>().SaturationRollingAverage;
+
+		//signal value, simulate in realtime as normal
+		if (m_prevSaturation < 0)
+			saturationFactor = parametersComponent.GetSaturationFactor(saturation);
+		else
+			saturationFactor = parametersComponent.GetAverageSaturationFactor(m_prevSaturation, saturation);
 
 		m_growthFactor = baseFactor * saturationFactor;
 	}
