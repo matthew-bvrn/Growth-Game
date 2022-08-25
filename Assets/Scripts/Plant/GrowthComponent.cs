@@ -6,7 +6,7 @@ public class GrowthComponent : MonoBehaviour
 {
 	[SerializeField] float m_growth = 0;
 	float m_deltaGrowth = 0;
-	float m_growthFactor;
+	[ReadOnly] [SerializeField] float m_growthFactor;
 
 	public float Growth { get => m_growth; }
 	public float DeltaGrowth { get => m_deltaGrowth; }
@@ -38,9 +38,13 @@ public class GrowthComponent : MonoBehaviour
 
 	public void CalculateGrowthFactor()
 	{
-		float baseFactor = GetComponent<Parameters.ParametersComponent>().BaseGrowthFactor;
+		Parameters.ParametersComponent parametersComponent = GetComponent<Parameters.ParametersComponent>();
+
+		float baseFactor = parametersComponent.BaseGrowthFactor;
 		float saturation = GetComponentInChildren<SoilSaturation>().SaturationRollingAverage;
 
-		m_growthFactor = baseFactor * saturation;
+		float saturationFactor = parametersComponent.GetSaturationFactor(saturation);
+
+		m_growthFactor = baseFactor * saturationFactor;
 	}
 }
