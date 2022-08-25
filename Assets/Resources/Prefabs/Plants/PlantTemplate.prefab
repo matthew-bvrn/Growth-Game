@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2450521972036698847}
-  - component: {fileID: 2450521972036698846}
+  - component: {fileID: 6084971622440683677}
   m_Layer: 0
   m_Name: Simulatables
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 2450521972573996370}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2450521972036698846
+--- !u!114 &6084971622440683677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2450521972036698832}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5360f0807ac45c149a5550df5d2ed945, type: 3}
+  m_Script: {fileID: 11500000, guid: 60a7ca953c329cb4997750c16ac825a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2450521972573996371
@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 2450521972573996370}
   - component: {fileID: 2450521972573996368}
   - component: {fileID: 2450521972573996369}
+  - component: {fileID: 3875939767557562042}
   m_Layer: 0
   m_Name: PlantTemplate
   m_TagString: Untagged
@@ -88,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea471c9f74c1b9c4a8714a21ffbbb086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_plantName: 
 --- !u!114 &2450521972573996369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,3 +102,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446b50005d22dec4eb6ce1621195ed78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_growth: 0
+--- !u!114 &3875939767557562042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2450521972573996371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aedca616ddd91a44949926fd3c25939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_saturationFocus: 0
+  m_saturationRange: 0
