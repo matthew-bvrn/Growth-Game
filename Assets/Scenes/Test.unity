@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ab9db2381ced044998480320a019a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_testDeltaMultiplier: 100
+  m_testDeltaMultiplier: 2000
 --- !u!4 &1898118501
 Transform:
   m_ObjectHideFlags: 0

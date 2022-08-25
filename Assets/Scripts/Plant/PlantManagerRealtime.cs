@@ -7,7 +7,7 @@ public class PlantManagerRealtime : PlantManagerBase
 {
 	double m_lastSimulationTime;
 
-	[SerializeField] float m_testDeltaMultiplier = 100;
+	[SerializeField] float m_testDeltaMultiplier = 2000;
 
 	public void Start()
 	{

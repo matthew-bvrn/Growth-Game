@@ -8,6 +8,8 @@ public class GrowthComponent : MonoBehaviour
 	float m_deltaGrowth = 0;
 	[ReadOnly] [SerializeField] float m_growthFactor;
 
+	static float s_growthMultiplier = 0.05f;
+
 	public float Growth { get => m_growth; }
 	public float DeltaGrowth { get => m_deltaGrowth; }
 
@@ -27,7 +29,7 @@ public class GrowthComponent : MonoBehaviour
 		}
 
 		CalculateGrowthFactor();
-		m_deltaGrowth = deltaSeconds * m_growthFactor;
+		m_deltaGrowth = deltaSeconds * m_growthFactor * s_growthMultiplier;
 		m_growth += m_deltaGrowth;
 
 		foreach(SimulatableBase parameter in GetComponentsInChildren<SimulatableBase>())

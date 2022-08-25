@@ -13,9 +13,9 @@ public class SoilSaturation : SimulatableBase
 
 	float m_timeSinceLastPoll = 0;
 
-	static float s_pollInterval = 30; //seconds
+	static float s_pollInterval = 120; //seconds
 	static float s_standardDrainingTime = 6; //hours
-	static int s_maxPollValues = 30;
+	static int s_maxPollValues = 300;
 
 	internal override void Simulate(float deltaSeconds)
 	{
