@@ -39,9 +39,8 @@ public class GrowthComponent : MonoBehaviour
 	public void CalculateGrowthFactor()
 	{
 		float baseFactor = GetComponent<Parameters.ParametersComponent>().BaseGrowthFactor;
+		float saturation = GetComponentInChildren<SoilSaturation>().SaturationRollingAverage;
 
-		//TODO do stuff to this based on plant parameters such as water saturation, light level etc.
-
-		m_growthFactor = baseFactor;
+		m_growthFactor = baseFactor * saturation;
 	}
 }

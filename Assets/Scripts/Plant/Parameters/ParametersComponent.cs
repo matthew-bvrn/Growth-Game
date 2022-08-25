@@ -7,8 +7,8 @@ namespace Parameters
 	public class ParametersComponent : MonoBehaviour
 	{
 		[Header("Moisture")]
-		[SerializeField] internal float m_moistureNormalMean;
-		[SerializeField] internal float m_moistureNormalStandardDeviation;
+		[SerializeField] internal float m_saturationFocus;
+		[SerializeField] internal float m_saturationRange;
 
 		UserParameters m_userParameters;
 		SpeciesParameters m_speciesParameters;
@@ -16,6 +16,11 @@ namespace Parameters
 		public float BaseGrowthFactor { get => m_userParameters.m_baseGrowthFactor; }
 		public float PotFactor { get => m_userParameters.m_pot.SizeFactor; }
 		public float DrainingFactor { get => m_userParameters.m_pot.DrainingFactor * m_userParameters.m_soil.DrainingFactor; }
+
+		public float GetSaturationFactor(float value)
+		{
+			return m_speciesParameters.GetSaturationFactor(value);
+		}
 
 		public void Initialise(bool useDefaultParameters)
 		{

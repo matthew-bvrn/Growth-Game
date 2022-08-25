@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoilMoisture : SimulatableBase
+public class SoilSaturation : SimulatableBase
 {
 	public float SaturationRollingAverage { get; private set; }
 
