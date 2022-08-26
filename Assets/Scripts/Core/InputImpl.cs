@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-interface InputImpl
+internal interface InputImpl
 {
 	void Initialise(ref Dictionary<EActions, InputBase> inputs);
 
