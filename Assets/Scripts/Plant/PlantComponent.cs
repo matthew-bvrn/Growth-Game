@@ -15,6 +15,8 @@ public class PlantComponent : MonoBehaviour
 	public void Start()
 	{
 		Initialise();
+
+		GetComponent<GrowthComponent>().SimulatePeriod(3000);
 	}
 
 	public void Initialise()

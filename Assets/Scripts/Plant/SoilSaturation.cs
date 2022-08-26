@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class InitParamsSoilSaturation : InitParamsBase
+{
+	public InitParamsSoilSaturation(float saturation) => m_saturation = saturation;
+
+	public float m_saturation = 0.5f;
+}
+
 public class SoilSaturation : SimulatableBase
 {
 	public float SaturationRollingAverage { get; private set; }
@@ -17,10 +24,20 @@ public class SoilSaturation : SimulatableBase
 	static float s_standardDrainingTime = 6; //hours
 	static int s_maxPollValues = 300;
 
+	public override void Initialise(InitParamsBase initParams)
+	{
+		m_saturation = ((InitParamsSoilSaturation)initParams).m_saturation;
+		AddPollValue();
+		base.Initialise(initParams);
+	}
+
 	internal override void Simulate(float deltaSeconds)
 	{
+		if (!CheckInitialistion())
+			return;
+
 		//loop to add poll values 
-		while(deltaSeconds > s_pollInterval)
+		while (deltaSeconds > s_pollInterval)
 		{
 			UpdateSaturation(s_pollInterval);
 			deltaSeconds -= s_pollInterval;

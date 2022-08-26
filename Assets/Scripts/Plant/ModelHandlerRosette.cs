@@ -27,6 +27,9 @@ public class ModelHandlerRosette : ModelHandler
 
 	internal sealed override void Simulate(float deltaSeconds)
 	{
+		if (!CheckInitialistion())
+			return;
+
 		GrowthComponent growthComponent = GetComponentInParent<GrowthComponent>();
 		float growth = growthComponent.Growth;
 		float deltaGrowth = growthComponent.DeltaGrowth;

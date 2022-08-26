@@ -16,6 +16,14 @@ public class GrowthComponent : MonoBehaviour
 
 	public void Start()
 	{
+		//TODO temp testing code, should be called when plant is created by other means
+		InitParamsSoilSaturation initParams = new InitParamsSoilSaturation(0.5f);
+		GetComponentInChildren<SoilSaturation>().Initialise(initParams);
+
+		foreach (SimulatableBase component in GetComponentsInChildren<SimulatableBase>())
+			if(!component.IsInitialised)
+				component.Initialise(new InitParamsBase());
+
 		ModelHandler modelHandler = GetComponentInChildren<ModelHandler>();
 		if (!modelHandler)
 			Debug.LogError("Model handler component is missing.");
@@ -40,10 +48,8 @@ public class GrowthComponent : MonoBehaviour
 		m_deltaGrowth = deltaSeconds * m_growthFactor * s_growthMultiplier;
 		m_growth += m_deltaGrowth;
 
-		foreach(SimulatableBase parameter in GetComponentsInChildren<SimulatableBase>())
-		{
-			parameter.Simulate(deltaSeconds);
-		}
+		foreach(SimulatableBase component in GetComponentsInChildren<SimulatableBase>())
+			component.Simulate(deltaSeconds);
 	}
 
 	public void CalculateGrowthFactor()
