@@ -18,7 +18,9 @@ namespace Parameters
 
 		internal float GetAverageSaturationFactor(float valueStart, float valueEnd)
 		{
-			return BumpFunctionIntegral(valueEnd) - BumpFunctionIntegral(valueStart);
+			var start = BumpFunctionIntegral(valueStart, m_saturationFocus, m_saturationRange);
+			var end = BumpFunctionIntegral(valueEnd, m_saturationFocus, m_saturationRange);
+			return start - end;
 		}
 
 		static float BumpFunction(float value, float focus, float range)
@@ -48,9 +50,9 @@ namespace Parameters
 			return sign * y;
 		}
 
-		static float BumpFunctionIntegral(float value)
+		static float BumpFunctionIntegral(float value, float focus, float range)
 		{
-			return s_sqrtPi * Erf(value) / 2;
+			return 11.0f/20.0f * s_sqrtPi * range * Erf(value/range - focus/range);
 		}
 
 		internal void Initialise(ParametersComponent component)
