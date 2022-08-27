@@ -21,7 +21,7 @@ internal interface InputAxis : InputBase
 	public bool IsActivated();
 }
 
-public class InputManager : MonoBehaviour
+public class InputManager
 {
 	Dictionary<EActions, InputBase> m_inputs;
 	InputImpl m_inputImplementation;
@@ -99,7 +99,7 @@ public class InputManager : MonoBehaviour
 	
 	bool CheckType(InputBase input, Type type)
 	{
-		if (input.GetType() != type)
+		if (input.GetType().IsSubclassOf(type))
 		{
 			Debug.LogError("Input is being used like a " + type.ToString() + " but it is actually a " + input.GetType().ToString());
 			return false;
