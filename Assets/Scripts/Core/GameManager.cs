@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance { get; private set; }
 
-	public InputManager InputManager { get; private set; }
+	internal InputManager m_inputManager;
 
 	GameManager()
 	{
@@ -21,13 +21,13 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		InputManager = new InputManager();
-		InputManager.Initialise(new InputImplMouseKeyboard());
+		m_inputManager = new InputManager();
+		m_inputManager.Initialise(new InputImplMouseKeyboard());
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		InputManager.UpdateInputs();
+		m_inputManager.UpdateInputs();
 	}
 }

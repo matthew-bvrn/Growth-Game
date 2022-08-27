@@ -26,6 +26,8 @@ public class InputManager
 	Dictionary<EActions, InputBase> m_inputs;
 	InputImpl m_inputImplementation;
 
+	public static InputManager Get { get => GameManager.Instance.m_inputManager; }
+
 	internal void Initialise(InputImpl impl)
 	{
 		m_inputImplementation = impl;

@@ -1,4 +1,5 @@
 public enum EActions
 {
-	ToggleConsole
+	ToggleConsole,
+	SubmitCommand
 }
