@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public delegate void ParamsAction(params object[] arguments);
+public delegate void ParamsAction(int count, params string[] arguments);
 
 public class GameConsole : MonoBehaviour
 {
@@ -64,6 +64,6 @@ public class GameConsole : MonoBehaviour
 			return;
 		}
 
-		action(words);
+		action(words.Count, words.ToArray());
 	}
 }

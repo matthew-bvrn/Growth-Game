@@ -7,7 +7,7 @@ public class PlantManagerRealtime : PlantManagerBase
 {
 	double m_lastSimulationTime;
 
-	[SerializeField] float m_testDeltaMultiplier = 2000;
+	public static float m_testDeltaMultiplier = 2000;
 
 	public void Start()
 	{
@@ -15,10 +15,26 @@ public class PlantManagerRealtime : PlantManagerBase
 		GameConsole.Instance.AddCommand("forcesimulate", DebugForceSimulate);
 	}
 
-	void DebugForceSimulate(params object[] arguments)
+	void DebugForceSimulate(int count, params string[] args)
 	{
-		float delta = 100 * m_testDeltaMultiplier;
+		float amount;
 
+		if (count > 1)
+		{
+			Debug.LogError("forcesimulate doesn't accept this many params.");
+			return;
+		}
+		else if (count == 1)
+			amount = float.Parse(args[0]);
+		else
+		{
+			Debug.Log("No value given, defaulting to 100 seconds");
+			amount = 100;
+		}
+
+		Debug.Log("Simulating for " + amount + " seconds");
+
+		float delta = amount * m_testDeltaMultiplier;
 		foreach (PlantComponent plant in GetComponentsInChildren<PlantComponent>())
 		{
 			plant.GetComponent<GrowthComponent>().SimulatePeriod(delta);
@@ -36,7 +52,7 @@ public class PlantManagerRealtime : PlantManagerBase
 		double time = GetTime();
 		float delta = (float)(time - m_lastSimulationTime) * m_testDeltaMultiplier;
 
-		foreach(PlantComponent plant in GetComponentsInChildren<PlantComponent>())
+		foreach (PlantComponent plant in GetComponentsInChildren<PlantComponent>())
 		{
 			plant.GetComponent<GrowthComponent>().Simulate(delta);
 		}
