@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Parameters",
-        "Utils"
+        "Utils",
+        "Debug"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

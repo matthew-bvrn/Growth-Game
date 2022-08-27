@@ -12,6 +12,17 @@ public class PlantManagerRealtime : PlantManagerBase
 	public void Start()
 	{
 		m_lastSimulationTime = GetTime();
+		GameConsole.Instance.AddCommand("forcesimulate", DebugForceSimulate);
+	}
+
+	void DebugForceSimulate(params object[] arguments)
+	{
+		float delta = 100 * m_testDeltaMultiplier;
+
+		foreach (PlantComponent plant in GetComponentsInChildren<PlantComponent>())
+		{
+			plant.GetComponent<GrowthComponent>().SimulatePeriod(delta);
+		}
 	}
 
 	//TODO temporary, this should eventually be put into a game state manager
