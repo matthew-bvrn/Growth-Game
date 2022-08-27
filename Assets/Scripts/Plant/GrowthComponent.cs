@@ -31,28 +31,27 @@ public class GrowthComponent : MonoBehaviour
 
 	public void SimulatePeriod(float deltaSeconds)
 	{
-		float waterRollingAverage = 0;
-
 		float deltaCopy = deltaSeconds;
 
 		float timestep = s_longTermSimulationTimestep * PlantManagerRealtime.m_testDeltaMultiplier;
-		int i = 0;
 
 		while (deltaCopy > 0)
 		{
+			var value = deltaCopy > timestep ? timestep : deltaCopy;
+
 			foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
-				component.PreSimulate(deltaCopy > timestep ? timestep : deltaCopy);
+				component.PreSimulate(value);
 
 			deltaCopy -= timestep;
-			i++;
 
 			CalculateGrowthFactor(GetComponentInChildren<WaterUptake>().WaterLevel);
-			var value = deltaCopy > timestep ? timestep : deltaCopy;
-			m_growth += value * m_growthFactor * s_growthMultiplier;
-		}
 
-		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
-			component.Simulate(m_deltaGrowth, m_growth);
+			var delta = value * m_growthFactor * s_growthMultiplier;
+			m_growth += delta;
+
+			foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
+				component.Simulate(m_growth, delta);
+		}
 	}
 
 	public void Simulate(float deltaSeconds)
