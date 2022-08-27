@@ -60,12 +60,24 @@ PrefabInstance:
       value: Aloe
       objectReference: {fileID: 0}
     - target: {fileID: 3875939767557562042, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_uptakeFocus
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875939767557562042, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_uptakeRange
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875939767557562042, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_baseUptakeRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875939767557562042, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
       propertyPath: m_saturationFocus
       value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 3875939767557562042, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
       propertyPath: m_saturationRange
-      value: 0.2
+      value: 0.11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}

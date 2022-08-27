@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class InitParamsBase { }
 
-public abstract class SimulatableBase : MonoBehaviour
+public abstract class ISimulatable : MonoBehaviour
 {
 	public virtual void Initialise(InitParamsBase initParams) => IsInitialised = true;
-	internal abstract void Simulate(float deltaSeconds);
+	//Anything affected by the growth
+	internal virtual void Simulate(float growth, float deltaGrowth) { }
+	//Anything that affects the growth
+	internal virtual void PreSimulate(float deltaSeconds) { }
 
-	public SimulatableBase() => IsInitialised = false;
+	public ISimulatable() => IsInitialised = false;
 
 	protected bool CheckInitialistion()
 	{

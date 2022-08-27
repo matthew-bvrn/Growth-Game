@@ -6,9 +6,14 @@ namespace Parameters
 {
 	public class ParametersComponent : MonoBehaviour
 	{
-		[Header("Moisture")]
-		[SerializeField] internal float m_saturationFocus;
-		[SerializeField] internal float m_saturationRange;
+		[Header("Water uptake")]
+		[SerializeField] internal float m_uptakeFocus;
+		[SerializeField] internal float m_uptakeRange;
+		[SerializeField] internal float m_baseUptakeRate;
+
+
+		//TODO Move into internal parameters class?
+		float m_uptakeFactor;
 
 		UserParameters m_userParameters;
 		SpeciesParameters m_speciesParameters;
@@ -17,20 +22,19 @@ namespace Parameters
 		public float PotFactor { get => m_userParameters.m_pot.SizeFactor; }
 		public float DrainingFactor { get => m_userParameters.m_pot.DrainingFactor * m_userParameters.m_soil.DrainingFactor; }
 
-		public float GetSaturationFactor(float value)
-		{
-			return m_speciesParameters.GetSaturationFactor(value);
-		}
+		public float UptakeRate { get => m_baseUptakeRate * m_uptakeFactor; }
 
-		public float GetAverageSaturationFactor(float start, float end)
+		public float GetWaterFactor(float value)
 		{
-			return m_speciesParameters.GetAverageSaturationFactor(start, end);
+			return m_speciesParameters.GetWaterFactor(value);
 		}
 
 		public void Initialise(bool useDefaultParameters)
 		{
 			m_userParameters = new UserParameters();
 			m_speciesParameters = new SpeciesParameters();
+
+			m_uptakeFactor = 1;
 
 			if (useDefaultParameters)
 			{

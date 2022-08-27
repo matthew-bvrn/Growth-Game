@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2450521972036698847}
   - component: {fileID: 6084971622440683677}
+  - component: {fileID: 7820593055309311506}
   m_Layer: 0
   m_Name: Simulatables
   m_TagString: Untagged
@@ -41,6 +42,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60a7ca953c329cb4997750c16ac825a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7820593055309311506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2450521972036698832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eef2274a1544e643a6dd79a80aa51d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2450521972573996371
@@ -103,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_growth: 0
+  m_growthFactor: 0
 --- !u!114 &3875939767557562042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,5 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aedca616ddd91a44949926fd3c25939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_saturationFocus: 0
-  m_saturationRange: 0
+  m_uptakeFocus: 0
+  m_uptakeRange: 0
+  m_baseUptakeRate: 0

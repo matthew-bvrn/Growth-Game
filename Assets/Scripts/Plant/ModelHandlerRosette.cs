@@ -25,14 +25,10 @@ public class ModelHandlerRosette : ModelHandler
 
 	List<LeafRosette> m_leafRemoveBuffer = new List<LeafRosette>();
 
-	internal sealed override void Simulate(float deltaSeconds)
+	internal sealed override void Simulate(float growth, float deltaGrowth)
 	{
 		if (!CheckInitialistion())
 			return;
-
-		GrowthComponent growthComponent = GetComponentInParent<GrowthComponent>();
-		float growth = growthComponent.Growth;
-		float deltaGrowth = growthComponent.DeltaGrowth;
 
 		//update existing leaves
 		foreach (LeafRosette leaf in m_leaves)
@@ -53,7 +49,7 @@ public class ModelHandlerRosette : ModelHandler
 		{
 			while (workingDelta > 0)
 			{
-				float leafGrowth = growthComponent.Growth - (m_leaves.Count + 1) * m_leafThreshold;
+				float leafGrowth = growth - (m_leaves.Count + 1) * m_leafThreshold;
 
 				m_plantHeight += m_newLeafHeightIncrement;
 				m_newLeafRot += m_newLeafRotIncrement;
