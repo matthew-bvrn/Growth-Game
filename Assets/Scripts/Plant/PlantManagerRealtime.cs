@@ -7,12 +7,13 @@ public class PlantManagerRealtime : PlantManagerBase
 {
 	double m_lastSimulationTime;
 
+	//TODO move somewhere sensible like game manager
 	public static float m_testDeltaMultiplier = 2000;
 
 	public void Start()
 	{
 		m_lastSimulationTime = GetTime();
-		GameConsole.Instance.AddCommand("forcesimulate", DebugForceSimulate);
+		GameConsole.Instance.AddCommand("simulateall", DebugForceSimulate);
 	}
 
 	void DebugForceSimulate(int count, params string[] args)
@@ -21,7 +22,7 @@ public class PlantManagerRealtime : PlantManagerBase
 
 		if (count > 1)
 		{
-			Debug.LogError("forcesimulate doesn't accept this many params.");
+			Debug.LogError("simulateall doesn't accept this many params.");
 			return;
 		}
 		else if (count == 1)

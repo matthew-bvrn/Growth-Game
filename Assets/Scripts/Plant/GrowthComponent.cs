@@ -7,9 +7,9 @@ public class GrowthComponent : MonoBehaviour
 	[SerializeField] float m_growth = 0;
 	float m_deltaGrowth = 0;
 	[ReadOnly] [SerializeField] float m_growthFactor;
-	float m_prevSaturation = -1;
 
 	static float s_growthMultiplier = 0.05f;
+	static int s_longTermSimulationTimestep = 1;
 
 	public float Growth { get => m_growth; }
 	public float DeltaGrowth { get => m_deltaGrowth; }
@@ -20,7 +20,7 @@ public class GrowthComponent : MonoBehaviour
 		InitParamsSoilSaturation initParams = new InitParamsSoilSaturation(0.5f);
 		GetComponentInChildren<SoilSaturation>().Initialise(initParams);
 
-		foreach (SimulatableBase component in GetComponentsInChildren<SimulatableBase>())
+		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
 			if(!component.IsInitialised)
 				component.Initialise(new InitParamsBase());
 
@@ -31,9 +31,28 @@ public class GrowthComponent : MonoBehaviour
 
 	public void SimulatePeriod(float deltaSeconds)
 	{
-		m_prevSaturation = GetComponentInChildren<SoilSaturation>().SaturationRollingAverage;
-		Simulate(deltaSeconds);
-		m_prevSaturation = -1;
+		float waterRollingAverage = 0;
+
+		float deltaCopy = deltaSeconds;
+
+		float timestep = s_longTermSimulationTimestep * PlantManagerRealtime.m_testDeltaMultiplier;
+		int i = 0;
+
+		while (deltaCopy > 0)
+		{
+			foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
+				component.PreSimulate(deltaCopy > timestep ? timestep : deltaCopy);
+
+			deltaCopy -= timestep;
+			i++;
+
+			CalculateGrowthFactor(GetComponentInChildren<WaterUptake>().WaterLevel);
+			var value = deltaCopy > timestep ? timestep : deltaCopy;
+			m_growth += value * m_growthFactor * s_growthMultiplier;
+		}
+
+		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
+			component.Simulate(m_deltaGrowth, m_growth);
 	}
 
 	public void Simulate(float deltaSeconds)
@@ -44,31 +63,24 @@ public class GrowthComponent : MonoBehaviour
 			return;
 		}
 
-		CalculateGrowthFactor();
+		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
+			component.PreSimulate(deltaSeconds);
+
+		CalculateGrowthFactor(GetComponentInChildren<WaterUptake>().WaterLevel);
 		m_deltaGrowth = deltaSeconds * m_growthFactor * s_growthMultiplier;
 		m_growth += m_deltaGrowth;
 
-		foreach(SimulatableBase component in GetComponentsInChildren<SimulatableBase>())
-			component.Simulate(deltaSeconds);
+		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
+			component.Simulate(m_growth, m_deltaGrowth);
 	}
 
-	public void CalculateGrowthFactor()
+	public void CalculateGrowthFactor(float waterLevel)
 	{
 		Parameters.ParametersComponent parametersComponent = GetComponent<Parameters.ParametersComponent>();
 
 		float baseFactor = parametersComponent.BaseGrowthFactor;
+		float waterFactor = parametersComponent.GetWaterFactor(waterLevel);
 
-		float saturation;
-		float saturationFactor;
-
-		saturation = GetComponentInChildren<SoilSaturation>().SaturationRollingAverage;
-
-		//signal value, simulate in realtime as normal
-		if (m_prevSaturation < 0)
-			saturationFactor = parametersComponent.GetSaturationFactor(saturation);
-		else
-			saturationFactor = parametersComponent.GetAverageSaturationFactor(m_prevSaturation, saturation);
-
-		m_growthFactor = baseFactor * saturationFactor;
+		m_growthFactor = baseFactor * waterFactor;
 	}
 }
