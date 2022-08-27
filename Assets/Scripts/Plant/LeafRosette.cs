@@ -28,7 +28,7 @@ internal class LeafRosette : Leaf
 			}
 
 		}
-		else if (m_state == EState.Dying)
+		if (m_state == EState.Dying)
 		{
 			gameObject.transform.localScale -= deltaGrowth * rosetteParams.m_deathScaleSpeed * onesVec;
 			if (gameObject.transform.localScale.x < 0)
