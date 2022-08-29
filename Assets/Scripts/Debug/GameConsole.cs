@@ -38,12 +38,22 @@ public class GameConsole : MonoBehaviour
 	void Update()
 	{
 		if (InputManager.Get.IsJustPressed(EActions.ToggleConsole))
-			m_console.gameObject.SetActive(!m_console.gameObject.activeInHierarchy);
+		{
+			if (!m_console.gameObject.activeInHierarchy && GameManager.Get.TrySetState(GameState.Console))
+			{
+				m_console.gameObject.SetActive(true);
+				m_console.ActivateInputField();
+			}
+
+			else if (m_console.gameObject.activeInHierarchy && GameManager.Get.TrySetState(GameState.Spectate))
+				m_console.gameObject.SetActive(false);
+		}
 
 		if (m_console.gameObject.activeInHierarchy && InputManager.Get.IsJustPressed(EActions.SubmitCommand))
 		{
 			RunCommand(m_console.text);
 			m_console.text = "";
+			m_console.ActivateInputField();
 		}
 	}
 

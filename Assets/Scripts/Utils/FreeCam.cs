@@ -71,6 +71,9 @@ public class FreeCam : MonoBehaviour
 
 	void Update()
 	{
+		if (GameManager.Get.State != GameState.Spectate)
+			return;
+
 		var fastMode = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 		var movementSpeed = fastMode ? this.fastMovementSpeed : this.movementSpeed;
 
