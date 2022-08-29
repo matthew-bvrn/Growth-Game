@@ -29,6 +29,11 @@ public class GrowthComponent : MonoBehaviour
 			Debug.LogError("Model handler component is missing.");
 	}
 
+	public void Water()
+	{
+		GetComponentInChildren<SoilSaturation>().Water(0.5f);
+	}
+
 	public void SimulatePeriod(float deltaSeconds)
 	{
 		float deltaCopy = deltaSeconds;
@@ -80,6 +85,8 @@ public class GrowthComponent : MonoBehaviour
 		float baseFactor = parametersComponent.BaseGrowthFactor;
 		float waterFactor = parametersComponent.GetWaterFactor(waterLevel);
 
-		m_growthFactor = baseFactor * waterFactor;
+		float potFactor = (parametersComponent.PotFactor - m_growth) / parametersComponent.PotFactor;
+
+		m_growthFactor = baseFactor * waterFactor * potFactor;
 	}
 }

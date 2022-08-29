@@ -19,7 +19,7 @@ namespace Parameters
 		SpeciesParameters m_speciesParameters;
 
 		public float BaseGrowthFactor { get => m_userParameters.m_baseGrowthFactor; }
-		public float PotFactor { get => m_userParameters.m_pot.SizeFactor; }
+		public float PotFactor { get => m_userParameters.m_pot.SizeFactor * 50; }
 		public float DrainingFactor { get => m_userParameters.m_pot.DrainingFactor * m_userParameters.m_soil.DrainingFactor; }
 
 		public float UptakeRate { get => m_baseUptakeRate * m_uptakeFactor; }
