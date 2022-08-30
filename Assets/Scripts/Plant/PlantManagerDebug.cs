@@ -26,6 +26,49 @@ public partial class PlantManagerRealtime : PlantManagerBase
 		GetClosestPlant().GetComponent<GrowthComponent>().Water();
 	}
 
+	void DebugChangePotNearest(int count, params string[] args)
+	{
+		int value;
+
+		if (count > 1)
+		{
+			Debug.LogError("changepostnearest doesn't accept this many params.");
+			return;
+		}
+		else if (count == 1)
+			value = int.Parse(args[0]);
+		else
+		{
+			Debug.Log("No value given, defaulting to small");
+			value = 0;
+		}
+
+		Parameters.EPotSize potSize;
+		switch(value)
+		{
+			case 0:
+				potSize = Parameters.EPotSize.Tiny;
+				break;
+			case 1:
+				potSize = Parameters.EPotSize.Small;
+				break;
+			case 2:
+				potSize = Parameters.EPotSize.Medium;
+				break;
+			case 3:
+				potSize = Parameters.EPotSize.Large;
+				break;
+			case 4:
+				potSize = Parameters.EPotSize.Giant;
+				break;
+			default:
+				Debug.LogError(value + " is not a valid pot size");
+				return;
+		}
+
+		GetClosestPlant().GetComponent<Parameters.ParametersComponent>().PotSize = potSize;
+	}
+
 	PlantComponent GetClosestPlant()
 	{
 		float minDistance = float.PositiveInfinity;

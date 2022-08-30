@@ -17,6 +17,7 @@ public partial class PlantManagerRealtime : PlantManagerBase
 		GameConsole.Instance.AddCommand("simulatenearest", DebugSimulateNearest);
 		GameConsole.Instance.AddCommand("waterall", DebugWaterAll);
 		GameConsole.Instance.AddCommand("waternearest", DebugWaterNearest);
+		GameConsole.Instance.AddCommand("changepotnearest", DebugChangePotNearest);
 	}
 
 	//TODO temporary, this should eventually be put into a game state manager

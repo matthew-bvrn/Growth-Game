@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Parameters
 {
-	internal enum EPotSize
+	public enum EPotSize
 	{
 		Tiny,
 		Small,
@@ -13,7 +13,7 @@ namespace Parameters
 		Giant
 	}
 
-	internal enum EPotMaterial
+	public enum EPotMaterial
 	{
 		Plastic,
 		Terracotta
@@ -43,8 +43,8 @@ namespace Parameters
 			Material = _material;
 		}
 
-		internal EPotSize Size { get; }
-		internal EPotMaterial Material { get; }
+		internal EPotSize Size { get; set; }
+		internal EPotMaterial Material { get; set; }
 
 		internal float SizeFactor { get => s_potSizeFactor[Size]; }
 		internal float DrainingFactor { get => s_potMaterialDrainingFactor[Material]; }
