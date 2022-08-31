@@ -4,10 +4,19 @@ using UnityEngine;
 
 internal class LeafRosette : Leaf
 {
+	float m_potFactor;
+
+	public override void Initialise(Parameters.ParametersComponent parameters)
+	{
+		//set once so scale is only determined by pot factor when this leaf is created
+		m_potFactor = parameters.PotFactor;
+		base.Initialise(parameters);
+	}
+
 	internal override void UpdateGrowth(float deltaGrowth, LeafParametersBase leafParams)
 	{
 		LeafParametersRosette rosetteParams = (LeafParametersRosette)leafParams;
-		m_maxAge = m_parametersComponent.PotFactor;
+		m_maxAge = m_parametersComponent.MaxAge;
 		Vector3 onesVec = new Vector3(1, 1, 1);
 
 		m_age += deltaGrowth;
@@ -16,7 +25,7 @@ internal class LeafRosette : Leaf
 
 		if (m_state == EState.Growing)
 		{
-			gameObject.transform.localScale = rosetteParams.m_growthScaleSpeed * m_age * onesVec;
+			gameObject.transform.localScale = rosetteParams.m_growthScaleSpeed * m_potFactor * m_age * onesVec;
 			float rotation = ageProgress * rosetteParams.m_maxRotation + (1 - ageProgress) * rosetteParams.m_initialRotation;
 			gameObject.transform.rotation = Quaternion.Euler(rotation, gameObject.transform.rotation.eulerAngles.y, 0);
 

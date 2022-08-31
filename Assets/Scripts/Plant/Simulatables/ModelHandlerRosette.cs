@@ -8,8 +8,8 @@ public class LeafParametersRosette : LeafParametersBase
 	public float m_initialRotation = -50;
 	public float m_maxRotation = -80;
 
-	public float m_growthScaleSpeed = 0.01f;
-	public float m_deathScaleSpeed = 0.03f;
+	public float m_growthScaleSpeed = 0.03f;
+	public float m_deathScaleSpeed = 0.09f;
 }
 
 public class ModelHandlerRosette : ModelHandler

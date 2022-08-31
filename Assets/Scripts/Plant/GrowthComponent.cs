@@ -85,8 +85,6 @@ public class GrowthComponent : MonoBehaviour
 		float baseFactor = parametersComponent.BaseGrowthFactor;
 		float waterFactor = parametersComponent.GetWaterFactor(waterLevel);
 
-		float potFactor = (parametersComponent.PotFactor - m_growth) / parametersComponent.PotFactor;
-
-		m_growthFactor = baseFactor * waterFactor * potFactor;
+		m_growthFactor = baseFactor * waterFactor;
 	}
 }

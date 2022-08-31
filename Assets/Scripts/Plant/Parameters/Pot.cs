@@ -24,11 +24,11 @@ namespace Parameters
 		//TODO make these data driven
 		static Dictionary<EPotSize, float> s_potSizeFactor = new Dictionary<EPotSize, float>()
 		{
-			{EPotSize.Tiny, 20},
-			{EPotSize.Small, 50},
-			{EPotSize.Medium, 80},
-			{EPotSize.Large, 130},
-			{EPotSize.Giant, 200},
+			{EPotSize.Tiny, 0.5f},
+			{EPotSize.Small, 1},
+			{EPotSize.Medium, 1.5f},
+			{EPotSize.Large, 2.5f},
+			{EPotSize.Giant, 5},
 		};
 
 		static Dictionary<EPotMaterial, float> s_potMaterialDrainingFactor = new Dictionary<EPotMaterial, float>()

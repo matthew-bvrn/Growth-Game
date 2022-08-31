@@ -4,7 +4,7 @@ using UnityEngine;
 
 internal abstract class Leaf : MonoBehaviour
 {
-	public void Initialise(Parameters.ParametersComponent parameters)
+	virtual public void Initialise(Parameters.ParametersComponent parameters)
 	{
 		m_parametersComponent = parameters;
 	}

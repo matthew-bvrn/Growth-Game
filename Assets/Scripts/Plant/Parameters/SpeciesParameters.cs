@@ -9,6 +9,9 @@ namespace Parameters
 		float m_uptakeFocus;
 		float m_uptakeRange;
 
+		public float MaxAge { get; set; }
+
+
 		static float s_sqrtPi = Mathf.Sqrt(Mathf.PI);
 
 		internal float GetWaterFactor(float value)
@@ -25,6 +28,7 @@ namespace Parameters
 		{
 			m_uptakeFocus = component.m_uptakeFocus;
 			m_uptakeRange = component.m_uptakeRange;
+			MaxAge = component.m_maxAge;
 		}
 	}
 }
