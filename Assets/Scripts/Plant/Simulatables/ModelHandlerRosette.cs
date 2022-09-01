@@ -9,10 +9,10 @@ public class LeafParametersRosette : LeafParametersBase
 	public float m_maxRotation = -80;
 
 	public float m_growthScaleSpeed = 0.03f;
-	public float m_deathScaleSpeed = 0.09f;
+	public float m_deathScaleSpeed = 0.01f;
 }
 
-public class ModelHandlerRosette : ModelHandler
+internal class ModelHandlerRosette : ModelHandler
 {
 	List<LeafRosette> m_leaves = new List<LeafRosette>();
 	[SerializeField] int m_leafThreshold = 300;
@@ -24,6 +24,12 @@ public class ModelHandlerRosette : ModelHandler
 	float m_plantHeight = 0;
 
 	List<LeafRosette> m_leafRemoveBuffer = new List<LeafRosette>();
+
+	public sealed override void Age(float deltaSeconds)
+	{
+		foreach (LeafRosette leaf in m_leaves)
+			leaf.Age += deltaSeconds;
+	}
 
 	internal sealed override void Simulate(float growth, float deltaGrowth)
 	{

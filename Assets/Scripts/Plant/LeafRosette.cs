@@ -10,22 +10,21 @@ internal class LeafRosette : Leaf
 	{
 		//set once so scale is only determined by pot factor when this leaf is created
 		m_potFactor = parameters.PotFactor;
+		m_maxAge = parameters.MaxAge;
 		base.Initialise(parameters);
 	}
 
 	internal override void UpdateGrowth(float deltaGrowth, LeafParametersBase leafParams)
 	{
 		LeafParametersRosette rosetteParams = (LeafParametersRosette)leafParams;
-		m_maxAge = m_parametersComponent.MaxAge;
 		Vector3 onesVec = new Vector3(1, 1, 1);
-
-		m_age += deltaGrowth;
 
 		float ageProgress = m_age / m_maxAge;
 
 		if (m_state == EState.Growing)
 		{
-			gameObject.transform.localScale = rosetteParams.m_growthScaleSpeed * m_potFactor * m_age * onesVec;
+			m_growth += rosetteParams.m_growthScaleSpeed * m_potFactor * deltaGrowth;
+			gameObject.transform.localScale = m_growth * onesVec;
 			float rotation = ageProgress * rosetteParams.m_maxRotation + (1 - ageProgress) * rosetteParams.m_initialRotation;
 			gameObject.transform.rotation = Quaternion.Euler(rotation, gameObject.transform.rotation.eulerAngles.y, 0);
 
@@ -39,7 +38,7 @@ internal class LeafRosette : Leaf
 		}
 		if (m_state == EState.Dying)
 		{
-			gameObject.transform.localScale -= deltaGrowth * rosetteParams.m_deathScaleSpeed * onesVec;
+			gameObject.transform.localScale -= m_deltaAge * rosetteParams.m_deathScaleSpeed * onesVec;
 			if (gameObject.transform.localScale.x < 0)
 			{
 				m_state = EState.Dead;

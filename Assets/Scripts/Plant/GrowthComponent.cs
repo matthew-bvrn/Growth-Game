@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GrowthComponent : MonoBehaviour
 {
+	[SerializeField] float m_age = 0;
 	[SerializeField] float m_growth = 0;
 	float m_deltaGrowth = 0;
 	[ReadOnly] [SerializeField] float m_growthFactor;
@@ -43,19 +44,9 @@ public class GrowthComponent : MonoBehaviour
 		while (deltaCopy > 0)
 		{
 			var value = deltaCopy > timestep ? timestep : deltaCopy;
-
-			foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
-				component.PreSimulate(value);
-
 			deltaCopy -= timestep;
 
-			CalculateGrowthFactor(GetComponentInChildren<WaterUptake>().WaterLevel);
-
-			var delta = value * m_growthFactor * s_growthMultiplier;
-			m_growth += delta;
-
-			foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
-				component.Simulate(m_growth, delta);
+			SimulateImpl(value);
 		}
 	}
 
@@ -67,15 +58,25 @@ public class GrowthComponent : MonoBehaviour
 			return;
 		}
 
+		SimulateImpl(deltaSeconds);
+	}
+
+	void SimulateImpl(float deltaTime)
+	{
 		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
-			component.PreSimulate(deltaSeconds);
+			component.PreSimulate(deltaTime);
 
 		CalculateGrowthFactor(GetComponentInChildren<WaterUptake>().WaterLevel);
-		m_deltaGrowth = deltaSeconds * m_growthFactor * s_growthMultiplier;
+
+		m_deltaGrowth = deltaTime * m_growthFactor * s_growthMultiplier;
 		m_growth += m_deltaGrowth;
+		m_age += deltaTime * s_growthMultiplier;
 
 		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
 			component.Simulate(m_growth, m_deltaGrowth);
+
+		foreach (IAgeable component in GetComponentsInChildren<IAgeable>())
+			component.Age(deltaTime * s_growthMultiplier);
 	}
 
 	public void CalculateGrowthFactor(float waterLevel)
