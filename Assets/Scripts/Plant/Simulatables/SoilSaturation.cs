@@ -24,7 +24,7 @@ public class SoilSaturation : ISimulatable
 
 	public void Water(float amount)
 	{
-		m_saturation = Mathf.Clamp(m_saturation + 0.8f, 0, 1);
+		m_saturation = Mathf.Clamp(m_saturation + amount, 0, 1);
 	}
 
 	public override void Initialise(InitParamsBase initParams)
