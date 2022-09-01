@@ -52,7 +52,7 @@ public class ModelHandlerRosette : ModelHandler
 				float leafGrowth = growth - (m_leaves.Count + 1) * m_leafThreshold;
 
 				m_plantHeight += m_newLeafHeightIncrement;
-				m_newLeafRot += m_newLeafRotIncrement;
+				m_newLeafRot += m_newLeafRotIncrement + (Random.value - 0.5f) * 10;
 
 				Object leafPrefab = Resources.Load("Prefabs/Plants/" + GetComponentInParent<PlantComponent>().Name + "Leaf");
 
@@ -79,7 +79,7 @@ public class ModelHandlerRosette : ModelHandler
 		}
 
 		//destroy old leaves
-		foreach(LeafRosette leaf in m_leafRemoveBuffer)
+		foreach (LeafRosette leaf in m_leafRemoveBuffer)
 		{
 			m_leaves.Remove(leaf);
 			Destroy(leaf.gameObject);
