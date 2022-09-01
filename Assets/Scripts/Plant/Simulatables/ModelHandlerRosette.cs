@@ -23,6 +23,8 @@ internal class ModelHandlerRosette : ModelHandler
 	float m_newLeafRot = 0;
 	float m_plantHeight = 0;
 
+	float m_newLeafGrowth = 0;
+
 	List<LeafRosette> m_leafRemoveBuffer = new List<LeafRosette>();
 
 	public sealed override void Age(float deltaSeconds)
@@ -46,42 +48,36 @@ internal class ModelHandlerRosette : ModelHandler
 			}
 		}
 
-		//add new leaves
-		int newLeafCount = (int)growth / m_leafThreshold;
+		m_newLeafGrowth += deltaGrowth;
 
-		float workingDelta = growth - newLeafCount * m_leafThreshold;
 
-		if (newLeafCount > m_leaves.Count)
+		while (m_newLeafGrowth > m_leafThreshold)
 		{
-			while (workingDelta > 0)
+			float leafGrowth = growth - (m_leaves.Count + 1) * m_leafThreshold;
+
+			m_plantHeight += m_newLeafHeightIncrement;
+			m_newLeafRot += m_newLeafRotIncrement + (Random.value - 0.5f) * 10;
+
+			Object leafPrefab = Resources.Load("Prefabs/Plants/" + GetComponentInParent<PlantComponent>().Name + "Leaf");
+
+			if (leafPrefab == null)
 			{
-				float leafGrowth = growth - (m_leaves.Count + 1) * m_leafThreshold;
-
-				m_plantHeight += m_newLeafHeightIncrement;
-				m_newLeafRot += m_newLeafRotIncrement + (Random.value - 0.5f) * 10;
-
-				Object leafPrefab = Resources.Load("Prefabs/Plants/" + GetComponentInParent<PlantComponent>().Name + "Leaf");
-
-				if (leafPrefab == null)
-				{
-					Debug.LogError("Leaf prefab is missing for plant with name " + GetComponentInParent<PlantComponent>().Name);
-					return;
-				}
-
-				Vector3 leafPosition = transform.position + new Vector3(0, m_plantHeight, 0);
-				Quaternion leafRotation = Quaternion.Euler(m_leafParameters.m_initialRotation, m_newLeafRot, 0);
-
-				GameObject newLeaf = (GameObject)Instantiate(leafPrefab, leafPosition, leafRotation, transform);
-
-				newLeaf.GetComponent<Leaf>().Initialise(GetComponentInParent<Parameters.ParametersComponent>());
-				newLeaf.transform.localScale = new Vector3(1, 1, 1);
-				newLeaf.GetComponent<Leaf>().UpdateGrowth(leafGrowth, m_leafParameters);
-
-				newLeaf.GetComponent<LeafRosette>().UpdateGrowth(workingDelta, m_leafParameters);
-				workingDelta -= m_leafThreshold;
-
-				m_leaves.Add(newLeaf.GetComponent<LeafRosette>());
+				Debug.LogError("Leaf prefab is missing for plant with name " + GetComponentInParent<PlantComponent>().Name);
+				return;
 			}
+
+			Vector3 leafPosition = transform.position + new Vector3(0, m_plantHeight, 0);
+			Quaternion leafRotation = Quaternion.Euler(m_leafParameters.m_initialRotation, m_newLeafRot, 0);
+
+			GameObject newLeaf = (GameObject)Instantiate(leafPrefab, leafPosition, leafRotation, transform);
+
+			newLeaf.GetComponent<Leaf>().Initialise(GetComponentInParent<Parameters.ParametersComponent>());
+			newLeaf.transform.localScale = new Vector3(1, 1, 1);
+
+			newLeaf.GetComponent<LeafRosette>().UpdateGrowth(m_newLeafGrowth, m_leafParameters);
+			m_newLeafGrowth -= m_leafThreshold;
+
+			m_leaves.Add(newLeaf.GetComponent<LeafRosette>());
 		}
 
 		//destroy old leaves
