@@ -7,7 +7,10 @@ public class WaterUptake : MonoBehaviour
 	public float WaterLevel { get => m_waterLevel; }
 	[SerializeField] [ReadOnly] float m_waterLevel;
 
-	static float s_waterUptakeMultiplier = 0.1f / PlantManagerRealtime.m_testDeltaMultiplier;
+	public float WaterHealth { get => m_waterHealth; }
+	[SerializeField] [ReadOnly] float m_waterHealth;
+
+	static float s_waterUptakeMultiplier = 0.05f / PlantManagerRealtime.m_testDeltaMultiplier;
 
 	void Start()
 	{
@@ -21,5 +24,6 @@ public class WaterUptake : MonoBehaviour
 		float diff = saturation - WaterLevel;
 
 		m_waterLevel += s_waterUptakeMultiplier * deltaSeconds * diff * uptakeRate;
+		m_waterHealth = GetComponentInParent<Parameters.ParametersComponent>().GetWaterHealth(m_waterLevel);
 	}
 }

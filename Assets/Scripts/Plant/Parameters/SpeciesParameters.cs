@@ -14,6 +14,14 @@ namespace Parameters
 
 		static float s_sqrtPi = Mathf.Sqrt(Mathf.PI);
 
+		internal float GetWaterHealth(float value)
+		{
+			float output = Mathf.Max(0, 2.2f / (-Mathf.Exp(Mathf.Pow((value - m_uptakeFocus) / m_uptakeRange, 2))) + 0.5f);
+			if (value < m_uptakeFocus)
+				output = -output;
+			return output;
+		}
+
 		internal float GetWaterFactor(float value)
 		{
 			return Mathf.Clamp(BumpFunction(value, m_uptakeFocus, m_uptakeRange), 0, 1);

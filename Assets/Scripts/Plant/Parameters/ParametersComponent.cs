@@ -30,6 +30,10 @@ namespace Parameters
 
 		public float MaxAge { get => m_speciesParameters.MaxAge; }
 
+		public float GetWaterHealth(float value)
+		{
+			return m_speciesParameters.GetWaterHealth(value);
+		}
 
 		public float GetWaterFactor(float value)
 		{
