@@ -135,6 +135,7 @@ MonoBehaviour:
   m_uptakeFocus: 0
   m_uptakeRange: 0
   m_baseUptakeRate: 0
+  m_maxAge: 0
   m_potModel: {fileID: 3654034393194418516}
 --- !u!1 &3487545720696614477
 GameObject:
@@ -197,7 +198,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 622f631ad0265d3498758c7bf7fab1d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
