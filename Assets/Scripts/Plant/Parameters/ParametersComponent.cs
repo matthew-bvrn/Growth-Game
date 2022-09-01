@@ -13,7 +13,6 @@ namespace Parameters
 
 		[Header("Misc")]
 		[SerializeField] internal float m_maxAge;
-		[SerializeField] PotModel m_potModel;
 
 		//TODO Move into internal parameters class?
 		float m_uptakeFactor;
@@ -21,7 +20,7 @@ namespace Parameters
 		UserParameters m_userParameters;
 		SpeciesParameters m_speciesParameters;
 
-		public EPotSize PotSize { set { m_userParameters.m_pot.Size = value; m_potModel.ChangeSize(m_userParameters.m_pot.SizeFactor / 50.0f); } }
+		public EPotSize PotSize { set { m_userParameters.m_pot.Size = value;} }
 		public float BaseGrowthFactor { get => m_userParameters.m_baseGrowthFactor; }
 		public float PotFactor { get => m_userParameters.m_pot.SizeFactor; }
 		public float DrainingFactor { get => m_userParameters.m_pot.DrainingFactor * m_userParameters.m_soil.DrainingFactor; }
