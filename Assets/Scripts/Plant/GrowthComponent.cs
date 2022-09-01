@@ -32,7 +32,7 @@ public class GrowthComponent : MonoBehaviour
 
 	public void Water()
 	{
-		GetComponentInChildren<SoilSaturation>().Water(0.5f);
+		GetComponentInChildren<SoilSaturation>().Water(0.3f);
 	}
 
 	public void SimulatePeriod(float deltaSeconds)
