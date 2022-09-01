@@ -1,5 +1,7 @@
 public enum EActions
 {
 	ToggleConsole,
-	SubmitCommand
+	SubmitCommand,
+	ScrollUp,
+	ScrollDown
 }

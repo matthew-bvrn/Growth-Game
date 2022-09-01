@@ -33,6 +33,9 @@ internal class InputImplMouseKeyboard : InputImpl
 
 		inputs.Add(EActions.ToggleConsole, new KeyboardButtonPress(KeyCode.Tab));
 		inputs.Add(EActions.SubmitCommand, new KeyboardButtonPress(KeyCode.Return));
+
+		inputs.Add(EActions.ScrollUp, new KeyboardButtonPress(KeyCode.UpArrow));
+		inputs.Add(EActions.ScrollDown, new KeyboardButtonPress(KeyCode.DownArrow));
 	}
 
 	public void UpdateInputs(ref Dictionary<EActions, InputBase> inputs)
