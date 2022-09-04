@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterUptake : MonoBehaviour
+public class WaterUptake : MonoBehaviour, ISicknessAffector
 {
 	public float WaterLevel { get => m_waterLevel; }
 	[SerializeField] [ReadOnly] float m_waterLevel;
 
-	public float WaterHealth { get => m_waterHealth; }
 	[SerializeField] [ReadOnly] float m_waterHealth;
 
 	static float s_waterUptakeMultiplier = 0.05f / PlantManagerRealtime.m_testDeltaMultiplier;
+
+	public float GetSicknessFactor()
+	{
+		return 1 - Mathf.Abs(m_waterHealth);
+	}
 
 	void Start()
 	{
