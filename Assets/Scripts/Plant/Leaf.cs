@@ -35,5 +35,5 @@ internal abstract class Leaf : MonoBehaviour
 
 	internal EState State { get => m_state; }
 
-	internal abstract void UpdateGrowth(float deltaGrowth, LeafParametersBase parameters);
+	internal abstract void UpdateLeaf(float deltaGrowth, LeafParametersBase parameters);
 }

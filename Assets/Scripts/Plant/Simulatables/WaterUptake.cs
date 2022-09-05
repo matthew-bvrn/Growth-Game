@@ -7,13 +7,13 @@ public class WaterUptake : MonoBehaviour, ISicknessAffector
 	public float WaterLevel { get => m_waterLevel; }
 	[SerializeField] [ReadOnly] float m_waterLevel;
 
-	[SerializeField] [ReadOnly] float m_waterHealth;
+	[SerializeField] [ReadOnly] float m_waterSickness;
 
 	static float s_waterUptakeMultiplier = 0.05f / PlantManagerRealtime.m_testDeltaMultiplier;
 
 	public float GetSicknessFactor()
 	{
-		return 1 - Mathf.Abs(m_waterHealth);
+		return 1 - Mathf.Abs(m_waterSickness);
 	}
 
 	void Start()
@@ -28,6 +28,6 @@ public class WaterUptake : MonoBehaviour, ISicknessAffector
 		float diff = saturation - WaterLevel;
 
 		m_waterLevel += s_waterUptakeMultiplier * deltaSeconds * diff * uptakeRate;
-		m_waterHealth = GetComponentInParent<Parameters.ParametersComponent>().GetWaterHealth(m_waterLevel);
+		m_waterSickness = GetComponentInParent<Parameters.ParametersComponent>().UpdateWaterHealth(m_waterLevel);
 	}
 }

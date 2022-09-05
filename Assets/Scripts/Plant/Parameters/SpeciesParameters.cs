@@ -16,7 +16,7 @@ namespace Parameters
 
 		internal float GetWaterHealth(float value)
 		{
-			float output = Mathf.Max(0, 2.2f / (-Mathf.Exp(Mathf.Pow((value - m_uptakeFocus) / m_uptakeRange, 2))) + 0.5f);
+			float output = Mathf.Max(0, 2.2f / (-Mathf.Exp(Mathf.Pow((value - m_uptakeFocus) / m_uptakeRange, 2))) + 1);
 			if (value < m_uptakeFocus)
 				output = -output;
 			return output;
@@ -29,7 +29,7 @@ namespace Parameters
 
 		static float BumpFunction(float value, float focus, float range)
 		{
-			return 1.1f / (Mathf.Exp(Mathf.Pow((value - focus) / range, 2)));
+			return 1.1f / (Mathf.Exp(Mathf.Pow((value - focus) / 2*range, 2)));
 		}
 
 		internal void Initialise(ParametersComponent component)

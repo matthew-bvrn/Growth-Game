@@ -14,7 +14,21 @@ internal class LeafRosette : Leaf
 		base.Initialise(parameters);
 	}
 
-	internal override void UpdateGrowth(float deltaGrowth, LeafParametersBase leafParams)
+	internal override void UpdateLeaf(float deltaGrowth, LeafParametersBase leafParams)
+	{
+		UpdateGrowth(deltaGrowth, leafParams);
+		UpdateSickness();
+	}
+
+	void UpdateSickness()
+	{
+		float waterHealth = m_parametersComponent.WaterHealth / 2 + .5f;
+
+		GetComponent<LeafRosetteAnimationComponent>().SicknessLevel = m_parametersComponent.SicknessFactor;
+		GetComponent<LeafRosetteShaderComponent>().UpdateShader(waterHealth);
+	}
+
+	void UpdateGrowth(float deltaGrowth, LeafParametersBase leafParams)
 	{
 		LeafParametersRosette rosetteParams = (LeafParametersRosette)leafParams;
 		Vector3 onesVec = new Vector3(1, 1, 1);

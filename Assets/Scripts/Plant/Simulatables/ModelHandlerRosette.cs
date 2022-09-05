@@ -41,7 +41,7 @@ internal class ModelHandlerRosette : ModelHandler
 		//update existing leaves
 		foreach (LeafRosette leaf in m_leaves)
 		{
-			leaf.UpdateGrowth(deltaGrowth, m_leafParameters);
+			leaf.UpdateLeaf(deltaGrowth, m_leafParameters);
 			if (leaf.State == Leaf.EState.Dead)
 			{
 				m_leafRemoveBuffer.Add(leaf);
@@ -74,7 +74,7 @@ internal class ModelHandlerRosette : ModelHandler
 			newLeaf.GetComponent<Leaf>().Initialise(GetComponentInParent<Parameters.ParametersComponent>());
 			newLeaf.transform.localScale = new Vector3(1, 1, 1);
 
-			newLeaf.GetComponent<LeafRosette>().UpdateGrowth(m_newLeafGrowth, m_leafParameters);
+			newLeaf.GetComponent<LeafRosette>().UpdateLeaf(m_newLeafGrowth, m_leafParameters);
 			m_newLeafGrowth -= m_leafThreshold;
 
 			m_leaves.Add(newLeaf.GetComponent<LeafRosette>());

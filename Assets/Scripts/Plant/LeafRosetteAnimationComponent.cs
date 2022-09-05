@@ -16,12 +16,14 @@ public class LeafRosetteAnimationComponent : MonoBehaviour
 
 	float m_ageValue;
 
+	bool m_flag = false;
+
 	public float Age
 	{
 		set
 		{
 			m_ageValue = Mathf.Clamp(value, 0, 1);
-			UpdateAnimation();
+			m_flag = true;
 		}
 	}
 
@@ -30,7 +32,16 @@ public class LeafRosetteAnimationComponent : MonoBehaviour
 		set
 		{
 			m_sicknessLevel = Mathf.Clamp(value, 0, 1);
+			m_flag = true;
+		}
+	}
+
+	private void Update()
+	{
+		if(m_flag)
+		{
 			UpdateAnimation();
+			m_flag = false;
 		}
 	}
 

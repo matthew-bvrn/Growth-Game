@@ -514,10 +514,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1320.8001708984375,
-            "y": -635.9999389648438,
+            "x": -1408.800048828125,
+            "y": -663.2000122070313,
             "width": 142.4000244140625,
-            "height": 34.400020599365237
+            "height": 34.4000244140625
         }
     },
     "m_Slots": [
@@ -935,7 +935,7 @@
     },
     "m_Name": "WaterHealth",
     "m_DefaultReferenceName": "Vector1_858e9b4e5b8b41b7bd5b1393f1cf508f",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "WaterHealth",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,

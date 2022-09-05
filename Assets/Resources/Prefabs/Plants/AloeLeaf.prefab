@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7999522784435796715}
   - component: {fileID: 1132454399753265704}
   - component: {fileID: 5083003582870444960}
+  - component: {fileID: 733604044969489889}
   m_Layer: 0
   m_Name: AloeLeaf
   m_TagString: Untagged
@@ -59,6 +60,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_growthRangeStart: 0
   m_growthRangeEnd: 1
+--- !u!114 &733604044969489889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2166743695326200294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6966f4055c6f5ea4092d67d8966e8791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mesh: {fileID: 5191073208976565475}
 --- !u!1001 &5977436998311081421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163,5 +177,10 @@ PrefabInstance:
 --- !u!4 &2953636103232239948 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -429685687768920959, guid: 5b490f1470950f1428c8920a2c110828, type: 3}
+  m_PrefabInstance: {fileID: 5977436998311081421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5191073208976565475 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1945127136658690350, guid: 5b490f1470950f1428c8920a2c110828, type: 3}
   m_PrefabInstance: {fileID: 5977436998311081421}
   m_PrefabAsset: {fileID: 0}
