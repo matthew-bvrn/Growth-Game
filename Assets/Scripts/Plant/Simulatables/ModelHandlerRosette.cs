@@ -74,8 +74,8 @@ internal class ModelHandlerRosette : ModelHandler
 			newLeaf.GetComponent<Leaf>().Initialise(GetComponentInParent<Parameters.ParametersComponent>());
 			newLeaf.transform.localScale = new Vector3(1, 1, 1);
 
-			newLeaf.GetComponent<LeafRosette>().UpdateLeaf(m_newLeafGrowth, m_leafParameters);
 			m_newLeafGrowth -= m_leafThreshold;
+			newLeaf.GetComponent<LeafRosette>().UpdateLeaf(m_newLeafGrowth, m_leafParameters);
 
 			m_leaves.Add(newLeaf.GetComponent<LeafRosette>());
 		}
