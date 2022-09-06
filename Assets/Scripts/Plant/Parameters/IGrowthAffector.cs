@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISicknessAffector
+public interface IGrowthAffector
 {
-	public float GetSicknessFactor();
+	public float GetGrowthFactor();
 }

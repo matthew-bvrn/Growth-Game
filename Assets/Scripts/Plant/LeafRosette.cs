@@ -24,7 +24,7 @@ internal class LeafRosette : Leaf
 	{
 		float waterHealth = m_parametersComponent.WaterHealth / 2 + .5f;
 
-		GetComponent<LeafRosetteAnimationComponent>().SicknessLevel = m_parametersComponent.SicknessFactor;
+		GetComponent<LeafRosetteAnimationComponent>().SicknessLevel = m_parametersComponent.GrowthFactor;
 		GetComponent<LeafRosetteShaderComponent>().UpdateShader(waterHealth);
 	}
 

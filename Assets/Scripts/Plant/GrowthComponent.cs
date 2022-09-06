@@ -84,13 +84,13 @@ public class GrowthComponent : MonoBehaviour
 		Parameters.ParametersComponent parametersComponent = GetComponent<Parameters.ParametersComponent>();
 
 		float baseFactor = parametersComponent.BaseGrowthFactor;
-		float sicknessFactor = 1;
+		float growthFactor = 1;
 
-		foreach (ISicknessAffector component in GetComponentsInChildren<ISicknessAffector>())
-			sicknessFactor *= component.GetSicknessFactor();
+		foreach (IGrowthAffector component in GetComponentsInChildren<IGrowthAffector>())
+			growthFactor *= component.GetGrowthFactor();
 
-		parametersComponent.SicknessFactor = sicknessFactor;
+		parametersComponent.GrowthFactor = growthFactor;
 
-		m_growthFactor = baseFactor * sicknessFactor;
+		m_growthFactor = baseFactor * growthFactor;
 	}
 }

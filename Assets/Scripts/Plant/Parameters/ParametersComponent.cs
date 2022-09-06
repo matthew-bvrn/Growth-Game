@@ -24,13 +24,13 @@ namespace Parameters
 		public float BaseGrowthFactor { get => m_userParameters.m_baseGrowthFactor; }
 		public float PotFactor { get => m_userParameters.m_pot.SizeFactor; }
 		public float DrainingFactor { get => m_userParameters.m_pot.DrainingFactor * m_userParameters.m_soil.DrainingFactor; }
-		public float SicknessFactor { get; set; }
+
+		public float MaxAge { get => m_speciesParameters.MaxAge; }
 
 		public float UptakeRate { get => m_baseUptakeRate * m_uptakeFactor; }
 
+		public float GrowthFactor { get; set; }
 		public float WaterHealth { get; private set; }
-
-		public float MaxAge { get => m_speciesParameters.MaxAge; }
 
 		public float UpdateWaterHealth(float value)
 		{
