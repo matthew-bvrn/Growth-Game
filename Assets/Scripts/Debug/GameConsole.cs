@@ -39,6 +39,7 @@ public class GameConsole : MonoBehaviour
 
 	void Update()
 	{
+#if DEBUG
 		if (InputManager.Get.IsJustPressed(EActions.ToggleConsole))
 		{
 			if (!m_console.gameObject.activeInHierarchy && GameManager.Get.TrySetState(GameState.Console))
@@ -83,6 +84,7 @@ public class GameConsole : MonoBehaviour
 
 			m_console.text = m_previousCommands[m_previousCommandPos];
 		}
+#endif
 	}
 
 	void RunCommand(string text)
