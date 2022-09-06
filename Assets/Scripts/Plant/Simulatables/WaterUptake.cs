@@ -9,7 +9,7 @@ public class WaterUptake : MonoBehaviour, IGrowthAffector
 
 	[SerializeField] [ReadOnly] float m_waterSickness;
 
-	static float s_waterUptakeMultiplier = 0.05f / PlantManagerRealtime.m_testDeltaMultiplier;
+	static float s_waterUptakeMultiplier = 0.02f / PlantManagerRealtime.m_testDeltaMultiplier;
 
 	public float GetGrowthFactor()
 	{
