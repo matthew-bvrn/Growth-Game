@@ -19,8 +19,21 @@ namespace Parameters
 		Terracotta
 	}
 
-	internal class Pot
+	internal class Pot : MonoBehaviour
 	{
+		Vector3 m_defaultScale;
+
+		void Start()
+		{
+			m_defaultScale = transform.localScale;
+		}
+
+		internal void Initialise(EPotSize _size, EPotMaterial _material)
+		{
+			Size = _size;
+			Material = _material;
+		}
+
 		//TODO make these data driven
 		static Dictionary<EPotSize, float> s_potSizeFactor = new Dictionary<EPotSize, float>()
 		{
@@ -37,14 +50,9 @@ namespace Parameters
 			{EPotMaterial.Terracotta, 1.2f}
 		};
 
-		internal Pot(EPotSize _size, EPotMaterial _material)
-		{
-			Size = _size;
-			Material = _material;
-		}
-
-		internal EPotSize Size { get; set; }
+		internal EPotSize Size { get => m_size; set { m_size = value; transform.localScale = s_potSizeFactor[value] * m_defaultScale; }}
 		internal EPotMaterial Material { get; set; }
+		private EPotSize m_size;
 
 		internal float SizeFactor { get => s_potSizeFactor[Size]; }
 		internal float DrainingFactor { get => s_potMaterialDrainingFactor[Material]; }

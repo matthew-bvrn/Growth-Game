@@ -6,9 +6,11 @@ namespace Parameters
 {
 	internal class UserParameters
 	{
-		internal void Initialise()
+		internal void Initialise(Pot pot)
 		{
-			m_pot = new Pot(EPotSize.Small, EPotMaterial.Plastic);
+			m_pot = pot;
+			m_pot.Initialise(EPotSize.Small, EPotMaterial.Plastic); //TODO pass these in from outside
+
 			m_soil = new Soil();
 		}
 

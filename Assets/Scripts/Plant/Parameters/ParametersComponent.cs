@@ -13,9 +13,10 @@ namespace Parameters
 
 		[Header("Misc")]
 		[SerializeField] internal float m_maxAge;
+		[SerializeField] private Pot m_pot;
 
 		//TODO Move into internal parameters class?
-		float m_uptakeFactor;
+		static float s_uptakeMultiplier = 1;
 
 		UserParameters m_userParameters;
 		SpeciesParameters m_speciesParameters;
@@ -27,7 +28,7 @@ namespace Parameters
 
 		public float MaxAge { get => m_speciesParameters.MaxAge; }
 
-		public float UptakeRate { get => m_baseUptakeRate * m_uptakeFactor; }
+		public float UptakeRate { get => m_baseUptakeRate * s_uptakeMultiplier; }
 
 		public float GrowthFactor { get; set; }
 		public float WaterHealth { get; private set; }
@@ -48,11 +49,9 @@ namespace Parameters
 			m_userParameters = new UserParameters();
 			m_speciesParameters = new SpeciesParameters();
 
-			m_uptakeFactor = 1;
-
 			if (useDefaultParameters)
 			{
-				m_userParameters.Initialise();
+				m_userParameters.Initialise(m_pot);
 				m_speciesParameters.Initialise(this);
 			}
 			//TODO else pass in parameters from whereever they will be stored
