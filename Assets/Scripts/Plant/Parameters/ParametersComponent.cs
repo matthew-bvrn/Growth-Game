@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Parameters
 {
@@ -21,7 +22,9 @@ namespace Parameters
 		UserParameters m_userParameters;
 		SpeciesParameters m_speciesParameters;
 
-		public EPotSize PotSize { set { m_userParameters.m_pot.Size = value;} }
+		public UnityEvent OnPotChanged;
+
+		public EPotSize PotSize { set { m_userParameters.m_pot.Size = value; OnPotChanged.Invoke(); } }
 		public float BaseGrowthFactor { get => m_userParameters.m_baseGrowthFactor; }
 		public float PotFactor { get => m_userParameters.m_pot.SizeFactor; }
 		public float DrainingFactor { get => m_userParameters.m_pot.DrainingFactor * m_userParameters.m_soil.DrainingFactor; }

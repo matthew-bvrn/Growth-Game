@@ -33,6 +33,15 @@ internal class ModelHandlerRosette : ModelHandler
 			leaf.Age += deltaSeconds;
 	}
 
+	public sealed override void ChangePot()
+	{
+		foreach (LeafRosette leaf in m_leaves)
+		{
+			leaf.transform.position = m_origin.transform.position;
+			leaf.transform.position += leaf.Offset;
+		}
+	}
+
 	internal sealed override void Simulate(float growth, float deltaGrowth)
 	{
 		if (!CheckInitialistion())
@@ -71,7 +80,7 @@ internal class ModelHandlerRosette : ModelHandler
 
 			GameObject newLeaf = (GameObject)Instantiate(leafPrefab, leafPosition, leafRotation, transform);
 
-			newLeaf.GetComponent<Leaf>().Initialise(GetComponentInParent<Parameters.ParametersComponent>());
+			newLeaf.GetComponent<LeafRosette>().Initialise(GetComponentInParent<Parameters.ParametersComponent>(), m_plantHeight * new Vector3(0, 1, 0));
 			newLeaf.transform.localScale = new Vector3(1, 1, 1);
 
 			m_newLeafGrowth -= m_leafThreshold;

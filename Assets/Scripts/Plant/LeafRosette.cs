@@ -5,12 +5,14 @@ using UnityEngine;
 internal class LeafRosette : Leaf
 {
 	float m_potFactor;
+	internal Vector3 Offset { get; private set; }
 
-	public override void Initialise(Parameters.ParametersComponent parameters)
+	public void Initialise(Parameters.ParametersComponent parameters, Vector3 offset)
 	{
 		//set once so scale is only determined by pot factor when this leaf is created
 		m_potFactor = parameters.PotFactor;
 		m_maxAge = parameters.MaxAge;
+		Offset = offset;
 		base.Initialise(parameters);
 	}
 

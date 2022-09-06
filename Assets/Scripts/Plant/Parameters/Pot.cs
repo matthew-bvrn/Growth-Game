@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Parameters
 {
@@ -21,13 +22,6 @@ namespace Parameters
 
 	internal class Pot : MonoBehaviour
 	{
-		Vector3 m_defaultScale;
-
-		void Start()
-		{
-			m_defaultScale = transform.localScale;
-		}
-
 		internal void Initialise(EPotSize _size, EPotMaterial _material)
 		{
 			Size = _size;
@@ -50,7 +44,7 @@ namespace Parameters
 			{EPotMaterial.Terracotta, 1.2f}
 		};
 
-		internal EPotSize Size { get => m_size; set { m_size = value; transform.localScale = s_potSizeFactor[value] * m_defaultScale; }}
+		internal EPotSize Size { get => m_size; set { m_size = value; transform.localScale = s_potSizeFactor[value] * new Vector3(1, 1, 1);} }
 		internal EPotMaterial Material { get; set; }
 		private EPotSize m_size;
 
