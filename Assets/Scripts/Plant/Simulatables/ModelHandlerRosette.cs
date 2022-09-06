@@ -66,7 +66,7 @@ internal class ModelHandlerRosette : ModelHandler
 				return;
 			}
 
-			Vector3 leafPosition = transform.position + new Vector3(0, m_plantHeight, 0);
+			Vector3 leafPosition = m_origin.position + new Vector3(0, m_plantHeight, 0);
 			Quaternion leafRotation = Quaternion.Euler(m_leafParameters.m_initialRotation, m_newLeafRot, 0);
 
 			GameObject newLeaf = (GameObject)Instantiate(leafPrefab, leafPosition, leafRotation, transform);

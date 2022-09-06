@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_saturationRange
       value: 0.11
       objectReference: {fileID: 0}
+    - target: {fileID: 4836327102451270518, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9117394291062791854, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.45
@@ -92,6 +96,11 @@ PrefabInstance:
 --- !u!1 &7500356660346122090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2450521972036698832, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+  m_PrefabInstance: {fileID: 5338065614250700218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4839620215498108729 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 665783517966467715, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
   m_PrefabInstance: {fileID: 5338065614250700218}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3286315832127703570
@@ -106,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500889b8e9f5ea146bbb014a779e05cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_origin: {fileID: 4839620215498108729}
   m_leafThreshold: 300
   m_leafParameters:
     m_initialRotation: -15
