@@ -31,6 +31,7 @@ internal abstract class Leaf : MonoBehaviour
 	protected float m_age = 0;
 	protected float m_deltaAge = 0;
 	protected float m_maxAge = 0;
+	protected float m_ageProgress = 0;
 	protected EState m_state = EState.Growing;
 
 	internal EState State { get => m_state; }
