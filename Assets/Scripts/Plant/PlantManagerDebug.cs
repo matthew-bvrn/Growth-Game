@@ -69,6 +69,34 @@ public partial class PlantManagerRealtime : PlantManagerBase
 		GetClosestPlant().GetComponent<Parameters.ParametersComponent>().PotSize = potSize;
 	}
 
+	void DebugCreatePlant(int count, params string[] args)
+	{
+		if(count != 1 && count != 4)
+		{
+			Debug.LogError("createplant doesn't accept this many params.");
+			return;
+		}
+
+		string name = args[0];
+
+		Vector3 pos = m_freeCam.transform.position;
+
+		if(count == 4)
+		{
+			pos = new Vector3(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3]));
+		}
+
+		Object prefab = Resources.Load("Prefabs/Plants/Species/" + name);
+
+		if (prefab == null)
+		{
+			Debug.LogError("No plant with the name " + name);
+			return;
+		}
+		
+		Instantiate(prefab, pos, new Quaternion(), this.transform);
+	}
+
 	PlantComponent GetClosestPlant()
 	{
 		float minDistance = float.PositiveInfinity;
