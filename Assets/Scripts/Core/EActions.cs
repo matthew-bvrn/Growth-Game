@@ -3,5 +3,10 @@ public enum EActions
 	ToggleConsole,
 	SubmitCommand,
 	ScrollUp,
-	ScrollDown
+	ScrollDown,
+	ZoomIn,
+	ZoomOut,
+	Rotate,
+	Height,
+	LookActive
 }

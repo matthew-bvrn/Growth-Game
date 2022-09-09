@@ -14,11 +14,21 @@ internal interface InputPress : InputBase
 	public bool IsJustReleased();
 }
 
-internal interface InputAxis : InputBase
+enum EDirection
 {
-	public float GetX();
-	public float GetY();
-	public bool IsActivated();
+	None,
+	EBidirectional,
+	EPositive,
+	ENegative
+}
+
+internal abstract class InputAxis : InputBase
+{
+	public abstract float GetAxis();
+	public abstract float GetAxisPositive();
+	public abstract float GetAxisNegative();
+
+	public EDirection m_direction;
 }
 
 public class InputManager
@@ -32,11 +42,6 @@ public class InputManager
 	{
 		m_inputImplementation = impl;
 		m_inputImplementation.Initialise(ref m_inputs);
-	}
-
-	public void UpdateInputs()
-	{
-		m_inputImplementation.UpdateInputs(ref m_inputs);
 	}
 
 	public bool IsPressed(EActions action)
@@ -69,34 +74,25 @@ public class InputManager
 		return ((InputPress)input).IsJustReleased();
 	}
 
-	public float GetX(EActions action)
+	public float GetAxis(EActions action)
 	{
 		InputBase input = GetInput(action);
 
 		if (!CheckType(input, typeof(InputPress)))
 			return 0;
 
-		return ((InputAxis)input).GetX();
-	}
-
-	public float GetY(EActions action)
-	{
-		InputBase input = GetInput(action);
-
-		if (!CheckType(input, typeof(InputPress)))
-			return 0;
-
-		return ((InputAxis)input).GetY();
-	}
-
-	public bool IsActivated(EActions action)
-	{
-		InputBase input = GetInput(action);
-
-		if (!CheckType(input, typeof(InputPress)))
-			return false;
-
-		return ((InputAxis)input).IsActivated();
+		switch(((InputAxis)input).m_direction)
+		{
+			case EDirection.EBidirectional:
+				return ((InputAxis)input).GetAxis();
+			case EDirection.EPositive:
+				return ((InputAxis)input).GetAxisPositive();
+			case EDirection.ENegative:
+				return ((InputAxis)input).GetAxisNegative();
+			default:
+				Debug.LogError("Axis doesn't have a direction defined");
+				return ((InputAxis)input).GetAxis();
+		}
 	}
 	
 	bool CheckType(InputBase input, Type type)

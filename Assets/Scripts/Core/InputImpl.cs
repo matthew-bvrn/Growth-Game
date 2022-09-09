@@ -5,6 +5,4 @@ using UnityEngine;
 internal interface InputImpl
 {
 	void Initialise(ref Dictionary<EActions, InputBase> inputs);
-
-	void UpdateInputs(ref Dictionary<EActions, InputBase> inputs);
 }

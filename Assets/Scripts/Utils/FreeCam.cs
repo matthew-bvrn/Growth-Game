@@ -124,11 +124,14 @@ public class FreeCam : MonoBehaviour
 			transform.localEulerAngles = new Vector3(newRotationY, newRotationX, 0f);
 		}
 
-		float axis = Input.GetAxis("Mouse ScrollWheel");
-		if (axis != 0)
+		float zoomIn = InputManager.Get.GetAxis(EActions.ZoomIn);
+		float zoomOut = InputManager.Get.GetAxis(EActions.ZoomOut);
+		if (zoomIn != 0 || zoomOut != 0)
 		{
+			float value = zoomIn == 0 ? -zoomOut : zoomIn;
+
 			var zoomSensitivity = fastMode ? this.fastZoomSensitivity : this.zoomSensitivity;
-			transform.position = transform.position + transform.forward * axis * zoomSensitivity;
+			transform.position = transform.position + transform.forward * value * zoomSensitivity;
 		}
 
 		if (Input.GetKeyDown(KeyCode.Mouse1))

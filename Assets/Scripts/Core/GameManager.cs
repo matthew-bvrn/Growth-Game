@@ -43,12 +43,6 @@ public class GameManager : MonoBehaviour
 		m_inputManager.Initialise(new InputImplMouseKeyboard());
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-		m_inputManager.UpdateInputs();
-	}
-
 	public bool TrySetState(GameState state)
 	{
 		TransitionMap map = m_transitions.Find((map) => map.m_state == m_state);
