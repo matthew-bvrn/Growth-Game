@@ -93,14 +93,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
---- !u!1 &7500356660346122090 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2450521972036698832, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
-  m_PrefabInstance: {fileID: 5338065614250700218}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4839620215498108729 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 665783517966467715, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+  m_PrefabInstance: {fileID: 5338065614250700218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7500356660346122090 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2450521972036698832, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
   m_PrefabInstance: {fileID: 5338065614250700218}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3286315832127703570
@@ -121,6 +121,6 @@ MonoBehaviour:
     m_initialRotation: -15
     m_maxRotation: 15
     m_growthScaleSpeed: 0.01
-    m_deathScaleSpeed: 0.01
+    m_deathScaleSpeed: 0.015
   m_newLeafRotIncrement: 100
   m_newLeafHeightIncrement: 0.005
