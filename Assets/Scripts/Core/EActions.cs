@@ -4,9 +4,10 @@ public enum EActions
 	SubmitCommand,
 	ScrollUp,
 	ScrollDown,
+	Looking,
 	ZoomIn,
 	ZoomOut,
-	Rotate,
+	RotateX,
+	RotateY,
 	Height,
-	LookActive
 }
