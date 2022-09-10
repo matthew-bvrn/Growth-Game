@@ -168,5 +168,6 @@ internal class InputImplMouseKeyboard : InputImpl
 		inputs.Add(EActions.Looking, new InputPressCollection(new List<InputPress> { new MouseButtonPress(1), new MouseButtonPress(2) }, EOperator.Or));
 		inputs.Add(EActions.RotateX, new MouseAxis("Mouse X", EDirection.EBidirectional, new MouseButtonPress(1)));
 		inputs.Add(EActions.Height, new MouseAxis("Mouse Y", EDirection.EBidirectional, new MouseButtonPress(1)));
+		inputs.Add(EActions.RotateY, new MouseAxis("Mouse Y", EDirection.EBidirectional, new MouseButtonPress(2)));
 	}
 }

@@ -26,7 +26,8 @@ public class CameraController : MonoBehaviour
 {
 	[SerializeField] float m_height = 0;
 
-	[SerializeField] float m_rotateSensitivity = 0.1f;
+	[SerializeField] float m_xRotateSensitivity = 0.1f;
+	[SerializeField] float m_yRotateSensitivity = 3.5f;
 	[SerializeField] float m_zoomSensitivity = 3f;
 	[SerializeField] float m_heightSensitivity = 0.1f;
 	[SerializeField] Transform m_pivot;
@@ -56,13 +57,13 @@ public class CameraController : MonoBehaviour
 
 		float yOffsetFromPivot = transform.position.y - m_pivot.position.y;
 
-		//rotation
+		//X rotation
 		Vector3 groundPos = new Vector3(transform.position.x, m_pivot.position.y, transform.position.z);
 		float radius = Vector3.Distance(groundPos, m_pivot.position);
 		float angle = Mathf.Atan2(groundPos.z, groundPos.x);
-		float rotation = InputManager.Get.GetAxis(EActions.RotateX);
+		float xRotation = InputManager.Get.GetAxis(EActions.RotateX);
 
-		angle -= rotation * m_rotateSensitivity;
+		angle -= xRotation * m_xRotateSensitivity;
 
 		Vector3 newPos = radius * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
 
@@ -72,6 +73,12 @@ public class CameraController : MonoBehaviour
 		newPos.y = yOffsetFromPivot + heightDelta;
 
 		transform.position = newPos;
+
+		float yRotationDelta = -InputManager.Get.GetAxis(EActions.RotateY) * m_yRotateSensitivity;
+
+		transform.RotateAround(m_pivot.position + new Vector3(0, m_height, 0), Vector3.Cross(groundPos - m_pivot.position,Vector3.up), yRotationDelta);
+		transform.rotation= Quaternion.Euler(transform.eulerAngles.x, 0, transform.eulerAngles.y);
+
 		transform.LookAt(m_pivot.position + new Vector3(0, m_height, 0));
 
 		float zoomIn = InputManager.Get.GetAxis(EActions.ZoomIn);
