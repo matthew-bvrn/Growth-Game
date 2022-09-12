@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
 
 	void Update()
 	{
-		if (GameManager.Get.State != GameState.Spectate)
+		if (StateManager.Get.State != GameState.Viewing)
 			return;
 
 		if (InputManager.Get.IsJustPressed(EActions.Looking))
@@ -68,7 +68,7 @@ public class CameraController : MonoBehaviour
 		Vector3 newPos = radius * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
 
 		//height
-		float heightDelta = -InputManager.Get.GetAxis(EActions.Height) * m_heightSensitivity * yOffsetFromPivot;
+		float heightDelta = -InputManager.Get.GetAxis(EActions.ChangeHeight) * m_heightSensitivity * yOffsetFromPivot;
 		m_height += heightDelta;
 		newPos.y = yOffsetFromPivot + heightDelta;
 

@@ -36,12 +36,17 @@ public class InputManager
 	Dictionary<EActions, InputBase> m_inputs;
 	InputImpl m_inputImplementation;
 
-	public static InputManager Get { get => GameManager.Get.m_inputManager; }
+	public static InputManager Get { get => StateManager.Get.m_inputManager; }
 
 	internal void Initialise(InputImpl impl)
 	{
 		m_inputImplementation = impl;
 		m_inputImplementation.Initialise(ref m_inputs);
+	}
+
+	public Vector2 GetSelectionPosition()
+	{
+		return m_inputImplementation.GetSelectionPosition();
 	}
 
 	public bool IsPressed(EActions action)

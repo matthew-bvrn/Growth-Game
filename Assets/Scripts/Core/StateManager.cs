@@ -4,8 +4,9 @@ using UnityEngine;
 
 public enum GameState
 {
-	Spectate,
-	Menu,
+	Viewing,
+	ObjectHighlighted,
+	ObjectSelected,
 	Console
 }
 
@@ -16,9 +17,9 @@ public struct TransitionMap
 	[SerializeField] public List<GameState> m_transitions;
 }
 
-public class GameManager : MonoBehaviour
+public class StateManager : MonoBehaviour
 {
-	public static GameManager Get { get; private set; }
+	public static StateManager Get { get; private set; }
 
 	internal InputManager m_inputManager;
 
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] List<TransitionMap> m_transitions;
 	public GameState State { get => m_state; }
 
-	GameManager()
+	StateManager()
 	{
 		if (Get == null)
 			Get = this;

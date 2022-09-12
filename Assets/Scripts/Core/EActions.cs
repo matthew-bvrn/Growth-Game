@@ -9,5 +9,6 @@ public enum EActions
 	ZoomOut,
 	RotateX,
 	RotateY,
-	Height,
+	ChangeHeight,
+	SelectObject,
 }
