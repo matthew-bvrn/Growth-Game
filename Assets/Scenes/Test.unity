@@ -236,6 +236,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5735610799305495150, guid: e4d9323af9ccab749b6d54916657a5df, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5833702038675082848, guid: e4d9323af9ccab749b6d54916657a5df, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1293,8 +1297,8 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   - component: {fileID: 963194231}
+  - component: {fileID: 963194229}
   - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
@@ -1444,6 +1448,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 433090674}
     m_Modifications:
+    - target: {fileID: 428792776093595526, guid: 2c46313f5aee0ce47b721de65425047c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 491302592421040208, guid: 2c46313f5aee0ce47b721de65425047c, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1488,9 +1496,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2463634678743934951, guid: 2c46313f5aee0ce47b721de65425047c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3575952734622606594, guid: 2c46313f5aee0ce47b721de65425047c, type: 3}
       propertyPath: m_Name
       value: Bed
+      objectReference: {fileID: 0}
+    - target: {fileID: 3575952734622606594, guid: 2c46313f5aee0ce47b721de65425047c, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866649507978597779, guid: 2c46313f5aee0ce47b721de65425047c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208085612047096486, guid: 2c46313f5aee0ce47b721de65425047c, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c46313f5aee0ce47b721de65425047c, type: 3}

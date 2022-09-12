@@ -8,15 +8,19 @@ public class SelectablesManager : MonoBehaviour
 
 	Dictionary<Vector3Int, Selectable> m_selectables = new Dictionary<Vector3Int, Selectable>();
 
-	public Selectable Selected { get; private set; }
+	public Selectable Highlighted { get; private set; }
 
 	[SerializeField] Camera m_selectableCamera;
+	RenderTexture m_rt;
 
 	void Start()
 	{
-		if(Get == null)
+		if (Get == null)
 		{
 			Get = this;
+			int resWidth = Screen.width;
+			int resHeight = Screen.height;
+			m_rt = new RenderTexture(resWidth, resHeight, 24);
 		}
 		else
 		{
@@ -24,7 +28,7 @@ public class SelectablesManager : MonoBehaviour
 		}
 	}
 
-	 Vector3Int Convert(Color colour)
+	Vector3Int Convert(Color colour)
 	{
 		return new Vector3Int(Mathf.RoundToInt(colour.r * 10), Mathf.RoundToInt(colour.g * 10), Mathf.RoundToInt(colour.b * 10));
 	}
@@ -47,40 +51,44 @@ public class SelectablesManager : MonoBehaviour
 		return null;
 	}
 
+	bool TryHighlight(Selectable selectable, bool forceIfNull)
+	{
+		if (Highlighted != null)
+			Highlighted.Highlighted = false;
+
+		if (selectable == null && !forceIfNull)
+			return false;
+
+		Highlighted = selectable;
+		if (Highlighted != null)
+			Highlighted.Highlighted = true;
+
+		return true;
+	}
+
 	public void Update()
 	{
-		if (StateManager.Get.State != GameState.Viewing && StateManager.Get.State != GameState.ObjectHighlighted)
-			return;
-
-		if (InputManager.Get.IsJustPressed(EActions.SelectObject))
+		if (StateManager.Get.State != GameState.Viewing)
 		{
-			int resWidth = Screen.width;
-			int resHeight = Screen.height;
-
-			RenderTexture currentActiveRT = RenderTexture.active;
-
-			RenderTexture rt = new RenderTexture(resWidth, resHeight, 24);
-			m_selectableCamera.targetTexture = rt;
-
-			m_selectableCamera.Render();
-
-			RenderTexture.active = rt;
-			Texture2D tex = new Texture2D(rt.width, rt.height, TextureFormat.RGB24, false);
-			tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
-
-			m_selectableCamera.targetTexture = null;
-			RenderTexture.active = currentActiveRT;
-			Destroy(rt);
-
-			Vector2 pos = InputManager.Get.GetSelectionPosition();
-			Color colour = tex.GetPixel((int)pos.x, (int)pos.y);
-
-			Selected = GetSelectable(colour);
-			if (Selected != null)
-				StateManager.Get.TrySetState(GameState.ObjectHighlighted);
-			else
-				StateManager.Get.TrySetState(GameState.Viewing);
+			TryHighlight(null, true);
+			return;
 		}
 
+		//RenderTexture currentActiveRT = RenderTexture.active; 
+		m_selectableCamera.targetTexture = m_rt;
+
+		m_selectableCamera.Render();
+
+		RenderTexture.active = m_rt;
+		Texture2D tex = new Texture2D(m_rt.width, m_rt.height, TextureFormat.RGB24, false);
+		tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
+
+		m_selectableCamera.targetTexture = null;
+		//RenderTexture.active = currentActiveRT;
+
+		Vector2 pos = InputManager.Get.GetSelectionPosition();
+		Color colour = tex.GetPixel((int)pos.x, (int)pos.y);
+
+		TryHighlight(GetSelectable(colour), false);
 	}
 }

@@ -32,28 +32,30 @@ public class CameraController : MonoBehaviour
 	[SerializeField] float m_heightSensitivity = 0.1f;
 	[SerializeField] Transform m_pivot;
 
-	public void StartLooking()
+	public void StartMoving()
 	{
+		StateManager.Get.TrySetState(GameState.CameraMoving);
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
-	public void StopLooking()
+	public void StopMoving()
 	{
+		StateManager.Get.TrySetState(GameState.Viewing);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
 
 	void Update()
 	{
-		if (StateManager.Get.State != GameState.Viewing)
+		if (StateManager.Get.State != GameState.Viewing && StateManager.Get.State != GameState.CameraMoving)
 			return;
 
-		if (InputManager.Get.IsJustPressed(EActions.Looking))
-			StartLooking();
+		if (InputManager.Get.IsJustPressed(EActions.CameraMoving))
+			StartMoving();
 
-		if (InputManager.Get.IsJustReleased(EActions.Looking))
-			StopLooking();
+		if (InputManager.Get.IsJustReleased(EActions.CameraMoving))
+			StopMoving();
 
 		float yOffsetFromPivot = transform.position.y - m_pivot.position.y;
 

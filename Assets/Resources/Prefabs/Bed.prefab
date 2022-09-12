@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2077358310002285383}
   - component: {fileID: 1578737257341939001}
   m_Layer: 9
-  m_Name: Cube
+  m_Name: Selectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428792776093595526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 1.05, z: -0.05}
-  m_LocalScale: {x: 7.292518, y: 2.341796, z: 3.8998208}
+  m_LocalPosition: {x: 0.01, y: 0.34, z: -0.05}
+  m_LocalScale: {x: 7.292518, y: 0.9481932, z: 3.8998208}
   m_Children: []
   m_Father: {fileID: 491302592421040208}
   m_RootOrder: 1
@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 07b844dddff895f4a8538534fcdaf5b5, type: 2}
     - target: {fileID: 919132149155446097, guid: 4b0992b1a4fd68a4a93ca7be9197f4ec, type: 3}
       propertyPath: m_Name
-      value: Bed 1
+      value: Bed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b0992b1a4fd68a4a93ca7be9197f4ec, type: 3}

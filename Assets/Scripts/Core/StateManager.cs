@@ -5,7 +5,7 @@ using UnityEngine;
 public enum GameState
 {
 	Viewing,
-	ObjectHighlighted,
+	CameraMoving,
 	ObjectSelected,
 	Console
 }
