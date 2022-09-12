@@ -12,6 +12,7 @@ public class SelectablesManager : MonoBehaviour
 
 	[SerializeField] Camera m_selectableCamera;
 	RenderTexture m_rt;
+	Texture2D m_tex;
 
 	void Start()
 	{
@@ -21,6 +22,7 @@ public class SelectablesManager : MonoBehaviour
 			int resWidth = Screen.width;
 			int resHeight = Screen.height;
 			m_rt = new RenderTexture(resWidth, resHeight, 24);
+			m_tex = new Texture2D(1, 1, TextureFormat.RGB24, false);
 		}
 		else
 		{
@@ -68,6 +70,14 @@ public class SelectablesManager : MonoBehaviour
 
 	public void Update()
 	{
+		Vector2 pos = InputManager.Get.GetSelectionPosition();
+
+		var view = m_selectableCamera.ScreenToViewportPoint(pos);
+		var isOutside = view.x < 0 || view.x > 1 || view.y < 0 || view.y > 1;
+
+		if (isOutside)
+			return;
+
 		if (StateManager.Get.State != GameState.Viewing)
 		{
 			TryHighlight(null, true);
@@ -80,14 +90,11 @@ public class SelectablesManager : MonoBehaviour
 		m_selectableCamera.Render();
 
 		RenderTexture.active = m_rt;
-		Texture2D tex = new Texture2D(m_rt.width, m_rt.height, TextureFormat.RGB24, false);
-		tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
+		m_tex.ReadPixels(new Rect((int)pos.x, Screen.height-(int)pos.y, 1,1), 0,0, false);
 
 		m_selectableCamera.targetTexture = null;
 		//RenderTexture.active = currentActiveRT;
-
-		Vector2 pos = InputManager.Get.GetSelectionPosition();
-		Color colour = tex.GetPixel((int)pos.x, (int)pos.y);
+		Color colour = m_tex.GetPixel(0, 0);
 
 		TryHighlight(GetSelectable(colour), false);
 	}
