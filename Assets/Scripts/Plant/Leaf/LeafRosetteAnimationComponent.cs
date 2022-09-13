@@ -55,10 +55,10 @@ public class LeafRosetteAnimationComponent : MonoBehaviour
 
 		if (alembicPlayer != null)
 		{
-			var so = new SerializedObject(alembicPlayer);
-			var prop = so.FindProperty("currentTime");
-			prop.floatValue = value;
-			so.ApplyModifiedProperties();
+			//var so = new SerializedObject(alembicPlayer); //TODO fix this
+			//var prop = so.FindProperty("currentTime");
+			//prop.floatValue = value;
+			//so.ApplyModifiedProperties();
 		}
 	}
 }

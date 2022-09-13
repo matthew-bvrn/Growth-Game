@@ -7,7 +7,10 @@ public class GrowthComponent : MonoBehaviour
 	[SerializeField] float m_age = 0;
 	[SerializeField] float m_growth = 0;
 	float m_deltaGrowth = 0;
-	[ReadOnly] [SerializeField] float m_growthFactor;
+#if UNITY_EDITOR
+	[ReadOnly]
+#endif 
+	[SerializeField] float m_growthFactor;
 
 	static float s_growthMultiplier = 0.05f;
 	static int s_longTermSimulationTimestep = 1;

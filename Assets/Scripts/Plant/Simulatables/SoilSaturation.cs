@@ -16,7 +16,10 @@ public class SoilSaturation : ISimulatable
 {
 	public float Saturation { get => m_saturation; }
 
-	[SerializeField] [ReadOnly] float m_saturation = 0;
+#if UNITY_EDITOR
+	[ReadOnly]
+#endif
+	[SerializeField] float m_saturation = 0;
 
 	static float s_standardDrainingTime = 6; //hours
 

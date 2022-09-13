@@ -5,9 +5,16 @@ using UnityEngine;
 public class WaterUptake : MonoBehaviour, IGrowthAffector
 {
 	public float WaterLevel { get => m_waterLevel; }
-	[SerializeField] [ReadOnly] float m_waterLevel;
 
-	[SerializeField] [ReadOnly] float m_waterSickness;
+#if UNITY_EDITOR
+	[ReadOnly]
+#endif
+	[SerializeField] float m_waterLevel;
+
+#if UNITY_EDITOR
+	[ReadOnly]
+#endif
+	[SerializeField] float m_waterSickness;
 
 	static float s_waterUptakeMultiplier = 0.02f / PlantManagerRealtime.m_testDeltaMultiplier;
 
