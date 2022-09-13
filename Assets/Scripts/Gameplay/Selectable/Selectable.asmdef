@@ -1,0 +1,16 @@
+{
+    "name": "Selectable",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6cd9906e7cafdc345bc7ac1e263921d6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

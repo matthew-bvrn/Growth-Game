@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SelectablesManager : MonoBehaviour
 {
@@ -79,7 +80,7 @@ public class SelectablesManager : MonoBehaviour
 		if (isOutside)
 			return;
 
-		if (StateManager.Get.State != EGameState.Viewing && StateManager.Get.State != EGameState.ObjectSelected)
+		if (StateManager.Get.State != EGameState.Viewing)
 		{
 			TryHighlight(null, true);
 			return;
@@ -99,7 +100,7 @@ public class SelectablesManager : MonoBehaviour
 
 		TryHighlight(GetSelectable(colour), true);
 
-		if (InputManager.Get.IsJustPressed(EActions.SelectObject))
+		if (InputManager.Get.IsJustPressed(EActions.SelectObject) && EventSystem.current.currentSelectedGameObject == null)
 		{
 			if (m_highlighted != null) //select highlighted object
 			{
@@ -115,7 +116,6 @@ public class SelectablesManager : MonoBehaviour
 			}
 			else //unselect
 			{
-
 				Selected = null;
 				StateManager.Get.TrySetState(EGameState.Viewing);
 			}
