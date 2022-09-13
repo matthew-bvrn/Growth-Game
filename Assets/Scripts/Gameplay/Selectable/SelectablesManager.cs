@@ -80,7 +80,7 @@ public class SelectablesManager : MonoBehaviour
 		if (isOutside)
 			return;
 
-		if (StateManager.Get.State != EGameState.Viewing)
+		if (StateManager.Get.State != EGameState.Viewing && StateManager.Get.State != EGameState.ObjectSelected)
 		{
 			TryHighlight(null, true);
 			return;
@@ -100,7 +100,7 @@ public class SelectablesManager : MonoBehaviour
 
 		TryHighlight(GetSelectable(colour), true);
 
-		if (InputManager.Get.IsJustPressed(EActions.SelectObject))
+		if (InputManager.Get.IsJustPressed(EActions.SelectObject) && !HighlightSystem.Get.ElementHighlighted)
 		{
 			if (m_highlighted != null) //select highlighted object
 			{

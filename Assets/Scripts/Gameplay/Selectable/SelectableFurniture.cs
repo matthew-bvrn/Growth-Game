@@ -6,6 +6,8 @@ public class SelectableFurniture : SelectableObject
 {
 	protected override void UpdateObject(RaycastHit[] hits)
 	{
+		m_canPlace = false;
+
 		foreach (RaycastHit hit in hits)
 		{
 			if (hit.transform.gameObject.tag == "Floor")
