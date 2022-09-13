@@ -8,14 +8,33 @@ enum ESelectableState
 	Moving
 }
 
-
 public abstract class SelectableObject : MonoBehaviour
 {
 	internal ESelectableState State {get; set;}
 
+	protected abstract bool CanPlace(RaycastHit hit);
 
 	void Update()
 	{
-	
+		if (State == ESelectableState.Moving)
+		{
+			RaycastHit hit;
+
+			Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
+			if (Physics.Raycast(ray, out hit, 100, ~LayerMask.GetMask("Object","Selectable")))
+			{
+				if (CanPlace(hit))
+				{
+					gameObject.transform.position = hit.point;
+
+					if(InputManager.Get.IsJustPressed(EActions.PlaceObject))
+					{
+						State = ESelectableState.Default;
+						StateManager.Get.TrySetState(EGameState.Viewing);
+					}
+				}
+			}
+		}
 	}
 }
+

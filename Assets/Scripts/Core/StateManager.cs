@@ -7,6 +7,7 @@ public enum EGameState
 	Viewing,
 	CameraMoving,
 	ObjectSelected,
+	ObjectMoving,
 	Console
 }
 

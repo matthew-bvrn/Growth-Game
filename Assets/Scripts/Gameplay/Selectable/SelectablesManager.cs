@@ -100,7 +100,7 @@ public class SelectablesManager : MonoBehaviour
 
 		TryHighlight(GetSelectable(colour), true);
 
-		if (InputManager.Get.IsJustPressed(EActions.SelectObject) && EventSystem.current.currentSelectedGameObject == null)
+		if (InputManager.Get.IsJustPressed(EActions.SelectObject))
 		{
 			if (m_highlighted != null) //select highlighted object
 			{

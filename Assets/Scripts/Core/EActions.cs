@@ -11,4 +11,5 @@ public enum EActions
 	RotateY,
 	ChangeHeight,
 	SelectObject,
+	PlaceObject
 }

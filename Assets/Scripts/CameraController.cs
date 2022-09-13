@@ -89,6 +89,8 @@ public class CameraController : MonoBehaviour
 		float zoomOut = InputManager.Get.GetAxis(EActions.ZoomOut);
 		if (zoomIn != 0 || zoomOut != 0)
 		{
+			StateManager.Get.TrySetState(EGameState.Viewing);
+
 			float value = zoomIn == 0 ? -zoomOut : zoomIn;
 
 			transform.position = transform.position + transform.forward * value * m_zoomSensitivity * yOffsetFromPivot;

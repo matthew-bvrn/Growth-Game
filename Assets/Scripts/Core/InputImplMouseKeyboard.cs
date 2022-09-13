@@ -171,6 +171,7 @@ internal class InputImplMouseKeyboard : InputImpl
 		inputs.Add(EActions.RotateY, new MouseAxis("Mouse Y", EDirection.EBidirectional, new MouseButtonPress(2)));
 
 		inputs.Add(EActions.SelectObject, new MouseButtonPress(0));
+		inputs.Add(EActions.PlaceObject, new MouseButtonPress(0));
 	}
 
 	public Vector2 GetSelectionPosition()
