@@ -50,7 +50,20 @@ public class StateManager : MonoBehaviour
 
 	public bool TrySetState(EGameState state)
 	{
+		if (state == m_state)
+		{
+			OnStateChange.Invoke(m_state);
+			return true;
+		}
+
 		TransitionMap map = m_transitions.Find((map) => map.m_state == m_state);
+
+		if(map.m_transitions == null)
+		{
+			Debug.LogError("State " + m_state + " doesn't have any transitions defined.");
+			return false;
+		}
+
 		if (!map.m_transitions.Contains(state))
 		{
 			Debug.LogWarning("Cannot transition from state " + m_state + " to " + state);

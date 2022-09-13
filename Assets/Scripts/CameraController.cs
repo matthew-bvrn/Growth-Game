@@ -48,7 +48,9 @@ public class CameraController : MonoBehaviour
 
 	void Update()
 	{
-		if (StateManager.Get.State != EGameState.Viewing && StateManager.Get.State != EGameState.CameraMoving)
+		EGameState state = StateManager.Get.State;
+
+		if (state != EGameState.Viewing && state != EGameState.CameraMoving && state != EGameState.ObjectSelected)
 			return;
 
 		if (InputManager.Get.IsJustPressed(EActions.CameraMoving))

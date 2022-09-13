@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Selectable : MonoBehaviour
+public class SelectableComponent : MonoBehaviour
 {
 	int m_id;
 	Color m_colour;
@@ -18,7 +18,7 @@ public class Selectable : MonoBehaviour
 
 			foreach (Renderer child in transform.parent.gameObject.GetComponentsInChildren<Renderer>())
 			{
-				if (child.GetComponent<Selectable>() != null)
+				if (child.GetComponent<SelectableComponent>() != null)
 					continue;
 
 				if (m_selected)

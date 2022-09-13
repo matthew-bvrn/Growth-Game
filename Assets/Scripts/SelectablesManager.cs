@@ -6,9 +6,10 @@ public class SelectablesManager : MonoBehaviour
 {
 	public static SelectablesManager Get;
 
-	Dictionary<Vector3Int, Selectable> m_selectables = new Dictionary<Vector3Int, Selectable>();
+	Dictionary<Vector3Int, SelectableComponent> m_selectables = new Dictionary<Vector3Int, SelectableComponent>();
 
-	public Selectable Highlighted { get; private set; }
+	SelectableComponent m_highlighted;
+	public SelectableObject Selected { get; private set; }
 
 	[SerializeField] Camera m_selectableCamera;
 	RenderTexture m_rt;
@@ -35,7 +36,7 @@ public class SelectablesManager : MonoBehaviour
 		return new Vector3Int(Mathf.RoundToInt(colour.r * 10), Mathf.RoundToInt(colour.g * 10), Mathf.RoundToInt(colour.b * 10));
 	}
 
-	public void Register(Color colour, Selectable selectable)
+	public void Register(Color colour, SelectableComponent selectable)
 	{
 		m_selectables.Add(Convert(colour), selectable);
 	}
@@ -45,7 +46,7 @@ public class SelectablesManager : MonoBehaviour
 		m_selectables.Remove(Convert(colour));
 	}
 
-	Selectable GetSelectable(Color colour)
+	SelectableComponent GetSelectable(Color colour)
 	{
 		if (m_selectables.ContainsKey(Convert(colour)))
 			return m_selectables[Convert(colour)];
@@ -53,17 +54,17 @@ public class SelectablesManager : MonoBehaviour
 		return null;
 	}
 
-	bool TryHighlight(Selectable selectable, bool forceIfNull)
+	bool TryHighlight(SelectableComponent selectable, bool forceIfNull)
 	{
-		if (Highlighted != null)
-			Highlighted.Highlighted = false;
+		if (m_highlighted != null)
+			m_highlighted.Highlighted = false;
 
 		if (selectable == null && !forceIfNull)
 			return false;
 
-		Highlighted = selectable;
-		if (Highlighted != null)
-			Highlighted.Highlighted = true;
+		m_highlighted = selectable;
+		if (m_highlighted != null)
+			m_highlighted.Highlighted = true;
 
 		return true;
 	}
@@ -78,7 +79,7 @@ public class SelectablesManager : MonoBehaviour
 		if (isOutside)
 			return;
 
-		if (StateManager.Get.State != EGameState.Viewing)
+		if (StateManager.Get.State != EGameState.Viewing && StateManager.Get.State != EGameState.ObjectSelected)
 		{
 			TryHighlight(null, true);
 			return;
@@ -90,12 +91,34 @@ public class SelectablesManager : MonoBehaviour
 		m_selectableCamera.Render();
 
 		RenderTexture.active = m_rt;
-		m_tex.ReadPixels(new Rect((int)pos.x, Screen.height-(int)pos.y, 1,1), 0,0, false);
+		m_tex.ReadPixels(new Rect((int)pos.x, Screen.height - (int)pos.y, 1, 1), 0, 0, false);
 
 		m_selectableCamera.targetTexture = null;
 		//RenderTexture.active = currentActiveRT;
 		Color colour = m_tex.GetPixel(0, 0);
 
-		TryHighlight(GetSelectable(colour), false);
+		TryHighlight(GetSelectable(colour), true);
+
+		if (InputManager.Get.IsJustPressed(EActions.SelectObject))
+		{
+			if (m_highlighted != null) //select highlighted object
+			{
+				if (m_highlighted.transform.parent.GetComponent<SelectableObject>() != null)
+				{
+					Selected = m_highlighted.transform.parent.GetComponent<SelectableObject>();
+					StateManager.Get.TrySetState(EGameState.ObjectSelected);
+				}
+				else
+				{
+					Debug.LogError("Tried to select the parent of " + m_highlighted.name + ", but the parent is not a selectable object.");
+				}
+			}
+			else //unselect
+			{
+
+				Selected = null;
+				StateManager.Get.TrySetState(EGameState.Viewing);
+			}
+		}
 	}
 }

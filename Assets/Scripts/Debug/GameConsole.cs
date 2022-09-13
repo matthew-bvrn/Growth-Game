@@ -9,7 +9,7 @@ public class GameConsole : MonoBehaviour
 {
 	public static GameConsole Instance { get; private set; }
 
-	GameConsole()
+	void Start()
 	{
 		if (Instance == null)
 			Instance = this;
