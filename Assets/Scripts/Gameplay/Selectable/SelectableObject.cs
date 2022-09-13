@@ -33,6 +33,13 @@ public abstract class SelectableObject : MonoBehaviour
 						StateManager.Get.TrySetState(EGameState.Viewing);
 					}
 				}
+
+				float rotate = InputManager.Get.GetAxis(EActions.RotateObject);
+
+				if (rotate < 0)
+					gameObject.transform.Rotate(new Vector3(0, 15, 0));
+				if(rotate > 0)
+					gameObject.transform.Rotate(new Vector3(0, -15, 0));
 			}
 		}
 	}

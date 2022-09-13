@@ -118,6 +118,7 @@ internal class InputPressCollection : InputPress
 
 internal class MouseAxis : InputAxis
 {
+	public MouseAxis(string axisName) { m_axisName = axisName; m_direction = EDirection.EBidirectional; }
 	public MouseAxis(string axisName, EDirection direction) { m_axisName = axisName; m_direction = direction; }
 	public MouseAxis(string axisName, EDirection direction, InputPress press) { m_axisName = axisName; m_direction = direction; m_pressPrerequisite = press; }
 
@@ -156,22 +157,24 @@ internal class InputImplMouseKeyboard : InputImpl
 	{
 		inputs = new Dictionary<EActions, InputBase>();
 
+		//debug
 		inputs.Add(EActions.ToggleConsole, new KeyboardButtonPress(KeyCode.Tab));
 		inputs.Add(EActions.SubmitCommand, new KeyboardButtonPress(KeyCode.Return));
-
 		inputs.Add(EActions.ScrollUp, new KeyboardButtonPress(KeyCode.UpArrow));
 		inputs.Add(EActions.ScrollDown, new KeyboardButtonPress(KeyCode.DownArrow));
 
+		//camera
 		inputs.Add(EActions.ZoomIn, new MouseAxis("Mouse ScrollWheel", EDirection.EPositive));
 		inputs.Add(EActions.ZoomOut, new MouseAxis("Mouse ScrollWheel", EDirection.ENegative));
-
 		inputs.Add(EActions.CameraMoving, new InputPressCollection(new List<InputPress> { new MouseButtonPress(1), new MouseButtonPress(2) }, EOperator.Or));
 		inputs.Add(EActions.RotateX, new MouseAxis("Mouse X", EDirection.EBidirectional, new MouseButtonPress(2)));
 		inputs.Add(EActions.ChangeHeight, new MouseAxis("Mouse Y", EDirection.EBidirectional, new MouseButtonPress(1)));
 		inputs.Add(EActions.RotateY, new MouseAxis("Mouse Y", EDirection.EBidirectional, new MouseButtonPress(2)));
 
+		//objects
 		inputs.Add(EActions.SelectObject, new MouseButtonPress(0));
 		inputs.Add(EActions.PlaceObject, new MouseButtonPress(0));
+		inputs.Add(EActions.RotateObject, new MouseAxis("Mouse ScrollWheel"));
 	}
 
 	public Vector2 GetSelectionPosition()

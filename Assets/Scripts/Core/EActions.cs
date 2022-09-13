@@ -1,7 +1,10 @@
 public enum EActions
 {
+	//debug
 	ToggleConsole,
 	SubmitCommand,
+
+	//camera
 	ScrollUp,
 	ScrollDown,
 	CameraMoving,
@@ -10,6 +13,9 @@ public enum EActions
 	RotateX,
 	RotateY,
 	ChangeHeight,
+
+	//objects
 	SelectObject,
-	PlaceObject
+	PlaceObject,
+	RotateObject,
 }
