@@ -10,36 +10,28 @@ enum ESelectableState
 
 public abstract class SelectableObject : MonoBehaviour
 {
-	internal ESelectableState State {get; set;}
+	internal ESelectableState State { get; set; }
 
-	protected abstract bool CanPlace(RaycastHit hit);
+	protected bool m_canPlace = false;
+
+	protected abstract void UpdateObject(RaycastHit[] hit);
 
 	void Update()
 	{
 		if (State == ESelectableState.Moving)
 		{
-			RaycastHit hit;
-
 			Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
-			if (Physics.Raycast(ray, out hit, 100, ~LayerMask.GetMask("Object","Selectable")))
+			RaycastHit[] hits = Physics.RaycastAll(ray, 100, ~LayerMask.GetMask("Object", "Selectable"));
+
+			if (hits.Length != 0)
 			{
-				if (CanPlace(hit))
+				UpdateObject(hits);
+
+				if (InputManager.Get.IsJustPressed(EActions.PlaceObject) && m_canPlace)
 				{
-					gameObject.transform.position = hit.point;
-
-					if(InputManager.Get.IsJustPressed(EActions.PlaceObject))
-					{
-						State = ESelectableState.Default;
-						StateManager.Get.TrySetState(EGameState.Viewing);
-					}
+					State = ESelectableState.Default;
+					StateManager.Get.TrySetState(EGameState.Viewing);
 				}
-
-				float rotate = InputManager.Get.GetAxis(EActions.RotateObject);
-
-				if (rotate < 0)
-					gameObject.transform.Rotate(new Vector3(0, 15, 0));
-				if(rotate > 0)
-					gameObject.transform.Rotate(new Vector3(0, -15, 0));
 			}
 		}
 	}
