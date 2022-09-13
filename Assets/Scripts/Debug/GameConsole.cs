@@ -42,13 +42,13 @@ public class GameConsole : MonoBehaviour
 #if DEBUG
 		if (InputManager.Get.IsJustPressed(EActions.ToggleConsole))
 		{
-			if (!m_console.gameObject.activeInHierarchy && StateManager.Get.TrySetState(GameState.Console))
+			if (!m_console.gameObject.activeInHierarchy && StateManager.Get.TrySetState(EGameState.Console))
 			{
 				m_console.gameObject.SetActive(true);
 				m_console.ActivateInputField();
 			}
 
-			else if (m_console.gameObject.activeInHierarchy && StateManager.Get.TrySetState(GameState.Viewing))
+			else if (m_console.gameObject.activeInHierarchy && StateManager.Get.TrySetState(EGameState.Viewing))
 				m_console.gameObject.SetActive(false);
 		}
 

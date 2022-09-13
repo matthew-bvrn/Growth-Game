@@ -78,7 +78,7 @@ public class SelectablesManager : MonoBehaviour
 		if (isOutside)
 			return;
 
-		if (StateManager.Get.State != GameState.Viewing)
+		if (StateManager.Get.State != EGameState.Viewing)
 		{
 			TryHighlight(null, true);
 			return;

@@ -34,21 +34,21 @@ public class CameraController : MonoBehaviour
 
 	public void StartMoving()
 	{
-		StateManager.Get.TrySetState(GameState.CameraMoving);
+		StateManager.Get.TrySetState(EGameState.CameraMoving);
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	public void StopMoving()
 	{
-		StateManager.Get.TrySetState(GameState.Viewing);
+		StateManager.Get.TrySetState(EGameState.Viewing);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
 
 	void Update()
 	{
-		if (StateManager.Get.State != GameState.Viewing && StateManager.Get.State != GameState.CameraMoving)
+		if (StateManager.Get.State != EGameState.Viewing && StateManager.Get.State != EGameState.CameraMoving)
 			return;
 
 		if (InputManager.Get.IsJustPressed(EActions.CameraMoving))

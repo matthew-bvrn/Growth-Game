@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState
+public enum EGameState
 {
 	Viewing,
 	CameraMoving,
@@ -13,9 +13,11 @@ public enum GameState
 [Serializable]
 public struct TransitionMap
 {
-	[SerializeField] public GameState m_state;
-	[SerializeField] public List<GameState> m_transitions;
+	[SerializeField] public EGameState m_state;
+	[SerializeField] public List<EGameState> m_transitions;
 }
+
+public delegate void StateChangeEvent(EGameState state);
 
 public class StateManager : MonoBehaviour
 {
@@ -23,9 +25,11 @@ public class StateManager : MonoBehaviour
 
 	internal InputManager m_inputManager;
 
-	[SerializeField] GameState m_state;
+	[SerializeField] EGameState m_state;
 	[SerializeField] List<TransitionMap> m_transitions;
-	public GameState State { get => m_state; }
+
+	public EGameState State { get => m_state; }
+	public event StateChangeEvent OnStateChange;
 
 	StateManager()
 	{
@@ -44,7 +48,7 @@ public class StateManager : MonoBehaviour
 		m_inputManager.Initialise(new InputImplMouseKeyboard());
 	}
 
-	public bool TrySetState(GameState state)
+	public bool TrySetState(EGameState state)
 	{
 		TransitionMap map = m_transitions.Find((map) => map.m_state == m_state);
 		if (!map.m_transitions.Contains(state))
@@ -54,6 +58,7 @@ public class StateManager : MonoBehaviour
 		}
 
 		m_state = state;
+		OnStateChange.Invoke(m_state);
 		return true;
 	}
 }
