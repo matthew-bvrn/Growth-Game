@@ -16,7 +16,24 @@ public abstract class SelectableObject : MonoBehaviour
 
 	protected abstract void UpdateObject(RaycastHit[] hit);
 
-	void Update()
+	Vector3 m_position;
+	Quaternion m_rotation;
+
+	private void Start()
+	{
+		StateManager.Get.OnStateChange += OnStateChanged;
+	}
+
+	void OnStateChanged(EGameState state)
+	{
+		if(state == EGameState.ObjectMoving)
+		{
+			m_position = transform.position;
+			m_rotation = transform.rotation;
+		}
+	}
+
+void Update()
 	{
 		if (State == ESelectableState.Moving)
 		{
@@ -32,6 +49,14 @@ public abstract class SelectableObject : MonoBehaviour
 					State = ESelectableState.Default;
 					StateManager.Get.TrySetState(EGameState.Viewing);
 				}
+			}
+
+			if(InputManager.Get.IsJustPressed(EActions.CancelMoveObject))
+			{
+				State = ESelectableState.Default;
+				transform.position = m_position;
+				transform.rotation = m_rotation;
+				StateManager.Get.TrySetState(EGameState.Viewing);
 			}
 		}
 	}

@@ -18,4 +18,5 @@ public enum EActions
 	SelectObject,
 	PlaceObject,
 	RotateObject,
+	CancelMoveObject
 }

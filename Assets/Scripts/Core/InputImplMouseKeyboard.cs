@@ -175,6 +175,7 @@ internal class InputImplMouseKeyboard : InputImpl
 		inputs.Add(EActions.SelectObject, new MouseButtonPress(0));
 		inputs.Add(EActions.PlaceObject, new MouseButtonPress(0));
 		inputs.Add(EActions.RotateObject, new MouseAxis("Mouse ScrollWheel"));
+		inputs.Add(EActions.CancelMoveObject, new MouseButtonPress(1));
 	}
 
 	public Vector2 GetSelectionPosition()

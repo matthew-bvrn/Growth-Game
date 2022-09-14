@@ -61,29 +61,33 @@ public class CameraController : MonoBehaviour
 
 		float yOffsetFromPivot = transform.position.y - m_pivot.position.y;
 
-		//X rotation
-		Vector3 groundPos = new Vector3(transform.position.x, m_pivot.position.y, transform.position.z);
-		float radius = Vector3.Distance(groundPos, m_pivot.position);
-		float angle = Mathf.Atan2(groundPos.z, groundPos.x);
-		float xRotation = InputManager.Get.GetAxis(EActions.RotateX);
+		//prevents camera moving when we keep the moving button held down from another state
+		if (state == EGameState.CameraMoving)
+		{
+			//X rotation
+			Vector3 groundPos = new Vector3(transform.position.x, m_pivot.position.y, transform.position.z);
+			float radius = Vector3.Distance(groundPos, m_pivot.position);
+			float angle = Mathf.Atan2(groundPos.z, groundPos.x);
+			float xRotation = InputManager.Get.GetAxis(EActions.RotateX);
 
-		angle -= xRotation * m_xRotateSensitivity;
+			angle -= xRotation * m_xRotateSensitivity;
 
-		Vector3 newPos = radius * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
+			Vector3 newPos = radius * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
 
-		//height
-		float heightDelta = -InputManager.Get.GetAxis(EActions.ChangeHeight) * m_heightSensitivity * yOffsetFromPivot;
-		m_height += heightDelta;
-		newPos.y = yOffsetFromPivot + heightDelta;
+			//height
+			float heightDelta = -InputManager.Get.GetAxis(EActions.ChangeHeight) * m_heightSensitivity * yOffsetFromPivot;
+			m_height += heightDelta;
+			newPos.y = yOffsetFromPivot + heightDelta;
 
-		transform.position = newPos;
+			transform.position = newPos;
 
-		float yRotationDelta = -InputManager.Get.GetAxis(EActions.RotateY) * m_yRotateSensitivity;
+			float yRotationDelta = -InputManager.Get.GetAxis(EActions.RotateY) * m_yRotateSensitivity;
 
-		transform.RotateAround(m_pivot.position + new Vector3(0, m_height, 0), Vector3.Cross(groundPos - m_pivot.position,Vector3.up), yRotationDelta);
-		transform.rotation= Quaternion.Euler(transform.eulerAngles.x, 0, transform.eulerAngles.y);
+			transform.RotateAround(m_pivot.position + new Vector3(0, m_height, 0), Vector3.Cross(groundPos - m_pivot.position, Vector3.up), yRotationDelta);
+			transform.rotation = Quaternion.Euler(transform.eulerAngles.x, 0, transform.eulerAngles.y);
 
-		transform.LookAt(m_pivot.position + new Vector3(0, m_height, 0));
+			transform.LookAt(m_pivot.position + new Vector3(0, m_height, 0));
+		}
 
 		float zoomIn = InputManager.Get.GetAxis(EActions.ZoomIn);
 		float zoomOut = InputManager.Get.GetAxis(EActions.ZoomOut);
