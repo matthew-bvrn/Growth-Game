@@ -14,11 +14,11 @@ public class SelectableWallMounted : SelectableObject
 		return dot < 0.3;
 	}
 
-	protected override void UpdateObject(RaycastHit[] hits)
+	protected override void UpdateObject(RaycastHit[] placeHits, RaycastHit[] collisionHits)
 	{
 		m_canPlace = false;
 
-		foreach (RaycastHit hit in hits)
+		foreach (RaycastHit hit in placeHits)
 			if (IsHitValid(hit))
 			{
 				gameObject.transform.position = hit.point;
@@ -27,20 +27,10 @@ public class SelectableWallMounted : SelectableObject
 				m_canPlace = true;
 				break;
 			}
-
-		if (m_collisions != 0)
-			m_canPlace = false;
 	}
 
-	internal override void CollisionEnter(Collider collider)
+	protected override bool CollisionValid(Collider collider)
 	{
-		if (collider.gameObject.tag != "Wall")
-			++m_collisions;
-	}
-
-	internal override void CollisionExit(Collider collider)
-	{
-		if (collider.gameObject.tag != "Wall")
-			--m_collisions;
+		return collider.gameObject.tag != "Wall";
 	}
 }

@@ -13,20 +13,35 @@ public abstract class SelectableObject : MonoBehaviour
 	internal ESelectableState State { get; set; }
 
 	protected bool m_canPlace = false;
-	protected int m_collisions;
-
-	protected abstract void UpdateObject(RaycastHit[] hit);
-	internal abstract void CollisionEnter(Collider collider);
-	internal abstract void CollisionExit(Collider collider);
-
+	protected Collider m_collider;
 
 	Vector3 m_position;
 	Quaternion m_rotation;
+
+	protected abstract void UpdateObject(RaycastHit[] placeHits, RaycastHit[] collisionHits);
+	protected abstract bool CollisionValid(Collider collider);
 
 	private void Start()
 	{
 		StateManager.Get.OnStateChange += OnStateChanged;
 	}
+
+	internal void CollisionEnter(Collider collider)
+	{
+		if(CollisionValid(collider))
+		{
+			m_collider = collider;
+		}
+	}
+
+	internal void CollisionExit(Collider collider)
+	{
+		if (CollisionValid(collider))
+		{
+			//m_collider = null;
+		}
+	}
+
 
 	void OnStateChanged(EGameState state)
 	{
@@ -42,11 +57,12 @@ void Update()
 		if (State == ESelectableState.Moving)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
-			RaycastHit[] hits = Physics.RaycastAll(ray, 100, ~LayerMask.GetMask("Object", "Selectable"));
+			RaycastHit[] placeHits = Physics.RaycastAll(ray, 100, ~LayerMask.GetMask("Object", "Selectable"));
+			RaycastHit[] collisionHits = Physics.RaycastAll(ray, 100);
 
-			if (hits.Length != 0)
+			if (placeHits.Length != 0)
 			{
-				UpdateObject(hits);
+				UpdateObject(placeHits, collisionHits);
 
 				GetComponentInChildren<Collider>();
 
