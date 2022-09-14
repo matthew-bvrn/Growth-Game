@@ -13,8 +13,12 @@ public abstract class SelectableObject : MonoBehaviour
 	internal ESelectableState State { get; set; }
 
 	protected bool m_canPlace = false;
+	protected int m_collisions;
 
 	protected abstract void UpdateObject(RaycastHit[] hit);
+	internal abstract void CollisionEnter(Collider collider);
+	internal abstract void CollisionExit(Collider collider);
+
 
 	Vector3 m_position;
 	Quaternion m_rotation;
@@ -43,6 +47,8 @@ void Update()
 			if (hits.Length != 0)
 			{
 				UpdateObject(hits);
+
+				GetComponentInChildren<Collider>();
 
 				if (InputManager.Get.IsJustPressed(EActions.PlaceObject) && m_canPlace)
 				{

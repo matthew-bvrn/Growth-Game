@@ -538,11 +538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6658981208534920436, guid: e9cba72d2301a304f9d4158848d9bea1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5901446
+      value: -2.85
       objectReference: {fileID: 0}
     - target: {fileID: 6658981208534920436, guid: e9cba72d2301a304f9d4158848d9bea1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.1009586
+      value: 3.55
       objectReference: {fileID: 0}
     - target: {fileID: 6658981208534920436, guid: e9cba72d2301a304f9d4158848d9bea1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -575,6 +575,10 @@ PrefabInstance:
     - target: {fileID: 6658981208534920436, guid: e9cba72d2301a304f9d4158848d9bea1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430577047675740155, guid: e9cba72d2301a304f9d4158848d9bea1, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7574470048802686820, guid: e9cba72d2301a304f9d4158848d9bea1, type: 3}
       propertyPath: m_Layer
@@ -939,6 +943,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 433090674}
     m_Modifications:
+    - target: {fileID: 2463708077320697257, guid: 552c81b606fa3c341ad4b82e6e573226, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4632753895506817082, guid: 552c81b606fa3c341ad4b82e6e573226, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1879,6 +1887,10 @@ PrefabInstance:
     - target: {fileID: 8088377750006252988, guid: a3b66a46c976ab34da764b893ef3294d, type: 3}
       propertyPath: m_Name
       value: Lamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061574030470619585, guid: a3b66a46c976ab34da764b893ef3294d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3b66a46c976ab34da764b893ef3294d, type: 3}

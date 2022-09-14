@@ -7,13 +7,14 @@ public class SelectableComponent : MonoBehaviour
 	int m_id;
 	Color m_colour;
 
-	internal bool Highlighted {
+	internal bool Highlighted
+	{
 		get
 		{
 			return m_selected;
 		}
 		set
-		{ 
+		{
 			m_selected = value;
 
 			foreach (Renderer child in transform.parent.gameObject.GetComponentsInChildren<Renderer>())
@@ -26,7 +27,7 @@ public class SelectableComponent : MonoBehaviour
 				else
 					child.renderingLayerMask = 1;
 			}
-		} 
+		}
 	}
 
 	bool m_selected;
@@ -37,10 +38,10 @@ public class SelectableComponent : MonoBehaviour
 	void Start()
 	{
 		m_id = ++m_idCount;
-		m_colour = new Color((m_id % 10) / 10f,((m_id / 10) % 10) / 10f, ((m_id / 100) % 10) / 10f);
+		m_colour = new Color((m_id % 10) / 10f, ((m_id / 10) % 10) / 10f, ((m_id / 100) % 10) / 10f);
 		SelectablesManager.Get.Register(m_colour, this);
 
-		if(GetComponent<Renderer>() == null)
+		if (GetComponent<Renderer>() == null)
 		{
 			Debug.LogWarning(gameObject.name + "has a selectable component but no renderer, it will be skipped.");
 			return;
@@ -54,5 +55,15 @@ public class SelectableComponent : MonoBehaviour
 	void OnDestroy()
 	{
 		SelectablesManager.Get.Unregister(m_colour);
+	}
+
+	void OnTriggerEnter(Collider collider)
+	{
+		GetComponentInParent<SelectableObject>().CollisionEnter(collider);
+	}
+
+	void OnTriggerExit(Collider collider)
+	{
+		GetComponentInParent<SelectableObject>().CollisionExit(collider);
 	}
 }
