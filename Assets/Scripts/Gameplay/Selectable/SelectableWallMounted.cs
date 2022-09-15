@@ -14,11 +14,11 @@ public class SelectableWallMounted : SelectableObject
 		return dot < 0.3;
 	}
 
-	protected override void UpdateObject(RaycastHit[] placeHits, RaycastHit[] collisionHits)
+	protected override void UpdateObject(RaycastHit[] hits)
 	{
 		m_canPlace = false;
 
-		foreach (RaycastHit hit in placeHits)
+		foreach (RaycastHit hit in hits)
 			if (IsHitValid(hit))
 			{
 				gameObject.transform.position = hit.point;

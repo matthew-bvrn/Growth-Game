@@ -7,13 +7,29 @@ using UnityEngine.AI;
 public class SelectableFurniture : SelectableObject
 {
 	List<Vector3> m_checkedPoints = new List<Vector3>();
+	bool m_wasRotated = false;
 
-	protected override void UpdateObject(RaycastHit[] placeHits, RaycastHit[] collisionHits)
+	protected override void UpdateObject(RaycastHit[] hits)
 	{
+		m_wasRotated = false;
+
+		float rotate = InputManager.Get.GetAxis(EActions.RotateObject);
+
+		if (rotate < 0)
+		{
+			gameObject.transform.Rotate(new Vector3(0, 15, 0));
+			m_wasRotated = true;
+		}
+		if (rotate > 0)
+		{
+			gameObject.transform.Rotate(new Vector3(0, -15, 0));
+			m_wasRotated = true;
+		}
+
 		m_canPlace = false;
 		Vector3 hitPoint = new Vector3();
 
-		foreach (RaycastHit hit in placeHits)
+		foreach (RaycastHit hit in hits)
 		{
 			if (hit.transform.gameObject.tag == "Floor")
 			{
@@ -21,7 +37,6 @@ public class SelectableFurniture : SelectableObject
 				hitPoint = hit.point;
 			}
 		}
-
 
 		Collider collider = GetComponentInChildren<Collider>();
 		Queue<Vector3> positions = new Queue<Vector3>();
@@ -39,7 +54,7 @@ public class SelectableFurniture : SelectableObject
 					break;
 			}
 
-			if (Vector3.Distance(hitPoint, coarsePoint) < Vector3.Distance(gameObject.transform.position, hitPoint))
+			if (Vector3.Distance(hitPoint, coarsePoint) < Vector3.Distance(gameObject.transform.position, hitPoint) || m_wasRotated)
 			{
 				gameObject.transform.position = coarsePoint;
 			}
@@ -48,14 +63,6 @@ public class SelectableFurniture : SelectableObject
 		{
 			gameObject.transform.position = coarsePoint;
 		}
-
-
-		float rotate = InputManager.Get.GetAxis(EActions.RotateObject);
-
-		if (rotate < 0)
-			gameObject.transform.Rotate(new Vector3(0, 15, 0));
-		if (rotate > 0)
-			gameObject.transform.Rotate(new Vector3(0, -15, 0));
 	}
 
 	Vector3 RecursiveFindPoint(Collider collider, Queue<Vector3> positions)

@@ -17,7 +17,7 @@ public abstract class SelectableObject : MonoBehaviour
 	Vector3 m_position;
 	Quaternion m_rotation;
 
-	protected abstract void UpdateObject(RaycastHit[] placeHits, RaycastHit[] collisionHits);
+	protected abstract void UpdateObject(RaycastHit[] hits);
 	protected abstract bool CollisionValid(Collider collider);
 
 	private void Start()
@@ -40,11 +40,10 @@ void Update()
 		{
 			Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
 			RaycastHit[] placeHits = Physics.RaycastAll(ray, 100, ~LayerMask.GetMask("Object", "Selectable"));
-			RaycastHit[] collisionHits = Physics.RaycastAll(ray, 100);
 
 			if (placeHits.Length != 0)
 			{
-				UpdateObject(placeHits, collisionHits);
+				UpdateObject(placeHits);
 
 				GetComponentInChildren<Collider>();
 
