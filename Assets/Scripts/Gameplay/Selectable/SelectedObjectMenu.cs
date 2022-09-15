@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SelectedObjectMenu : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class SelectedObjectMenu : MonoBehaviour
 	public void OnMove()
 	{
 		SelectablesManager.Get.Selected.State = ESelectableState.Moving;
+		SelectablesManager.Get.Selected.GetComponent<NavMeshAgent>().enabled = true;
+		SelectablesManager.Get.Selected.GetComponentInChildren<Collider>().enabled = false;
 		StateManager.Get.TrySetState(EGameState.ObjectMoving);
 	}
 

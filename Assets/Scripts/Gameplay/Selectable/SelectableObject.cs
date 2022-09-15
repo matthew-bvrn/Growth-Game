@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 enum ESelectableState
 {
@@ -14,6 +15,7 @@ public abstract class SelectableObject : MonoBehaviour
 
 	protected bool m_canPlace = false;
 	protected Collider m_collider;
+	protected bool m_isIntersecting;
 
 	Vector3 m_position;
 	Quaternion m_rotation;
@@ -39,6 +41,7 @@ public abstract class SelectableObject : MonoBehaviour
 		if (CollisionValid(collider))
 		{
 			//m_collider = null;
+			//m_isIntersecting = false;
 		}
 	}
 
@@ -69,6 +72,8 @@ void Update()
 				if (InputManager.Get.IsJustPressed(EActions.PlaceObject) && m_canPlace)
 				{
 					State = ESelectableState.Default;
+					GetComponent<NavMeshAgent>().enabled = false;
+					GetComponentInChildren<Collider>().enabled = true;
 					StateManager.Get.TrySetState(EGameState.Viewing);
 				}
 			}
@@ -78,6 +83,8 @@ void Update()
 				State = ESelectableState.Default;
 				transform.position = m_position;
 				transform.rotation = m_rotation;
+				GetComponent<NavMeshAgent>().enabled = false;
+				GetComponentInChildren<Collider>().enabled = true;
 				StateManager.Get.TrySetState(EGameState.Viewing);
 			}
 		}
