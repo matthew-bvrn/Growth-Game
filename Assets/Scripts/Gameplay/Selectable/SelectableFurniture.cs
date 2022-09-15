@@ -6,77 +6,49 @@ using UnityEngine.AI;
 
 public class SelectableFurniture : SelectableObject
 {
-
-
-	private void TriggerExit(Collider other)
-	{
-		if (other = m_collider)
-			m_isIntersecting = false;
-	}
+	List<Vector3> m_checkedPoints = new List<Vector3>();
 
 	protected override void UpdateObject(RaycastHit[] placeHits, RaycastHit[] collisionHits)
 	{
 		m_canPlace = false;
-
-		Vector3 floorPos = new Vector3();
+		Vector3 hitPoint = new Vector3();
 
 		foreach (RaycastHit hit in placeHits)
 		{
 			if (hit.transform.gameObject.tag == "Floor")
 			{
 				m_canPlace = true;
-				floorPos = hit.point;
-
-				//gameObject.transform.position = hit.point;
-				/*
-				if (m_collider != null)
-				{
-					Collider thisCollider = GetComponentInChildren<Collider>();
-
-					Vector3 pushDir = (m_collider.bounds.center - hit.point);
-					pushDir.y = 0;
-					pushDir = pushDir.normalized;
-
-					Bounds otherBounds = new Bounds();
-					otherBounds.SetMinMax(new Vector3(m_collider.bounds.min.x, 0, m_collider.bounds.min.z), new Vector3(m_collider.bounds.max.x, 0, m_collider.bounds.max.z));
-
-					Bounds thisBounds = new Bounds();
-					thisBounds.SetMinMax(new Vector3(thisCollider.bounds.min.x, 0, thisCollider.bounds.min.z), new Vector3(thisCollider.bounds.max.x, 0, thisCollider.bounds.max.z));
-
-					Vector3 boundsPos = m_collider.ClosestPointOnBounds(hit.point);
-
-					Vector3 offset = Vector3.Distance(thisBounds.center, m_collider.bounds.center) * pushDir;
-
-					Debug.Log("distance:" + m_collider.bounds.SqrDistance(hit.point));
-					Debug.Log("pushdir: " + pushDir);
-					Debug.Log("bounds: "+boundsPos);
-					Debug.Log("offset: "+offset);
-
-					gameObject.transform.position = boundsPos - offset;
-					//Vector3 offset = GetComponentInChildren<Collider>().ClosestPointOnBounds(hit.point);
-					//gameObject.transform.position += -offset + gameObject.transform.position;
-				}
-				else
-				{
-
-				}
-				*/
-
+				hitPoint = hit.point;
 			}
 		}
 
-		if (m_collider != null)
-		{
-			Vector3 thisColliderOffset = GetComponentInChildren<Collider>().ClosestPointOnBounds(floorPos) + GetComponentInChildren<Collider>().transform.position;
-			Debug.Log(thisColliderOffset);
-			thisColliderOffset.y = 0;
 
-			gameObject.transform.position = GetClosestPointOutsideCollider(m_collider, floorPos); //(GetClosestPointOutsideCollider(m_collider, floorPos) - m_collider.transform.position).normalized;
+		Collider collider = GetComponentInChildren<Collider>();
+		Queue<Vector3> positions = new Queue<Vector3>();
+		m_checkedPoints.Clear();
+		m_checkedPoints.Add(hitPoint);
+		positions.Enqueue(hitPoint);
+		Vector3 coarsePoint = RecursiveFindPoint(collider, positions);
+
+		if (coarsePoint != hitPoint)
+		{
+			while (true)
+			{
+				coarsePoint -= 0.01f * (coarsePoint - hitPoint).normalized;
+				if (CheckCollision(collider, coarsePoint))
+					break;
+			}
+
+			if (Vector3.Distance(hitPoint, coarsePoint) < Vector3.Distance(gameObject.transform.position, hitPoint))
+			{
+				gameObject.transform.position = coarsePoint;
+			}
 		}
 		else
 		{
-			gameObject.transform.position = floorPos;
+			gameObject.transform.position = coarsePoint;
 		}
+
 
 		float rotate = InputManager.Get.GetAxis(EActions.RotateObject);
 
@@ -86,46 +58,54 @@ public class SelectableFurniture : SelectableObject
 			gameObject.transform.Rotate(new Vector3(0, -15, 0));
 	}
 
+	Vector3 RecursiveFindPoint(Collider collider, Queue<Vector3> positions)
+	{
+		List<Vector3> offsets = new List<Vector3> { new Vector3(0.5f, 0, 0), new Vector3(-0.5f, 0, 0), new Vector3(0, 0, 0.5f), new Vector3(0, 0, -0.5f) };
+
+		while (positions.Count > 0)
+		{
+			Vector3 pos = positions.Dequeue();
+			if (!CheckCollision(collider, pos))
+				return pos;
+
+			foreach (Vector3 offset in offsets)
+			{
+				if (!m_checkedPoints.Contains(pos + offset))
+				{
+					m_checkedPoints.Add(pos + offset);
+					positions.Enqueue(pos + offset);
+				}
+			}
+		}
+		return new Vector3();
+	}
+
+	bool CheckCollision(Collider inCollider, Vector3 position)
+	{
+		Collider[] colliders;
+		if (inCollider.GetType() == typeof(BoxCollider))
+		{
+			BoxCollider boxCollider = (BoxCollider)inCollider;
+			colliders = Physics.OverlapBox(position, boxCollider.transform.localScale / 2, boxCollider.transform.rotation);
+		}
+		else
+		{
+			CapsuleCollider capsuleCollider = (CapsuleCollider)inCollider;
+			colliders = Physics.OverlapCapsule(position + new Vector3(0, capsuleCollider.height / 2, 0), position - new Vector3(0, capsuleCollider.height / 2, 0), capsuleCollider.radius);
+		}
+
+		foreach (Collider collider in colliders)
+		{
+			if (collider.gameObject.tag != "Floor" && collider != inCollider)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected override bool CollisionValid(Collider collider)
 	{
 		return collider.gameObject.tag != "Floor";
-	}
-
-	Vector3 GetClosestPointOutsideCollider(Collider collider, Vector3 point)
-	{
-		if (collider.GetType() == typeof(CapsuleCollider))
-		{
-			Vector3 centre = collider.transform.parent.position;
-			centre.y = 0;
-
-			point = new Vector3(point.x, 0, point.z);
-
-			Vector3 dir = (point - centre).normalized;
-			return centre + ((CapsuleCollider)collider).radius * dir;
-		}
-		else if (collider.GetType() == typeof(BoxCollider))
-		{
-			Vector3 centre = collider.transform.parent.position;
-			centre.y = 0;
-
-			point = new Vector3(point.x, 0, point.z);
-
-			Vector3 dir;
-
-			if (Mathf.Abs(point.x - centre.x) < Mathf.Abs(point.z - centre.z))
-			{
-				int sign = point.z - centre.z < 0 ? -1 : 1;
-				dir = new Vector3(centre.x + point.x, 0, centre.z + sign*((BoxCollider)collider).transform.localScale.z / 2);
-			}
-			else
-			{
-				int sign = point.x - centre.x < 0 ? -1 : 1;
-				dir = new Vector3(centre.x + sign*((BoxCollider)collider).transform.localScale.x / 2, 0, centre.z + point.z);
-			}
-
-			return dir;
-		}
-
-		return new Vector3();
 	}
 }

@@ -13,7 +13,6 @@ public abstract class SelectableObject : MonoBehaviour
 	internal ESelectableState State { get; set; }
 
 	protected bool m_canPlace = false;
-	protected Collider m_collider;
 
 	Vector3 m_position;
 	Quaternion m_rotation;
@@ -25,23 +24,6 @@ public abstract class SelectableObject : MonoBehaviour
 	{
 		StateManager.Get.OnStateChange += OnStateChanged;
 	}
-
-	internal void CollisionEnter(Collider collider)
-	{
-		if(CollisionValid(collider))
-		{
-			m_collider = collider;
-		}
-	}
-
-	internal void CollisionExit(Collider collider)
-	{
-		if (CollisionValid(collider))
-		{
-			//m_collider = null;
-		}
-	}
-
 
 	void OnStateChanged(EGameState state)
 	{

@@ -56,14 +56,4 @@ public class SelectableComponent : MonoBehaviour
 	{
 		SelectablesManager.Get.Unregister(m_colour);
 	}
-
-	void OnTriggerEnter(Collider collider)
-	{
-		GetComponentInParent<SelectableObject>().CollisionEnter(collider);
-	}
-
-	void OnTriggerExit(Collider collider)
-	{
-		GetComponentInParent<SelectableObject>().CollisionExit(collider);
-	}
 }
