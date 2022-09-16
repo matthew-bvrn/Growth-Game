@@ -8,6 +8,7 @@ public enum EGameState
 	CameraMoving,
 	ObjectSelected,
 	ObjectMoving,
+	InventoryOpen,
 	Console
 }
 
@@ -71,8 +72,8 @@ public class StateManager : MonoBehaviour
 			return false;
 		}
 
+		OnStateChange.Invoke(state);
 		m_state = state;
-		OnStateChange.Invoke(m_state);
 		return true;
 	}
 }

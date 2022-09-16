@@ -172,10 +172,13 @@ internal class InputImplMouseKeyboard : InputImpl
 		inputs.Add(EActions.ChangeHeight, new MouseAxis("Mouse Y", EDirection.EBidirectional, new MouseButtonPress(2)));
 
 		//objects
-		inputs.Add(EActions.SelectObject, new MouseButtonPress(0));
+		inputs.Add(EActions.Select, new MouseButtonPress(0));
 		inputs.Add(EActions.PlaceObject, new MouseButtonPress(0));
 		inputs.Add(EActions.RotateObject, new MouseAxis("Mouse ScrollWheel"));
 		inputs.Add(EActions.CancelMoveObject, new MouseButtonPress(1));
+
+		//menus
+		inputs.Add(EActions.OpenInventory, new KeyboardButtonPress(KeyCode.E));
 	}
 
 	public Vector2 GetSelectionPosition()

@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae80ec48e2db4da5f28892429aa5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_name: Hexagon Shelf
 --- !u!1001 &6739964290181894580
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6747445245999379856}
   - component: {fileID: 6399945212662259338}
   - component: {fileID: 2771225821128731462}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Highlightable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae80ec48e2db4da5f28892429aa5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_name: Basic Side Table
 --- !u!1001 &7629653818621591056
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,8 +15,11 @@ public enum EActions
 	ChangeHeight,
 
 	//objects
-	SelectObject,
+	Select,
 	PlaceObject,
 	RotateObject,
-	CancelMoveObject
+	CancelMoveObject,
+
+	//menus
+	OpenInventory
 }

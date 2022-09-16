@@ -100,7 +100,7 @@ public class SelectablesManager : MonoBehaviour
 
 		TryHighlight(GetSelectable(colour), true);
 
-		if (InputManager.Get.IsJustPressed(EActions.SelectObject) && !HighlightSystem.Get.ElementHighlighted)
+		if (InputManager.Get.IsJustPressed(EActions.Select) && !HighlightSystem.Get.ElementHighlighted)
 		{
 			if (m_highlighted != null) //select highlighted object
 			{
@@ -119,6 +119,11 @@ public class SelectablesManager : MonoBehaviour
 				Selected = null;
 				StateManager.Get.TrySetState(EGameState.Viewing);
 			}
+		}
+
+		if(InputManager.Get.IsJustPressed(EActions.CameraMoving))
+		{
+			StateManager.Get.TrySetState(EGameState.CameraMoving);
 		}
 	}
 }

@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae80ec48e2db4da5f28892429aa5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_name: Basic Bed
 --- !u!1001 &6550174672536397815
 PrefabInstance:
   m_ObjectHideFlags: 0

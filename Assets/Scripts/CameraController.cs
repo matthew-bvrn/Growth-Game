@@ -32,16 +32,27 @@ public class CameraController : MonoBehaviour
 	[SerializeField] float m_heightSensitivity = 0.1f;
 	[SerializeField] Transform m_pivot;
 
+	public void Start()
+	{
+		StateManager.Get.OnStateChange += OnStateChanged;
+	}
+
+	public void OnStateChanged(EGameState state)
+	{
+		if (state == EGameState.CameraMoving)
+			StartMoving();
+		else if (StateManager.Get.State == EGameState.CameraMoving)
+			StopMoving();
+	}
+
 	public void StartMoving()
 	{
-		StateManager.Get.TrySetState(EGameState.CameraMoving);
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	public void StopMoving()
 	{
-		StateManager.Get.TrySetState(EGameState.Viewing);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
@@ -50,14 +61,14 @@ public class CameraController : MonoBehaviour
 	{
 		EGameState state = StateManager.Get.State;
 
-		if (state != EGameState.Viewing && state != EGameState.CameraMoving && state != EGameState.ObjectSelected)
+		if (state != EGameState.Viewing && state != EGameState.CameraMoving)
 			return;
 
 		if (InputManager.Get.IsJustPressed(EActions.CameraMoving))
-			StartMoving();
+			StateManager.Get.TrySetState(EGameState.CameraMoving);
 
 		if (InputManager.Get.IsJustReleased(EActions.CameraMoving))
-			StopMoving();
+			StateManager.Get.TrySetState(EGameState.Viewing);
 
 		float yOffsetFromPivot = transform.position.y - m_pivot.position.y;
 
