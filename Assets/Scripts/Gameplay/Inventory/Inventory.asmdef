@@ -1,11 +1,7 @@
 {
-    "name": "Selectable",
+    "name": "Inventory",
     "rootNamespace": "",
-    "references": [
-        "GUID:6cd9906e7cafdc345bc7ac1e263921d6",
-        "GUID:3efb661cce316db499bd964c9b97e8de",
-        "GUID:3dfc11a3c67653c43908e8fbad23fb90"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

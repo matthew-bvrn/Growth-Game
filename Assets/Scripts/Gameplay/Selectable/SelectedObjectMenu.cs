@@ -18,6 +18,12 @@ public class SelectedObjectMenu : MonoBehaviour
 		StateManager.Get.TrySetState(EGameState.ObjectMoving);
 	}
 
+	public void OnMoveToInventory()
+	{
+		InventoryManager.Get.MoveToInventory(SelectablesManager.Get.Selected.GetComponent<ItemComponent>());
+		StateManager.Get.TrySetState(EGameState.Viewing);
+	}
+
 	void OnStateChange(EGameState state)
 	{
 		if(state == EGameState.ObjectSelected)
