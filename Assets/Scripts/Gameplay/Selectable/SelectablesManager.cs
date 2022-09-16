@@ -7,10 +7,10 @@ public class SelectablesManager : MonoBehaviour
 {
 	public static SelectablesManager Get;
 
-	Dictionary<Vector3Int, SelectableComponent> m_selectables = new Dictionary<Vector3Int, SelectableComponent>();
+	Dictionary<Vector3Int, HighlightableComponent> m_selectables = new Dictionary<Vector3Int, HighlightableComponent>();
 
-	SelectableComponent m_highlighted;
-	public SelectableObject Selected { get; private set; }
+	HighlightableComponent m_highlighted;
+	public SelectableBase Selected { get; private set; }
 
 	[SerializeField] Camera m_selectableCamera;
 	RenderTexture m_rt;
@@ -37,7 +37,7 @@ public class SelectablesManager : MonoBehaviour
 		return new Vector3Int(Mathf.RoundToInt(colour.r * 10), Mathf.RoundToInt(colour.g * 10), Mathf.RoundToInt(colour.b * 10));
 	}
 
-	public void Register(Color colour, SelectableComponent selectable)
+	public void Register(Color colour, HighlightableComponent selectable)
 	{
 		m_selectables.Add(Convert(colour), selectable);
 	}
@@ -47,7 +47,7 @@ public class SelectablesManager : MonoBehaviour
 		m_selectables.Remove(Convert(colour));
 	}
 
-	SelectableComponent GetSelectable(Color colour)
+	HighlightableComponent GetSelectable(Color colour)
 	{
 		if (m_selectables.ContainsKey(Convert(colour)))
 			return m_selectables[Convert(colour)];
@@ -55,7 +55,7 @@ public class SelectablesManager : MonoBehaviour
 		return null;
 	}
 
-	bool TryHighlight(SelectableComponent selectable, bool forceIfNull)
+	bool TryHighlight(HighlightableComponent selectable, bool forceIfNull)
 	{
 		if (m_highlighted != null)
 			m_highlighted.Highlighted = false;
@@ -104,9 +104,9 @@ public class SelectablesManager : MonoBehaviour
 		{
 			if (m_highlighted != null) //select highlighted object
 			{
-				if (m_highlighted.transform.parent.GetComponent<SelectableObject>() != null)
+				if (m_highlighted.transform.parent.GetComponent<SelectableBase>() != null)
 				{
-					Selected = m_highlighted.transform.parent.GetComponent<SelectableObject>();
+					Selected = m_highlighted.transform.parent.GetComponent<SelectableBase>();
 					StateManager.Get.TrySetState(EGameState.ObjectSelected);
 				}
 				else

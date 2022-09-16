@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Reflection;
 using UnityEngine.AI;
 
-public class SelectableFurniture : SelectableObject
+public class SelectableFurniture : SelectableBase
 {
 	List<Vector3> m_checkedPoints = new List<Vector3>();
 	bool m_wasRotated = false;

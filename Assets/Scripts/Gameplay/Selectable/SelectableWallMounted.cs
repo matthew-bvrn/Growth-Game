@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectableWallMounted : SelectableObject
+public class SelectableWallMounted : SelectableBase
 {
 	bool IsHitValid(RaycastHit hit)
 	{

@@ -8,7 +8,7 @@ enum ESelectableState
 	Moving
 }
 
-public abstract class SelectableObject : MonoBehaviour
+public abstract class SelectableBase : MonoBehaviour
 {
 	internal ESelectableState State { get; set; }
 

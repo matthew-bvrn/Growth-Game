@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 2696349252964854636}
   - component: {fileID: 3868843367891849935}
   m_Layer: 9
-  m_Name: Selectable
+  m_Name: Highlightable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
