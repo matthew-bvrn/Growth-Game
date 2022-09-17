@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Rounded Lamp
+  m_guid: fef9567c-d961-42e2-b96e-fb9a307cf2dc
 --- !u!1 &9061574030470619585
 GameObject:
   m_ObjectHideFlags: 0

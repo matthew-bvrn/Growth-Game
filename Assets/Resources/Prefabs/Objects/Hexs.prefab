@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Hexagon Shelf
+  m_guid: da8288a3-dd95-4c70-af57-19c6339d48c0
 --- !u!1001 &6739964290181894580
 PrefabInstance:
   m_ObjectHideFlags: 0
