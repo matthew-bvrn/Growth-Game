@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Basic Side Table
-  m_guid: 9e312ff0-0460-4508-9fa5-7dc757769234
+  Guid: d7420f2d-ec4d-4144-ac36-bc10951e5c5f
 --- !u!1001 &7629653818621591056
 PrefabInstance:
   m_ObjectHideFlags: 0

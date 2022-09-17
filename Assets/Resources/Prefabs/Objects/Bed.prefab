@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Basic Bed
-  m_guid: ec520833-7973-4efe-93a4-a5085e3100b9
+  Guid: 6e09f4c3-836d-407b-b0e3-5b2379392718
 --- !u!1001 &6550174672536397815
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemLookupManager : MonoBehaviour
 {
-	Dictionary<string, GameObject> m_objects;
+	Dictionary<string, GameObject> m_objects = new Dictionary<string, GameObject>();
 	[SerializeField] List<ItemComponent> m_items;
 
 	public void Start()
