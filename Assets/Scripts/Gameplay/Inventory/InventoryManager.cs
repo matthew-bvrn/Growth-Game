@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-	List<ItemData> m_items = new List<ItemData>();
+	public List<ItemData> Items { get; private set; } = new List<ItemData>();
 
 	public static InventoryManager Get;
 
@@ -18,7 +18,7 @@ public class InventoryManager : MonoBehaviour
 
 	public void MoveToInventory(ItemComponent item)
 	{
-		m_items.Add(item.GetItemData());
+		Items.Add(item.GetItemData());
 		Destroy(item.gameObject);
 	}
 }

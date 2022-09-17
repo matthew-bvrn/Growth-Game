@@ -54,7 +54,7 @@ public class StateManager : MonoBehaviour
 	{
 		if (state == m_state)
 		{
-			OnStateChange.Invoke(m_state);
+			//OnStateChange.Invoke(m_state);
 			return true;
 		}
 

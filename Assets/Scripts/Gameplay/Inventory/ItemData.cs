@@ -4,7 +4,7 @@ using UnityEngine;
 
 public struct ItemData
 {
-	public ItemData(string name) { m_name = name; }
+	public ItemData(string name) { Name = name; }
 
-	string m_name;
+	public string Name { get; private set; }
 }
