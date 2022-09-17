@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InventoryMenu : MonoBehaviour
 {
@@ -9,6 +9,8 @@ public class InventoryMenu : MonoBehaviour
 	[SerializeField] RectTransform m_elementTemplate;
 
 	List<GameObject> m_elements = new List<GameObject>();
+
+	GameObject m_sampleObject;
 
 	private void Start()
 	{
@@ -40,7 +42,24 @@ public class InventoryMenu : MonoBehaviour
 			GameObject element = Instantiate(m_elementTemplate.gameObject, m_menu.GetComponent<ScrollRect>().content);
 			element.SetActive(true);
 			element.GetComponentInChildren<Text>().text = item.Name;
+			element.GetComponent<ItemUiElement>().Guid = item.Guid;
 			m_elements.Add(element);
+		}
+	}
+
+	public void OnElementClicked()
+	{
+		RemoveSampleObject();
+		GameObject gameObject = ItemLookupManager.Get.LookupItem(EventSystem.current.currentSelectedGameObject.GetComponent<ItemUiElement>().Guid);
+		m_sampleObject = Instantiate(gameObject);
+	}
+
+	void RemoveSampleObject()
+	{
+		if(m_sampleObject!=null)
+		{
+			Destroy(m_sampleObject);
+			m_sampleObject = null;
 		}
 	}
 
@@ -50,10 +69,15 @@ public class InventoryMenu : MonoBehaviour
 			return;
 
 		if (InputManager.Get.IsJustPressed(EActions.Select) && !HighlightSystem.Get.ElementHighlighted)
+		{
+			RemoveSampleObject();
 			StateManager.Get.TrySetState(EGameState.Viewing);
+		}
 
 		if (InputManager.Get.IsJustPressed(EActions.CameraMoving) && !HighlightSystem.Get.ElementHighlighted)
+		{
+			RemoveSampleObject();
 			StateManager.Get.TrySetState(EGameState.CameraMoving);
-
+		}
 	}
 }
