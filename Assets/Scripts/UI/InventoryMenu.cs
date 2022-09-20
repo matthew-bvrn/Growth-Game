@@ -58,6 +58,9 @@ public class InventoryMenu : MonoBehaviour
 			if(renderer.gameObject.layer!= 9)
 				renderer.gameObject.layer = 11;
 		}
+
+		m_sampleObject.transform.position += m_sampleObject.GetComponent<ItemComponent>().Offset;
+		m_sampleObject.transform.rotation = Quaternion.Euler(m_sampleObject.GetComponent<ItemComponent>().Rotation);
 	}
 
 	void RemoveSampleObject()

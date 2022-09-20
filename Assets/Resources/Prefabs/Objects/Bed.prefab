@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Basic Bed
   Guid: 6e09f4c3-836d-407b-b0e3-5b2379392718
+  Offset: {x: 0, y: -3.14, z: 3.89}
 --- !u!1001 &6550174672536397815
 PrefabInstance:
   m_ObjectHideFlags: 0

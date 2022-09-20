@@ -9,6 +9,8 @@ public class ItemComponent : MonoBehaviour
 {
 	[SerializeField] string m_name;
 	[UniqueIdentifier] public string Guid;
+	public Vector3 Offset;
+	public Vector3 Rotation;
 
 	public ItemData GetItemData()
 	{

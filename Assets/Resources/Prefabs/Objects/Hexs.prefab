@@ -185,6 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Hexagon Shelf
   Guid: 0b5c46dc-228d-4f47-bf05-4be2db06c769
+  Offset: {x: 0, y: 0, z: 0}
+  Rotation: {x: 0, y: 90, z: 0}
 --- !u!1001 &6739964290181894580
 PrefabInstance:
   m_ObjectHideFlags: 0
