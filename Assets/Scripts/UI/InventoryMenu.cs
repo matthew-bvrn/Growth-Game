@@ -52,6 +52,12 @@ public class InventoryMenu : MonoBehaviour
 		RemoveSampleObject();
 		GameObject gameObject = ItemLookupManager.Get.LookupItem(EventSystem.current.currentSelectedGameObject.GetComponent<ItemUiElement>().Guid);
 		m_sampleObject = Instantiate(gameObject);
+
+		foreach (MeshRenderer renderer in m_sampleObject.GetComponentsInChildren<MeshRenderer>())
+		{
+			if(renderer.gameObject.layer!= 9)
+				renderer.gameObject.layer = 11;
+		}
 	}
 
 	void RemoveSampleObject()
