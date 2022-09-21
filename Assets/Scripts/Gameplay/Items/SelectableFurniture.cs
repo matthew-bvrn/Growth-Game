@@ -8,6 +8,12 @@ public class SelectableFurniture : SelectableBase
 {
 	List<Vector3> m_checkedPoints = new List<Vector3>();
 	bool m_wasRotated = false;
+	Vector3 m_workingPosition;
+
+	protected override void OnStateChangedInternal()
+	{
+		m_workingPosition = new Vector3();
+	}
 
 	protected override void UpdateObject(RaycastHit[] hits)
 	{
@@ -19,11 +25,13 @@ public class SelectableFurniture : SelectableBase
 		{
 			gameObject.transform.Rotate(new Vector3(0, 15, 0));
 			m_wasRotated = true;
+			m_workingPosition = new Vector3();
 		}
 		if (rotate > 0)
 		{
 			gameObject.transform.Rotate(new Vector3(0, -15, 0));
 			m_wasRotated = true;
+			m_workingPosition = new Vector3();
 		}
 
 		Vector3 hitPoint = new Vector3();
@@ -43,15 +51,19 @@ public class SelectableFurniture : SelectableBase
 		m_checkedPoints.Add(hitPoint);
 		positions.Enqueue(hitPoint);
 		Vector3 position;
-		
 
-		if(!RecursiveFindPoint(collider, positions, out position))
+
+		if (!RecursiveFindPoint(collider, positions, out position))
 		{
-			m_canPlace = false;
-			return;
+			if (m_workingPosition == new Vector3())
+			{
+				m_canPlace = false;
+				return;
+			}
+			gameObject.transform.position = m_workingPosition;
 		}
 
-		if(position != hitPoint)
+		else if (position != hitPoint)
 		{
 			while (true)
 			{
@@ -63,28 +75,33 @@ public class SelectableFurniture : SelectableBase
 			if (Vector3.Distance(hitPoint, position) < Vector3.Distance(gameObject.transform.position, hitPoint) || m_wasRotated)
 			{
 				gameObject.transform.position = position;
+				m_workingPosition = gameObject.transform.position;
 			}
 		}
 		else
 		{
 			gameObject.transform.position = position;
+			m_workingPosition = gameObject.transform.position;
 		}
 	}
 
 	bool RecursiveFindPoint(Collider collider, Queue<Vector3> positions, out Vector3 pos)
 	{
 		pos = new Vector3();
-		List<Vector3> offsets = new List<Vector3> { new Vector3(0.5f, 0, 0), new Vector3(-0.5f, 0, 0), new Vector3(0, 0, 0.5f), new Vector3(0, 0, -0.5f) };
+
+		float interval = 0.5f;
+
+		List<Vector3> offsets = new List<Vector3> { new Vector3(interval, 0, 0), new Vector3(-interval, 0, 0), new Vector3(0, 0, interval), new Vector3(0, 0, -interval) };
 
 		while (positions.Count > 0)
 		{
 			pos = positions.Dequeue();
 
-			if (Mathf.Abs(pos.x) > 5.5 || Mathf.Abs(pos.z) > 5.5)
-				continue;
-
 			if (!CheckCollision(collider, pos))
 				return true;
+
+			if (Mathf.Abs(pos.x) > 5.5 || Mathf.Abs(pos.z) > 5.5)
+				continue;
 
 			foreach (Vector3 offset in offsets)
 			{

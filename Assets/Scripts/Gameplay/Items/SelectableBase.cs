@@ -21,6 +21,7 @@ public abstract class SelectableBase : MonoBehaviour
 
 	protected abstract void UpdateObject(RaycastHit[] hits);
 	protected abstract bool CollisionValid(Collider collider);
+	protected abstract void OnStateChangedInternal();
 
 	private void Start()
 	{
@@ -33,6 +34,7 @@ public abstract class SelectableBase : MonoBehaviour
 		{
 			m_position = transform.position;
 			m_rotation = transform.rotation;
+			OnStateChangedInternal();
 		}
 	}
 

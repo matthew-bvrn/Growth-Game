@@ -14,6 +14,11 @@ public class SelectableWallMounted : SelectableBase
 		return dot < 0.3;
 	}
 
+	protected override void OnStateChangedInternal()
+	{
+		//TODO
+	}
+
 	protected override void UpdateObject(RaycastHit[] hits)
 	{
 		m_canPlace = false;
