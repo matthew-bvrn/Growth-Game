@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf0328fc0262e143b246281a457fcea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_model: {fileID: 7286982975955747649}
 --- !u!114 &2786829352270405766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Basic Side Table
   Guid: d7420f2d-ec4d-4144-ac36-bc10951e5c5f
+  Offset: {x: 0, y: 0, z: 0}
+  Rotation: {x: 0, y: 0, z: 0}
 --- !u!1001 &7629653818621591056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -258,6 +261,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 199b83ff62267194baa01ab05937f1e9, type: 3}
+--- !u!1 &7286982975955747649 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 199b83ff62267194baa01ab05937f1e9, type: 3}
+  m_PrefabInstance: {fileID: 7629653818621591056}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7956524377449241083 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 199b83ff62267194baa01ab05937f1e9, type: 3}

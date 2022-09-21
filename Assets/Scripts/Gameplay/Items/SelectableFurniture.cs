@@ -26,7 +26,6 @@ public class SelectableFurniture : SelectableBase
 			m_wasRotated = true;
 		}
 
-		m_canPlace = false;
 		Vector3 hitPoint = new Vector3();
 
 		foreach (RaycastHit hit in hits)
@@ -43,37 +42,49 @@ public class SelectableFurniture : SelectableBase
 		m_checkedPoints.Clear();
 		m_checkedPoints.Add(hitPoint);
 		positions.Enqueue(hitPoint);
-		Vector3 coarsePoint = RecursiveFindPoint(collider, positions);
+		Vector3 position;
+		
 
-		if (coarsePoint != hitPoint)
+		if(!RecursiveFindPoint(collider, positions, out position))
+		{
+			m_canPlace = false;
+			return;
+		}
+
+		if(position != hitPoint)
 		{
 			while (true)
 			{
-				coarsePoint -= 0.01f * (coarsePoint - hitPoint).normalized;
-				if (CheckCollision(collider, coarsePoint))
+				position -= 0.01f * (position - hitPoint).normalized;
+				if (CheckCollision(collider, position))
 					break;
 			}
 
-			if (Vector3.Distance(hitPoint, coarsePoint) < Vector3.Distance(gameObject.transform.position, hitPoint) || m_wasRotated)
+			if (Vector3.Distance(hitPoint, position) < Vector3.Distance(gameObject.transform.position, hitPoint) || m_wasRotated)
 			{
-				gameObject.transform.position = coarsePoint;
+				gameObject.transform.position = position;
 			}
 		}
 		else
 		{
-			gameObject.transform.position = coarsePoint;
+			gameObject.transform.position = position;
 		}
 	}
 
-	Vector3 RecursiveFindPoint(Collider collider, Queue<Vector3> positions)
+	bool RecursiveFindPoint(Collider collider, Queue<Vector3> positions, out Vector3 pos)
 	{
+		pos = new Vector3();
 		List<Vector3> offsets = new List<Vector3> { new Vector3(0.5f, 0, 0), new Vector3(-0.5f, 0, 0), new Vector3(0, 0, 0.5f), new Vector3(0, 0, -0.5f) };
 
 		while (positions.Count > 0)
 		{
-			Vector3 pos = positions.Dequeue();
+			pos = positions.Dequeue();
+
+			if (Mathf.Abs(pos.x) > 5.5 || Mathf.Abs(pos.z) > 5.5)
+				continue;
+
 			if (!CheckCollision(collider, pos))
-				return pos;
+				return true;
 
 			foreach (Vector3 offset in offsets)
 			{
@@ -84,7 +95,7 @@ public class SelectableFurniture : SelectableBase
 				}
 			}
 		}
-		return new Vector3();
+		return false;
 	}
 
 	bool CheckCollision(Collider inCollider, Vector3 position)

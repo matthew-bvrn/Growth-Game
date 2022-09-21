@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf0328fc0262e143b246281a457fcea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_model: {fileID: 6208085612047096486}
 --- !u!114 &1101918573719110126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +187,7 @@ MonoBehaviour:
   m_name: Basic Bed
   Guid: 6e09f4c3-836d-407b-b0e3-5b2379392718
   Offset: {x: 0, y: -3.14, z: 3.89}
+  Rotation: {x: 0, y: 0, z: 0}
 --- !u!1001 &6550174672536397815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251,6 +253,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b0992b1a4fd68a4a93ca7be9197f4ec, type: 3}
+--- !u!1 &6208085612047096486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4b0992b1a4fd68a4a93ca7be9197f4ec, type: 3}
+  m_PrefabInstance: {fileID: 6550174672536397815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6731857060804657180 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4b0992b1a4fd68a4a93ca7be9197f4ec, type: 3}
