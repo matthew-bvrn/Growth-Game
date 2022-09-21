@@ -27,7 +27,7 @@ public abstract class SelectableBase : MonoBehaviour
 
 	void OnStateChanged(EGameState state)
 	{
-		if(state == EGameState.ObjectMoving)
+		if(state == EGameState.ObjectMoving && SelectablesManager.Get.Selected == this)
 		{
 			m_position = transform.position;
 			m_rotation = transform.rotation;
@@ -56,10 +56,18 @@ void Update()
 
 			if(InputManager.Get.IsJustPressed(EActions.CancelMoveObject))
 			{
-				State = ESelectableState.Default;
-				transform.position = m_position;
-				transform.rotation = m_rotation;
-				StateManager.Get.TrySetState(EGameState.Viewing);
+				if (StateManager.Get.PreviousState == EGameState.InventoryOpen)
+				{
+					InventoryManager.Get.MoveToInventory(GetComponent<ItemComponent>());
+					StateManager.Get.TrySetState(EGameState.InventoryOpen);
+				}
+				else
+				{
+					State = ESelectableState.Default;
+					transform.position = m_position;
+					transform.rotation = m_rotation;
+					StateManager.Get.TrySetState(EGameState.Viewing);
+				}
 			}
 		}
 	}

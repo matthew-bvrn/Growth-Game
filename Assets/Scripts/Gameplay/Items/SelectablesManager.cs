@@ -70,6 +70,17 @@ public class SelectablesManager : MonoBehaviour
 		return true;
 	}
 
+	public void SetObjectMovingState(SelectableBase selectable = null)
+	{
+		if(selectable!=null)
+		{
+			Selected = selectable;
+		}
+
+		Selected.State = ESelectableState.Moving;
+		StateManager.Get.TrySetState(EGameState.ObjectMoving);
+	}
+
 	public void Update()
 	{
 		Vector2 pos = InputManager.Get.GetSelectionPosition();

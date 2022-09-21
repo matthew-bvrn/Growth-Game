@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
 	{
 		if (state == EGameState.CameraMoving)
 			StartMoving();
-		else if (StateManager.Get.State == EGameState.CameraMoving)
+		else if (StateManager.Get.PreviousState == EGameState.CameraMoving)
 			StopMoving();
 	}
 

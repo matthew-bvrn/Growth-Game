@@ -9,7 +9,7 @@ public class KeyboardControls : MonoBehaviour
 	{
 		EGameState state = StateManager.Get.State;
 		if (InputManager.Get.IsJustPressed(EActions.OpenInventory))
-			StateManager.Get.TrySetState(EGameState.InventoryOpen);
+			StateManager.Get.TrySetState(EGameState.OpenInventoryPressed);
 	}
 
 #endif

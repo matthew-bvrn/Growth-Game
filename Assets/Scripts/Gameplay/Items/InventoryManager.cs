@@ -21,4 +21,12 @@ public class InventoryManager : MonoBehaviour
 		Items.Add(item.GetItemData());
 		Destroy(item.gameObject);
 	}
+
+	public void PlaceItem(string guid)
+	{
+		GameObject newObject = Instantiate(ItemLookupManager.Get.LookupItem(guid));
+		newObject.transform.position = new Vector3(0, 10000, 0);
+		SelectablesManager.Get.SetObjectMovingState(newObject.GetComponent<SelectableBase>());
+		Items.Remove(Items.Find(elem => elem.Guid == guid));
+	}
 }

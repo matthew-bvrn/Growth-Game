@@ -8,6 +8,7 @@ public enum EGameState
 	CameraMoving,
 	ObjectSelected,
 	ObjectMoving,
+	OpenInventoryPressed,
 	InventoryOpen,
 	Console
 }
@@ -30,7 +31,10 @@ public class StateManager : MonoBehaviour
 	[SerializeField] EGameState m_state;
 	[SerializeField] List<TransitionMap> m_transitions;
 
+	EGameState m_prevState;
+
 	public EGameState State { get => m_state; }
+	public EGameState PreviousState { get => m_prevState; }
 	public event StateChangeEvent OnStateChange;
 
 	StateManager()
@@ -54,7 +58,6 @@ public class StateManager : MonoBehaviour
 	{
 		if (state == m_state)
 		{
-			//OnStateChange.Invoke(m_state);
 			return true;
 		}
 
@@ -72,8 +75,9 @@ public class StateManager : MonoBehaviour
 			return false;
 		}
 
-		OnStateChange.Invoke(state);
+		m_prevState = m_state;
 		m_state = state;
+		OnStateChange.Invoke(state);
 		return true;
 	}
 }

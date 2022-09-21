@@ -14,8 +14,7 @@ public class SelectedObjectMenu : MonoBehaviour
 
 	public void OnMove()
 	{
-		SelectablesManager.Get.Selected.State = ESelectableState.Moving;
-		StateManager.Get.TrySetState(EGameState.ObjectMoving);
+		SelectablesManager.Get.SetObjectMovingState();
 	}
 
 	public void OnMoveToInventory()

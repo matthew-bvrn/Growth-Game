@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class ItemUiElement : MonoBehaviour
 {
-    public string Guid { get; set; }
+	[SerializeField] InventoryMenu m_menu;
+
+	public string Guid { get; set; }
 }
