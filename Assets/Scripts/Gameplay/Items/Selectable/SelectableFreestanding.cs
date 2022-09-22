@@ -101,11 +101,11 @@ public abstract class SelectableFreestanding : SelectableBase
 		{
 			pos = positions.Dequeue();
 
+			if (Mathf.Abs(pos.x) > 5.1 || Mathf.Abs(pos.z) > 5.1)
+				continue;
+
 			if (!CheckCollision(collider, pos))
 				return true;
-
-			if (Mathf.Abs(pos.x) > 5.5 || Mathf.Abs(pos.z) > 5.5)
-				continue;
 
 			foreach (Vector3 offset in offsets)
 			{
