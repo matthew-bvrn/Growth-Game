@@ -87,20 +87,44 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5264094353041404026, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048643575969069097, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048643575969069097, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048643575969069097, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048643575969069097, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048643575969069097, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.303
+      objectReference: {fileID: 0}
     - target: {fileID: 9117394291062791854, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
---- !u!4 &1886609227041426023 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5780945700814890973, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
-  m_PrefabInstance: {fileID: 5338065614250700218}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7500356660346122090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2450521972036698832, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+  m_PrefabInstance: {fileID: 5338065614250700218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1886609227041426023 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5780945700814890973, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
   m_PrefabInstance: {fileID: 5338065614250700218}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3286315832127703570

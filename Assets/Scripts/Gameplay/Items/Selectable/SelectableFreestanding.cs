@@ -4,11 +4,13 @@ using UnityEngine;
 using System.Reflection;
 using UnityEngine.AI;
 
-public class SelectableFurniture : SelectableBase
+public abstract class SelectableFreestanding : SelectableBase
 {
 	List<Vector3> m_checkedPoints = new List<Vector3>();
 	bool m_wasRotated = false;
 	Vector3 m_workingPosition;
+
+	protected abstract bool TagIsPlaceableSurface(string tag);
 
 	protected override void OnStateChangedInternal()
 	{
@@ -35,13 +37,15 @@ public class SelectableFurniture : SelectableBase
 		}
 
 		Vector3 hitPoint = new Vector3();
+		float distance = float.PositiveInfinity;
 
 		foreach (RaycastHit hit in hits)
 		{
-			if (hit.transform.gameObject.tag == "Floor")
+			if (TagIsPlaceableSurface(hit.transform.gameObject.tag))
 			{
 				m_canPlace = true;
-				hitPoint = hit.point;
+				if(hit.distance < distance)
+					hitPoint = hit.point;
 			}
 		}
 
@@ -126,21 +130,17 @@ public class SelectableFurniture : SelectableBase
 		else
 		{
 			CapsuleCollider capsuleCollider = (CapsuleCollider)inCollider;
-			colliders = Physics.OverlapCapsule(position + new Vector3(0, capsuleCollider.height / 2, 0), position - new Vector3(0, capsuleCollider.height / 2, 0), capsuleCollider.radius);
+			float radius = capsuleCollider.transform.localScale.x / 2;
+			colliders = Physics.OverlapCapsule(position+new Vector3(0, radius, 0), position + new Vector3(0, capsuleCollider.transform.localScale.y+ radius, 0), radius);
 		}
 
 		foreach (Collider collider in colliders)
 		{
-			if (collider.gameObject.tag != "Floor" && collider != inCollider)
+			if (!TagIsPlaceableSurface(collider.gameObject.tag) && collider != inCollider)
 			{
 				return true;
 			}
 		}
 		return false;
-	}
-
-	protected override bool CollisionValid(Collider collider)
-	{
-		return collider.gameObject.tag != "Floor";
 	}
 }

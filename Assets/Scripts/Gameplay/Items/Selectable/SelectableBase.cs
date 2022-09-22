@@ -20,7 +20,6 @@ public abstract class SelectableBase : MonoBehaviour
 	Quaternion m_rotation;
 
 	protected abstract void UpdateObject(RaycastHit[] hits);
-	protected abstract bool CollisionValid(Collider collider);
 	protected abstract void OnStateChangedInternal();
 
 	private void Start()
@@ -45,7 +44,7 @@ void Update()
 			m_canPlace = false;
 
 			Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
-			RaycastHit[] placeHits = Physics.RaycastAll(ray, 100, ~LayerMask.GetMask("Object", "Selectable"));
+			RaycastHit[] placeHits = Physics.RaycastAll(ray, 100, ~LayerMask.GetMask("Selectable"));
 
 			if (placeHits.Length != 0)
 				UpdateObject(placeHits);

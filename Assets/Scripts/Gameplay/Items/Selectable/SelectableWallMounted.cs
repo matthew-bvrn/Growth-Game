@@ -33,9 +33,4 @@ public class SelectableWallMounted : SelectableBase
 				break;
 			}
 	}
-
-	protected override bool CollisionValid(Collider collider)
-	{
-		return collider.gameObject.tag != "Wall";
-	}
 }
