@@ -44,8 +44,11 @@ public abstract class SelectableFreestanding : SelectableBase
 			if (TagIsPlaceableSurface(hit.transform.gameObject.tag))
 			{
 				m_canPlace = true;
-				if(hit.distance < distance)
+				if (hit.distance < distance)
+				{
 					hitPoint = hit.point;
+					distance = hit.distance;
+				}
 			}
 		}
 
@@ -131,7 +134,7 @@ public abstract class SelectableFreestanding : SelectableBase
 		{
 			CapsuleCollider capsuleCollider = (CapsuleCollider)inCollider;
 			float radius = capsuleCollider.transform.localScale.x / 2;
-			colliders = Physics.OverlapCapsule(position+new Vector3(0, radius, 0), position + new Vector3(0, capsuleCollider.transform.localScale.y+ radius, 0), radius);
+			colliders = Physics.OverlapCapsule(position + new Vector3(0, radius, 0), position + new Vector3(0, capsuleCollider.transform.localScale.y + radius, 0), radius);
 		}
 
 		foreach (Collider collider in colliders)
