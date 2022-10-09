@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 4632753895506817082}
   - component: {fileID: 7776818862824243470}
   - component: {fileID: 2786829352270405766}
+  - component: {fileID: 4693817950246141640}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -285,6 +286,18 @@ MonoBehaviour:
   Guid: d7420f2d-ec4d-4144-ac36-bc10951e5c5f
   Offset: {x: 0, y: 0, z: 0}
   Rotation: {x: 0, y: 0, z: 0}
+--- !u!114 &4693817950246141640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471690609522053361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bae3ce13aae71428c9fd934261d839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7629653818621591056
 PrefabInstance:
   m_ObjectHideFlags: 0
