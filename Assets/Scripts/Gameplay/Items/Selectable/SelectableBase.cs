@@ -29,7 +29,7 @@ public abstract class SelectableBase : MonoBehaviour
 
 	void OnStateChanged(EGameState state)
 	{
-		if(state == EGameState.ObjectMoving && SelectablesManager.Get.Selected == this)
+		if (state == EGameState.ObjectMoving && SelectablesManager.Get.Selected == this)
 		{
 			m_position = transform.position;
 			m_rotation = transform.rotation;
@@ -37,7 +37,7 @@ public abstract class SelectableBase : MonoBehaviour
 		}
 	}
 
-void Update()
+	void Update()
 	{
 		if (State == ESelectableState.Moving)
 		{
@@ -56,6 +56,8 @@ void Update()
 
 			if (InputManager.Get.IsJustPressed(EActions.PlaceObject) && m_canPlace)
 			{
+				CheckSurface();
+
 				State = ESelectableState.Default;
 				StateManager.Get.TrySetState(EGameState.Viewing);
 			}
@@ -78,6 +80,31 @@ void Update()
 				}
 			}
 		}
+	}
+
+	void CheckSurface()
+	{
+		Ray ray = new Ray(transform.position, Vector3.down);
+		RaycastHit[] hits = Physics.RaycastAll(ray, 0.2f);
+		foreach(RaycastHit hit in hits)
+		{
+			if(hit.transform.tag == "Surface")
+			{
+				hit.transform.parent.GetComponent<SurfaceComponent>().OnSurfaceDestroyed += () => 
+				{
+					transform.parent = null;
+					transform.position = Physics.RaycastAll(transform.position, Vector3.down)[0].point;
+					foreach(Behaviour component in GetComponents(typeof(Behaviour)))
+					{
+						component.enabled = true;
+					}
+				};
+				transform.parent = hit.transform.parent;
+				return;
+			}
+		}
+
+		transform.parent = null;
 	}
 }
 
