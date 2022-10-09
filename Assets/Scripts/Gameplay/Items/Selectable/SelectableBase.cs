@@ -84,8 +84,8 @@ public abstract class SelectableBase : MonoBehaviour
 
 	void CheckSurface()
 	{
-		Ray ray = new Ray(transform.position, Vector3.down);
-		RaycastHit[] hits = Physics.RaycastAll(ray, 0.2f);
+		Ray ray = new Ray(transform.position+new Vector3(0,0.1f,0), Vector3.down);
+		RaycastHit[] hits = Physics.RaycastAll(ray, 0.25f);
 		foreach(RaycastHit hit in hits)
 		{
 			if(hit.transform.tag == "Surface")
