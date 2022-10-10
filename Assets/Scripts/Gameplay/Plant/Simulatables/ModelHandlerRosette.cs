@@ -12,30 +12,58 @@ public class LeafParametersRosette : LeafParametersBase
 	public float m_deathScaleSpeed = 0.01f;
 }
 
+public class ModelRosetteData : ModelData
+{
+	public List<LeafData> LeafData = new List<LeafData>();
+	public float NewLeafRot;
+	public float PlantHeight;
+}
+
 public class ModelHandlerRosette : ModelHandler
 {
-	public List<LeafRosette> Leaves { get; private set; } = new List<LeafRosette>();
+	List<LeafRosette> m_leaves = new List<LeafRosette>();
 	[SerializeField] int m_leafThreshold = 300;
 	[SerializeField] LeafParametersRosette m_leafParameters = new LeafParametersRosette();
 	[SerializeField] float m_newLeafRotIncrement = 80;
 	[SerializeField] float m_newLeafHeightIncrement = 0.005f;
 
-	public float NewLeafRot { get; private set; } = 0;
-	public float PlantHeight { get; private set; } = 0;
+	float m_newLeafRot = 0;
+	float m_plantHeight = 0;
 
 	float m_newLeafGrowth = 0;
 
 	List<LeafRosette> m_leafRemoveBuffer = new List<LeafRosette>();
 
+	public override ModelData GetData()
+	{
+		ModelRosetteData modelRosetteData = new ModelRosetteData();
+		modelRosetteData.NewLeafRot = m_newLeafRot;
+		modelRosetteData.PlantHeight = m_plantHeight;
+
+		foreach (Leaf leaf in m_leaves)
+		{
+			LeafData leafData = new LeafData();
+			leafData.Age = leaf.Age;
+			leafData.MaxAge = leaf.MaxAge;
+			leafData.State = leaf.State;
+			leafData.Position = leaf.transform.localPosition;
+			leafData.Rotation = leaf.transform.localRotation;
+
+			modelRosetteData.LeafData.Add(leafData);
+		}
+
+		return modelRosetteData;
+	}
+
 	public sealed override void Age(float deltaSeconds)
 	{
-		foreach (LeafRosette leaf in Leaves)
+		foreach (LeafRosette leaf in m_leaves)
 			leaf.Age += deltaSeconds;
 	}
 
 	public sealed override void ChangePot()
 	{
-		foreach (LeafRosette leaf in Leaves)
+		foreach (LeafRosette leaf in m_leaves)
 		{
 			leaf.transform.position = m_origin.transform.position;
 			leaf.transform.position += leaf.Offset;
@@ -48,7 +76,7 @@ public class ModelHandlerRosette : ModelHandler
 			return;
 
 		//update existing leaves
-		foreach (LeafRosette leaf in Leaves)
+		foreach (LeafRosette leaf in m_leaves)
 		{
 			leaf.UpdateLeaf(deltaGrowth, m_leafParameters);
 			if (leaf.State == ELeafState.Dead)
@@ -62,10 +90,10 @@ public class ModelHandlerRosette : ModelHandler
 
 		while (m_newLeafGrowth > m_leafThreshold)
 		{
-			float leafGrowth = growth - (Leaves.Count + 1) * m_leafThreshold;
+			float leafGrowth = growth - (m_leaves.Count + 1) * m_leafThreshold;
 
-			PlantHeight += m_newLeafHeightIncrement;
-			NewLeafRot += m_newLeafRotIncrement + (Random.value - 0.5f) * 10;
+			m_plantHeight += m_newLeafHeightIncrement;
+			m_newLeafRot += m_newLeafRotIncrement + (Random.value - 0.5f) * 10;
 
 			Object leafPrefab = Resources.Load("Prefabs/Plants/" + GetComponentInParent<PlantComponent>().Name + "Leaf");
 
@@ -75,24 +103,24 @@ public class ModelHandlerRosette : ModelHandler
 				return;
 			}
 
-			Vector3 leafPosition = m_origin.position + new Vector3(0, PlantHeight, 0);
-			Quaternion leafRotation = Quaternion.Euler(m_leafParameters.m_initialRotation, NewLeafRot, 0);
+			Vector3 leafPosition = m_origin.position + new Vector3(0, m_plantHeight, 0);
+			Quaternion leafRotation = Quaternion.Euler(m_leafParameters.m_initialRotation, m_newLeafRot, 0);
 
 			GameObject newLeaf = (GameObject)Instantiate(leafPrefab, leafPosition, leafRotation, transform);
 
-			newLeaf.GetComponent<LeafRosette>().Initialise(GetComponentInParent<Parameters.ParametersComponent>(), PlantHeight * new Vector3(0, 1, 0));
+			newLeaf.GetComponent<LeafRosette>().Initialise(GetComponentInParent<Parameters.ParametersComponent>(), m_plantHeight * new Vector3(0, 1, 0));
 			newLeaf.transform.localScale = new Vector3(1, 1, 1);
 
 			m_newLeafGrowth -= m_leafThreshold;
 			newLeaf.GetComponent<LeafRosette>().UpdateLeaf(m_newLeafGrowth, m_leafParameters);
 
-			Leaves.Add(newLeaf.GetComponent<LeafRosette>());
+			m_leaves.Add(newLeaf.GetComponent<LeafRosette>());
 		}
 
 		//destroy old leaves
 		foreach (LeafRosette leaf in m_leafRemoveBuffer)
 		{
-			Leaves.Remove(leaf);
+			m_leaves.Remove(leaf);
 			Destroy(leaf.gameObject);
 		}
 

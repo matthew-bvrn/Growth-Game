@@ -17,4 +17,5 @@ abstract public class ModelHandler : ISimulatable, IAgeable
 	public abstract void ChangePot();
 	internal abstract override void Simulate(float growth, float deltaGrowth);
 	public abstract void Age(float deltaSeconds);
+	public abstract ModelData GetData();
 }

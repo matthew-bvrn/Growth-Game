@@ -169,15 +169,3 @@ MonoBehaviour:
     m_deathScaleSpeed: 0.015
   m_newLeafRotIncrement: 100
   m_newLeafHeightIncrement: 0.005
---- !u!114 &8864408776746042792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7500356660346122090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1084fbc371edc1748b2cfb984a1341d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

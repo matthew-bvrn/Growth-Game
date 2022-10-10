@@ -1,6 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public abstract class ModelData
+{ }
+
+public struct PlantData
+{
+	public string Species;
+	public float Age;
+	public float Growth;
+	public float GrowthFactor;
+}
 
 public struct LeafData
 {
@@ -9,9 +18,4 @@ public struct LeafData
 	public ELeafState State;
 	public Vector3 Position;
 	public Quaternion Rotation;
-}
-
-public abstract class ModelDataFetcher : MonoBehaviour
-{
-	public abstract ModelData GetData();
 }
