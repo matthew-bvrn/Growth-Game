@@ -14,6 +14,15 @@ public class ItemComponent : MonoBehaviour
 
 	public ItemData GetItemData()
 	{
-		return new ItemData(m_name, Guid);
+		ItemData itemData = new ItemData(m_name, Guid);
+
+		ModelDataFetcher fetcher = GetComponentInChildren<ModelDataFetcher>();
+
+		if(fetcher)
+		{
+			itemData.ModelData = fetcher.GetData();
+		}
+
+		return itemData;
 	}
 }

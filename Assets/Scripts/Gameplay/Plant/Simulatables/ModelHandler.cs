@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract internal class ModelHandler : ISimulatable, IAgeable
+abstract public class ModelHandler : ISimulatable, IAgeable
 {
 	[SerializeField] protected Transform m_origin;
 

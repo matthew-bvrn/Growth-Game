@@ -12,16 +12,16 @@ public class LeafParametersRosette : LeafParametersBase
 	public float m_deathScaleSpeed = 0.01f;
 }
 
-internal class ModelHandlerRosette : ModelHandler
+public class ModelHandlerRosette : ModelHandler
 {
-	List<LeafRosette> m_leaves = new List<LeafRosette>();
+	public List<LeafRosette> Leaves { get; private set; } = new List<LeafRosette>();
 	[SerializeField] int m_leafThreshold = 300;
 	[SerializeField] LeafParametersRosette m_leafParameters = new LeafParametersRosette();
 	[SerializeField] float m_newLeafRotIncrement = 80;
 	[SerializeField] float m_newLeafHeightIncrement = 0.005f;
 
-	float m_newLeafRot = 0;
-	float m_plantHeight = 0;
+	public float NewLeafRot { get; private set; } = 0;
+	public float PlantHeight { get; private set; } = 0;
 
 	float m_newLeafGrowth = 0;
 
@@ -29,13 +29,13 @@ internal class ModelHandlerRosette : ModelHandler
 
 	public sealed override void Age(float deltaSeconds)
 	{
-		foreach (LeafRosette leaf in m_leaves)
+		foreach (LeafRosette leaf in Leaves)
 			leaf.Age += deltaSeconds;
 	}
 
 	public sealed override void ChangePot()
 	{
-		foreach (LeafRosette leaf in m_leaves)
+		foreach (LeafRosette leaf in Leaves)
 		{
 			leaf.transform.position = m_origin.transform.position;
 			leaf.transform.position += leaf.Offset;
@@ -48,10 +48,10 @@ internal class ModelHandlerRosette : ModelHandler
 			return;
 
 		//update existing leaves
-		foreach (LeafRosette leaf in m_leaves)
+		foreach (LeafRosette leaf in Leaves)
 		{
 			leaf.UpdateLeaf(deltaGrowth, m_leafParameters);
-			if (leaf.State == Leaf.EState.Dead)
+			if (leaf.State == ELeafState.Dead)
 			{
 				m_leafRemoveBuffer.Add(leaf);
 			}
@@ -62,10 +62,10 @@ internal class ModelHandlerRosette : ModelHandler
 
 		while (m_newLeafGrowth > m_leafThreshold)
 		{
-			float leafGrowth = growth - (m_leaves.Count + 1) * m_leafThreshold;
+			float leafGrowth = growth - (Leaves.Count + 1) * m_leafThreshold;
 
-			m_plantHeight += m_newLeafHeightIncrement;
-			m_newLeafRot += m_newLeafRotIncrement + (Random.value - 0.5f) * 10;
+			PlantHeight += m_newLeafHeightIncrement;
+			NewLeafRot += m_newLeafRotIncrement + (Random.value - 0.5f) * 10;
 
 			Object leafPrefab = Resources.Load("Prefabs/Plants/" + GetComponentInParent<PlantComponent>().Name + "Leaf");
 
@@ -75,24 +75,24 @@ internal class ModelHandlerRosette : ModelHandler
 				return;
 			}
 
-			Vector3 leafPosition = m_origin.position + new Vector3(0, m_plantHeight, 0);
-			Quaternion leafRotation = Quaternion.Euler(m_leafParameters.m_initialRotation, m_newLeafRot, 0);
+			Vector3 leafPosition = m_origin.position + new Vector3(0, PlantHeight, 0);
+			Quaternion leafRotation = Quaternion.Euler(m_leafParameters.m_initialRotation, NewLeafRot, 0);
 
 			GameObject newLeaf = (GameObject)Instantiate(leafPrefab, leafPosition, leafRotation, transform);
 
-			newLeaf.GetComponent<LeafRosette>().Initialise(GetComponentInParent<Parameters.ParametersComponent>(), m_plantHeight * new Vector3(0, 1, 0));
+			newLeaf.GetComponent<LeafRosette>().Initialise(GetComponentInParent<Parameters.ParametersComponent>(), PlantHeight * new Vector3(0, 1, 0));
 			newLeaf.transform.localScale = new Vector3(1, 1, 1);
 
 			m_newLeafGrowth -= m_leafThreshold;
 			newLeaf.GetComponent<LeafRosette>().UpdateLeaf(m_newLeafGrowth, m_leafParameters);
 
-			m_leaves.Add(newLeaf.GetComponent<LeafRosette>());
+			Leaves.Add(newLeaf.GetComponent<LeafRosette>());
 		}
 
 		//destroy old leaves
 		foreach (LeafRosette leaf in m_leafRemoveBuffer)
 		{
-			m_leaves.Remove(leaf);
+			Leaves.Remove(leaf);
 			Destroy(leaf.gameObject);
 		}
 

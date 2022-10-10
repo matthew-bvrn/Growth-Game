@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-internal abstract class Leaf : MonoBehaviour
+public enum ELeafState
+{
+	Growing,
+	Dying,
+	Dead
+}
+
+public abstract class Leaf : MonoBehaviour
 {
 	virtual public void Initialise(Parameters.ParametersComponent parameters)
 	{
 		m_parametersComponent = parameters;
 	}
 
-	internal enum EState
-	{
-		Growing,
-		Dying,
-		Dead
-	}
-
 	protected Parameters.ParametersComponent m_parametersComponent;
 
 	protected float m_growth = 0;
-	internal float Age 
+	public float Age 
 	{ get => m_age; 
 		set 
 		{
@@ -30,11 +30,11 @@ internal abstract class Leaf : MonoBehaviour
 
 	protected float m_age = 0;
 	protected float m_deltaAge = 0;
-	protected float m_maxAge = 0;
+	public float MaxAge { get; protected set; } = 0;
 	protected float m_ageProgress = 0;
-	protected EState m_state = EState.Growing;
+	protected ELeafState m_state = ELeafState.Growing;
 
-	internal EState State { get => m_state; }
+	public ELeafState State { get => m_state; }
 
 	internal abstract void UpdateLeaf(float deltaGrowth, LeafParametersBase parameters);
 }
