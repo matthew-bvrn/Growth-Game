@@ -72,6 +72,9 @@ public class GrowthComponent : MonoBehaviour
 
 	void SimulateImpl(float deltaTime)
 	{
+		if (GetComponent<SelectableBase>().State != ESelectableState.Placed)
+			return;
+
 		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
 			component.PreSimulate(deltaTime);
 

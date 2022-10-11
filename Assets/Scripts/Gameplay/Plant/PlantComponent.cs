@@ -15,6 +15,12 @@ public class PlantComponent : MonoBehaviour, AdditionalDataFetcher
 	public void Start()
 	{
 		Initialise();
+		PlantManagerBase.Get.RegisterPlant(this);
+	}
+
+	public void OnDestroy()
+	{
+		PlantManagerBase.Get.UnregisterPlant(this);
 	}
 
 	public void Initialise()

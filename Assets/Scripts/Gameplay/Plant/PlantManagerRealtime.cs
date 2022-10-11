@@ -8,15 +8,11 @@ public partial class PlantManagerRealtime : PlantManagerBase
 	//TODO move somewhere sensible like game manager
 	public static float m_testDeltaMultiplier = 500;
 
-#if DEBUG
-	public PlantComponent m_testPlant;
-#endif
-
-	public void Start()
+	new public void Start()
 	{
-#if DEBUG
-		RegisterPlant(m_testPlant);
+		base.Start();
 
+#if DEBUG
 		GameConsole.Instance.AddCommand("simulateall", DebugSimulate);
 		GameConsole.Instance.AddCommand("simulatenearest", DebugSimulateNearest);
 		GameConsole.Instance.AddCommand("waterall", DebugWaterAll);

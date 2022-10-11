@@ -65,6 +65,7 @@ public class InventoryMenu : MonoBehaviour
 		m_selectedGuid = EventSystem.current.currentSelectedGameObject.GetComponent<ItemUiElement>().Guid;
 		RemoveSampleObject();
 		m_sampleObject = Instantiate(ItemLookupManager.Get.LookupItem(m_selectedGuid));
+		m_sampleObject.GetComponent<SelectableBase>().State = ESelectableState.InventoryPreview;
 
 		foreach (MeshRenderer renderer in m_sampleObject.GetComponentsInChildren<MeshRenderer>())
 		{

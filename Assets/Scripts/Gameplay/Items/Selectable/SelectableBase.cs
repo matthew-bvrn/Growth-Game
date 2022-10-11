@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum ESelectableState
+public enum ESelectableState
 {
-	Default,
+	InventoryPreview,
+	Placed,
 	Moving
 }
 
@@ -12,7 +13,7 @@ public abstract class SelectableBase : MonoBehaviour
 {
 	[SerializeField] protected GameObject m_model;
 
-	internal ESelectableState State { get; set; }
+	public ESelectableState State;
 
 	protected bool m_canPlace = false;
 
@@ -58,7 +59,7 @@ public abstract class SelectableBase : MonoBehaviour
 			{
 				CheckSurface();
 
-				State = ESelectableState.Default;
+				State = ESelectableState.Placed;
 				StateManager.Get.TrySetState(EGameState.Viewing);
 			}
 
@@ -73,7 +74,7 @@ public abstract class SelectableBase : MonoBehaviour
 				}
 				else
 				{
-					State = ESelectableState.Default;
+					State = ESelectableState.Placed;
 					transform.position = m_position;
 					transform.rotation = m_rotation;
 					StateManager.Get.TrySetState(EGameState.Viewing);
