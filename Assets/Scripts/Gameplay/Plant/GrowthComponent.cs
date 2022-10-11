@@ -9,7 +9,7 @@ public class GrowthComponent : MonoBehaviour
 	float m_deltaGrowth = 0;
 #if UNITY_EDITOR
 	[ReadOnly]
-#endif 
+#endif
 	[SerializeField] float m_growthFactor;
 
 	static float s_growthMultiplier = 0.05f;
@@ -25,12 +25,18 @@ public class GrowthComponent : MonoBehaviour
 		GetComponentInChildren<SoilSaturation>().Initialise(initParams);
 
 		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
-			if(!component.IsInitialised)
+			if (!component.IsInitialised)
 				component.Initialise(new InitParamsBase());
 
 		ModelHandler modelHandler = GetComponentInChildren<ModelHandler>();
 		if (!modelHandler)
 			Debug.LogError("Model handler component is missing.");
+	}
+
+	public void GetData(PlantData data)
+	{
+		data.Growth = Growth;
+		data.GrowthFactor = m_growthFactor;
 	}
 
 	public void Water()

@@ -16,11 +16,11 @@ public class ItemComponent : MonoBehaviour
 	{
 		ItemData itemData = new ItemData(m_name, Guid);
 
-		ModelHandler modelHandler = GetComponentInChildren<ModelHandler>();
+		AdditionalDataFetcher fetcher = GetComponentInChildren<AdditionalDataFetcher>();
 
-		if(modelHandler)
+		if(fetcher!=null)
 		{
-			itemData.ModelData = modelHandler.GetData();
+			itemData.additionalData = fetcher.GetData();
 		}
 
 		return itemData;
