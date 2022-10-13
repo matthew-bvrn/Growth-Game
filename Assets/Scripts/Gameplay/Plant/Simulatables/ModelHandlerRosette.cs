@@ -34,7 +34,7 @@ public class ModelHandlerRosette : ModelHandler
 
 	List<LeafRosette> m_leafRemoveBuffer = new List<LeafRosette>();
 
-	public override ModelData GetData()
+	public sealed override ModelData GetData()
 	{
 		ModelRosetteData modelRosetteData = new ModelRosetteData();
 		modelRosetteData.NewLeafRot = m_newLeafRot;
@@ -42,17 +42,30 @@ public class ModelHandlerRosette : ModelHandler
 
 		foreach (Leaf leaf in m_leaves)
 		{
-			LeafData leafData = new LeafData();
-			leafData.Age = leaf.Age;
-			leafData.MaxAge = leaf.MaxAge;
-			leafData.State = leaf.State;
-			leafData.Position = leaf.transform.localPosition;
-			leafData.Rotation = leaf.transform.localRotation;
+			LeafData leafData = leaf.GetData();
 
 			modelRosetteData.LeafData.Add(leafData);
 		}
 
 		return modelRosetteData;
+	}
+
+	public sealed override void SetData(ModelData data)
+	{
+		ModelRosetteData rosetteData = (ModelRosetteData)data;
+
+		m_newLeafRot = rosetteData.NewLeafRot;
+		m_plantHeight = rosetteData.PlantHeight;
+
+		Object leafPrefab = Resources.Load("Prefabs/Plants/" + GetComponentInParent<PlantComponent>().Name + "Leaf");
+		foreach (LeafData leafData in rosetteData.LeafData)
+		{
+			Leaf newLeaf = ((GameObject)Instantiate(leafPrefab, leafData.Position, leafData.Rotation, transform)).GetComponent<Leaf>();
+			newLeaf.Initialise(GetComponentInParent<Parameters.ParametersComponent>());
+			newLeaf.SetData(leafData);
+			newLeaf.UpdateLeaf(0, m_leafParameters);
+			m_leaves.Add((LeafRosette)newLeaf);
+		}
 	}
 
 	public sealed override void Age(float deltaSeconds)

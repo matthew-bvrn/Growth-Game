@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class LeafRosette : Leaf
 {
-	float m_potFactor;
 	internal Vector3 Offset { get; private set; }
 
 	public void Initialise(Parameters.ParametersComponent parameters, Vector3 offset)
 	{
 		//set once so scale is only determined by pot factor when this leaf is created
 		m_potFactor = parameters.PotFactor;
-		MaxAge = parameters.MaxAge;
+		m_maxAge = parameters.MaxAge;
 		Offset = offset;
 		base.Initialise(parameters);
 	}
@@ -26,7 +25,7 @@ public class LeafRosette : Leaf
 	{
 		float waterHealth = m_parametersComponent.WaterHealth / 2 + .5f;
 		float ageFactor = Mathf.Max(0, m_ageProgress - 0.5f);
-
+		
 		GetComponent<LeafRosetteAnimationComponent>().SicknessLevel = m_parametersComponent.GrowthFactor;
 		GetComponent<LeafRosetteShaderComponent>().UpdateShader(waterHealth, ageFactor);
 	}
@@ -36,7 +35,7 @@ public class LeafRosette : Leaf
 		LeafParametersRosette rosetteParams = (LeafParametersRosette)leafParams;
 		Vector3 onesVec = new Vector3(1, 1, 1);
 
-		m_ageProgress = m_age / MaxAge;
+		m_ageProgress = Age / m_maxAge;
 
 		if (m_state == ELeafState.Growing)
 		{
@@ -47,15 +46,16 @@ public class LeafRosette : Leaf
 
 			GetComponent<LeafRosetteAnimationComponent>().Age = m_ageProgress;
 
-			if (m_age >= MaxAge)
+			if (Age >= m_maxAge)
 			{
+				m_maxSize = gameObject.transform.localScale;
 				m_state = ELeafState.Dying;
 			}
 
 		}
 		if (m_state == ELeafState.Dying)
 		{
-			gameObject.transform.localScale -= m_deltaAge * rosetteParams.m_deathScaleSpeed * onesVec * m_potFactor;
+			gameObject.transform.localScale = m_maxSize - (Age - m_maxAge) * rosetteParams.m_deathScaleSpeed * onesVec * m_potFactor;
 			if (gameObject.transform.localScale.x < 0)
 			{
 				m_state = ELeafState.Dead;

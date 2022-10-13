@@ -35,8 +35,16 @@ public class GrowthComponent : MonoBehaviour
 
 	public void GetData(PlantData data)
 	{
+		data.Age = m_age;
 		data.Growth = Growth;
 		data.GrowthFactor = m_growthFactor;
+	}
+
+	internal void SetData(PlantData data)
+	{
+		m_age = data.Age;
+		m_growth = data.Growth;
+		m_growthFactor = data.GrowthFactor;
 	}
 
 	public void Water()

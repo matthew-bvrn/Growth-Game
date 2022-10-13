@@ -13,6 +13,7 @@ public class InventoryMenu : MonoBehaviour
 	List<GameObject> m_elements = new List<GameObject>();
 
 	string m_selectedGuid;
+	string m_itemGuid;
 	GameObject m_sampleObject;
 
 	private void Start()
@@ -54,6 +55,7 @@ public class InventoryMenu : MonoBehaviour
 			element.SetActive(true);
 			element.GetComponentInChildren<Text>().text = item.Name;
 			element.GetComponent<ItemUiElement>().Guid = item.Guid;
+			element.GetComponent<ItemUiElement>().ItemGuid = item.ItemGuid;
 			m_elements.Add(element);
 		}
 	}
@@ -62,10 +64,18 @@ public class InventoryMenu : MonoBehaviour
 	{
 		m_placeButton.gameObject.SetActive(true);
 
-		m_selectedGuid = EventSystem.current.currentSelectedGameObject.GetComponent<ItemUiElement>().Guid;
+		ItemUiElement selected = EventSystem.current.currentSelectedGameObject.GetComponent<ItemUiElement>();
+		m_itemGuid = selected.ItemGuid;
+		ItemData itemData = InventoryManager.Get.GetItem(m_itemGuid);
+
 		RemoveSampleObject();
-		m_sampleObject = Instantiate(ItemLookupManager.Get.LookupItem(m_selectedGuid));
-		m_sampleObject.GetComponent<SelectableBase>().State = ESelectableState.InventoryPreview;
+		m_sampleObject = Instantiate(ItemLookupManager.Get.LookupItem(selected.Guid));
+		m_sampleObject.GetComponent<SelectableBase>().SetInventoryPreviewState();
+
+		if (itemData.additionalData != null)
+		{
+			itemData.additionalData.LoadData(m_sampleObject);
+		}
 
 		foreach (MeshRenderer renderer in m_sampleObject.GetComponentsInChildren<MeshRenderer>())
 		{
@@ -79,7 +89,7 @@ public class InventoryMenu : MonoBehaviour
 
 	public void OnPlaceButton()
 	{
-		InventoryManager.Get.PlaceItem(m_selectedGuid);
+		InventoryManager.Get.PlaceItem(m_itemGuid);
 	}
 
 	void RemoveSampleObject()

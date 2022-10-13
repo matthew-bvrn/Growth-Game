@@ -13,7 +13,7 @@ public abstract class SelectableBase : MonoBehaviour
 {
 	[SerializeField] protected GameObject m_model;
 
-	public ESelectableState State;
+	public ESelectableState State { get; internal set; }
 
 	protected bool m_canPlace = false;
 
@@ -26,6 +26,11 @@ public abstract class SelectableBase : MonoBehaviour
 	private void Start()
 	{
 		StateManager.Get.OnStateChange += OnStateChanged;
+	}
+
+	public void SetInventoryPreviewState()
+	{
+		State = ESelectableState.InventoryPreview;
 	}
 
 	void OnStateChanged(EGameState state)

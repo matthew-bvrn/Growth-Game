@@ -32,15 +32,20 @@ public class PlantComponent : MonoBehaviour, AdditionalDataFetcher
 
 	public AdditionalData GetData()
 	{
-		//todo get generic plant data
-
 		PlantData data = new PlantData();
 
 		data.Species = Name;
 		GetComponent<GrowthComponent>().GetData(data);
 
 		data.modelData = GetComponentInChildren<ModelHandler>().GetData();
+		data.soilData = GetComponentInChildren<SoilSaturation>().GetData();
+		data.waterData = GetComponentInChildren<WaterUptake>().GetData();
 
 		return data;
+	}
+
+	public void SetData(PlantData data)
+	{
+		m_plantName = data.Species;
 	}
 }

@@ -21,6 +21,8 @@ public class SoilSaturation : ISimulatable
 #endif
 	[SerializeField] float m_saturation = 0;
 
+	bool m_isInitialised = false;
+
 	static float s_standardDrainingTime = 6; //hours
 
 	public event SaturationEvent SaturationUpdated;
@@ -32,7 +34,11 @@ public class SoilSaturation : ISimulatable
 
 	public override void Initialise(InitParamsBase initParams)
 	{
-		m_saturation = ((InitParamsSoilSaturation)initParams).m_saturation;
+		if (!m_isInitialised)
+		{
+			m_isInitialised = true;
+			m_saturation = ((InitParamsSoilSaturation)initParams).m_saturation;
+		}
 		base.Initialise(initParams);
 	}
 
@@ -53,5 +59,18 @@ public class SoilSaturation : ISimulatable
 		float totalTime = timeInHours + equivTime;
 		m_saturation = Mathf.Exp(-totalTime / dryRate);
 		SaturationUpdated.Invoke(Saturation, delta);
+	}
+
+	internal SoilData GetData()
+	{
+		SoilData data = new SoilData();
+		data.Saturation = Saturation;
+		return data;
+	}
+
+	internal void SetData(SoilData data)
+	{
+		m_isInitialised = true;
+		m_saturation = data.Saturation;
 	}
 }

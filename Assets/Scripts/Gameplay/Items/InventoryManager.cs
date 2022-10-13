@@ -22,11 +22,24 @@ public class InventoryManager : MonoBehaviour
 		Destroy(item.gameObject);
 	}
 
-	public void PlaceItem(string guid)
+	public ItemData GetItem(string itemGuid)
 	{
-		GameObject newObject = Instantiate(ItemLookupManager.Get.LookupItem(guid));
+		return Items.Find((x) => x.ItemGuid == itemGuid);
+	}
+
+	public void PlaceItem(string itemGuid)
+	{
+		ItemData itemData = Get.GetItem(itemGuid);
+
+		GameObject newObject = Instantiate(ItemLookupManager.Get.LookupItem(itemData.Guid));
+
+		if (itemData.additionalData != null)
+		{
+			itemData.additionalData.LoadData(newObject);
+		}
+
 		newObject.transform.position = new Vector3(0, 10000, 0);
 		SelectablesManager.Get.SetObjectMovingState(newObject.GetComponent<SelectableBase>());
-		Items.Remove(Items.Find(elem => elem.Guid == guid));
+		Items.Remove(Items.Find(elem => elem.Guid == itemData.Guid));
 	}
 }
