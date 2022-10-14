@@ -11,11 +11,10 @@ public enum ESelectableState
 
 public abstract class SelectableBase : MonoBehaviour
 {
-	[SerializeField] protected GameObject m_model;
-
 	public ESelectableState State { get; internal set; }
 
 	protected bool m_canPlace = false;
+	bool m_visible = true;
 
 	Vector3 m_position;
 	Quaternion m_rotation;
@@ -55,10 +54,10 @@ public abstract class SelectableBase : MonoBehaviour
 			if (placeHits.Length != 0)
 				UpdateObject(placeHits);
 
-			if (!m_canPlace && m_model.activeInHierarchy)
-				m_model.SetActive(false);
-			else if (m_canPlace && !m_model.activeInHierarchy)
-				m_model.SetActive(true);
+			if (!m_canPlace && m_visible)
+				SetIsVisible(false);
+			else if (m_canPlace && !m_visible)
+				SetIsVisible(true);
 
 			if (InputManager.Get.IsJustPressed(EActions.PlaceObject) && m_canPlace)
 			{
@@ -70,7 +69,7 @@ public abstract class SelectableBase : MonoBehaviour
 
 			if (InputManager.Get.IsJustPressed(EActions.CancelMoveObject))
 			{
-				m_model.SetActive(true);
+				SetIsVisible(true);
 
 				if (StateManager.Get.PreviousState == EGameState.InventoryOpen)
 				{
@@ -111,6 +110,13 @@ public abstract class SelectableBase : MonoBehaviour
 		}
 
 		transform.parent = null;
+	}
+
+	void SetIsVisible(bool visible)
+	{
+		foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
+			renderer.enabled = visible;
+		m_visible = visible;
 	}
 }
 
