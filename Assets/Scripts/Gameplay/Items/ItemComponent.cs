@@ -16,7 +16,7 @@ public class ItemComponent : MonoBehaviour
 	{
 		ItemData itemData = new ItemData(m_name, Guid, System.Guid.NewGuid().ToString());
 
-		AdditionalDataFetcher fetcher = GetComponentInChildren<AdditionalDataFetcher>();
+		AdditionalDataFetcher fetcher = GetComponent<AdditionalDataFetcher>();
 
 		if(fetcher!=null)
 		{
