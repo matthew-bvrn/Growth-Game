@@ -24,6 +24,11 @@ public class SelectableWallMounted : SelectableBase
 		//TODO
 	}
 
+	protected override bool CheckOnSurface(Vector3 position)
+	{
+		return position.y < 5 && position.y > 0;
+	}
+
 	protected override void UpdateObject(RaycastHit[] hits)
 	{
 		foreach (RaycastHit hit in hits)
@@ -35,6 +40,10 @@ public class SelectableWallMounted : SelectableBase
 			}
 		}
 
-		FindPlacePoint(hits, false, new List<Vector3> { new Vector3(1, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1) }, delegate (Vector3 pos) { gameObject.transform.position = pos; });
+		Vector3 right = gameObject.transform.right;
+
+		Vector3 cross = Vector3.Cross(right, Vector3.up);
+
+		FindPlacePoint(hits, false, new List<Vector3> { Vector3.up, Vector3.down, cross, -cross }, delegate (Vector3 pos) { gameObject.transform.position = pos; });
 	}
 }

@@ -28,6 +28,10 @@ public abstract class SelectableBase : MonoBehaviour
 	protected abstract void OnStateChangedInternal();
 	protected abstract bool IsHitValid(RaycastHit hit);
 	protected abstract bool TagIsPlaceableSurface(string tag);
+	protected virtual bool CheckOnSurface(Vector3 position)
+	{
+		return true;
+	}
 
 	private void Start()
 	{
@@ -146,6 +150,7 @@ public abstract class SelectableBase : MonoBehaviour
 
 		if (!RecursiveFindPoint(collider, positions, out position, offsets))
 		{
+			//no position found
 			if (m_workingPosition == new Vector3())
 			{
 				m_canPlace = false;
@@ -154,6 +159,7 @@ public abstract class SelectableBase : MonoBehaviour
 			gameObject.transform.position = m_workingPosition;
 		}
 
+		//if it cant be placed exactly at the hit point
 		else if (position != hitPoint)
 		{
 			while (true)
@@ -171,6 +177,7 @@ public abstract class SelectableBase : MonoBehaviour
 		}
 		else
 		{
+			//if it can be placed at the hit point, then just place it there
 			gameObject.transform.position = position;
 			m_workingPosition = gameObject.transform.position;
 		}
@@ -189,11 +196,12 @@ public abstract class SelectableBase : MonoBehaviour
 		{
 			pos = positions.Dequeue();
 
-			if (Mathf.Abs(pos.x) > 5.1 || Mathf.Abs(pos.z) > 5.1)
+			if (Mathf.Abs(pos.x) > 5.1 || Mathf.Abs(pos.z) > 5.1 || Mathf.Abs(pos.y) > 5.1)
 				continue;
 
 			if (!CheckCollision(collider, pos))
-				return true;
+				if(CheckOnSurface(pos))
+					return true;
 
 			foreach (Vector3 offset in offsets)
 			{
@@ -226,7 +234,7 @@ public abstract class SelectableBase : MonoBehaviour
 		{
 			if (!TagIsPlaceableSurface(collider.gameObject.tag) && collider != inCollider)
 			{
-				return true;
+					return true;
 			}
 		}
 		return false;
