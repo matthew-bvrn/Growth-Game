@@ -6,11 +6,6 @@ public class SelectableFurniture : SelectableFreestanding
 {
 	protected override bool IsHitValid(RaycastHit hit)
 	{
-		return TagIsPlaceableSurface(hit.transform.gameObject.tag);
-	}
-
-	protected override bool TagIsPlaceableSurface(string tag)
-	{
-		return tag == "Floor";
+		return hit.transform.gameObject.tag == "Floor";
 	}
 }

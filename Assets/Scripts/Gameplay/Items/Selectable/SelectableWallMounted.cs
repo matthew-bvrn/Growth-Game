@@ -6,17 +6,12 @@ public class SelectableWallMounted : SelectableBase
 {
 	protected override bool IsHitValid(RaycastHit hit)
 	{
-		if (!TagIsPlaceableSurface(hit.transform.gameObject.tag))
+		if (hit.transform.gameObject.tag != "Wall")
 			return false;
 
 		//Make sure sufficiently much of the surface is showing
 		float dot = Vector3.Dot(hit.transform.up, Camera.main.transform.forward);
 		return dot < 0.3;
-	}
-
-	protected override bool TagIsPlaceableSurface(string tag)
-	{
-		return tag == "Wall";
 	}
 
 	protected override void OnStateChangedInternal()

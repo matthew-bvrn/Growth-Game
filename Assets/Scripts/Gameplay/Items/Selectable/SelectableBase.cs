@@ -22,12 +22,13 @@ public abstract class SelectableBase : MonoBehaviour
 	protected Vector3 m_workingPosition;
 
 	protected List<Vector3> m_checkedPoints = new List<Vector3>();
-	protected bool m_canPlace = false;	
+	protected bool m_canPlace = false;
+
+	GameObject m_hitObject = null;
 
 	protected abstract void UpdateObject(RaycastHit[] hits);
 	protected abstract void OnStateChangedInternal();
 	protected abstract bool IsHitValid(RaycastHit hit);
-	protected abstract bool TagIsPlaceableSurface(string tag);
 	protected virtual bool CheckOnSurface(Vector3 position)
 	{
 		return true;
@@ -128,6 +129,8 @@ public abstract class SelectableBase : MonoBehaviour
 		Vector3 hitPoint = new Vector3();
 		float distance = float.PositiveInfinity;
 
+		m_hitObject = null;
+
 		foreach (RaycastHit hit in hits)
 		{
 			if (IsHitValid(hit))
@@ -137,6 +140,7 @@ public abstract class SelectableBase : MonoBehaviour
 				{
 					hitPoint = hit.point;
 					distance = hit.distance;
+					m_hitObject = hit.transform.gameObject;
 				}
 			}
 		}
@@ -232,7 +236,7 @@ public abstract class SelectableBase : MonoBehaviour
 
 		foreach (Collider collider in colliders)
 		{
-			if (!TagIsPlaceableSurface(collider.gameObject.tag) && collider != inCollider)
+			if (collider.gameObject != m_hitObject && collider != inCollider)
 			{
 					return true;
 			}
