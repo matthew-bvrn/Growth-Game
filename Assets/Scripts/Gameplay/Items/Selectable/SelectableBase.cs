@@ -225,7 +225,7 @@ public abstract class SelectableBase : MonoBehaviour
 		if (inCollider.GetType() == typeof(BoxCollider))
 		{
 			BoxCollider boxCollider = (BoxCollider)inCollider;
-			colliders = Physics.OverlapBox(position, boxCollider.transform.localScale / 2, boxCollider.transform.rotation);
+			colliders = Physics.OverlapBox(position+ inCollider.transform.rotation*inCollider.transform.localPosition, boxCollider.transform.localScale / 2, boxCollider.transform.rotation);
 		}
 		else
 		{
