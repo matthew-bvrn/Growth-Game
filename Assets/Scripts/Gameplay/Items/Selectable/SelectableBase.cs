@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum ESelectableState
 {
@@ -13,14 +14,24 @@ public abstract class SelectableBase : MonoBehaviour
 {
 	public ESelectableState State { get; internal set; }
 
-	protected bool m_canPlace = false;
-	bool m_visible = true;
-
 	Vector3 m_position;
 	Quaternion m_rotation;
 
+	protected Vector3 m_workingPosition;
+
+	protected List<Vector3> m_checkedPoints = new List<Vector3>();
+	protected bool m_canPlace = false;
+	bool m_visible = true;
+
+	GameObject m_hitObject = null;
+
 	protected abstract void UpdateObject(RaycastHit[] hits);
 	protected abstract void OnStateChangedInternal();
+	protected abstract bool IsHitValid(RaycastHit hit);
+	protected virtual bool CheckOnSurface(Vector3 position)
+	{
+		return true;
+	}
 
 	private void Start()
 	{
@@ -112,11 +123,133 @@ public abstract class SelectableBase : MonoBehaviour
 		transform.parent = null;
 	}
 
+
 	void SetIsVisible(bool visible)
 	{
 		foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
 			renderer.enabled = visible;
 		m_visible = visible;
+	}
+
+	
+	protected void FindPlacePoint(RaycastHit[] hits, bool wasRotated, List<Vector3> offsets, Action<Vector3> callback)
+	{
+		Vector3 hitPoint = new Vector3();
+		float distance = float.PositiveInfinity;
+
+		m_hitObject = null;
+
+		foreach (RaycastHit hit in hits)
+		{
+			if (IsHitValid(hit))
+			{
+				m_canPlace = true;
+				if (hit.distance < distance)
+				{
+					hitPoint = hit.point;
+					distance = hit.distance;
+					m_hitObject = hit.transform.gameObject;
+				}
+			}
+		}
+
+		Collider collider = GetComponentInChildren<Collider>();
+		Queue<Vector3> positions = new Queue<Vector3>();
+		m_checkedPoints.Clear();
+		m_checkedPoints.Add(hitPoint);
+		positions.Enqueue(hitPoint);
+		Vector3 position;
+
+		if (!RecursiveFindPoint(collider, positions, out position, offsets))
+		{
+			//no position found
+			if (m_workingPosition == new Vector3())
+			{
+				m_canPlace = false;
+				return;
+			}
+			gameObject.transform.position = m_workingPosition;
+		}
+
+		//if it cant be placed exactly at the hit point
+		else if (position != hitPoint)
+		{
+			while (true)
+			{
+				position -= 0.01f * (position - hitPoint).normalized;
+				if (CheckCollision(collider, position))
+					break;
+			}
+
+			if (Vector3.Distance(hitPoint, position) < Vector3.Distance(gameObject.transform.position, hitPoint) || wasRotated)
+			{
+				gameObject.transform.position = position;
+				m_workingPosition = gameObject.transform.position;
+			}
+		}
+		else
+		{
+			//if it can be placed at the hit point, then just place it there
+			gameObject.transform.position = position;
+			m_workingPosition = gameObject.transform.position;
+		}
+	}
+	
+	bool RecursiveFindPoint(Collider collider, Queue<Vector3> positions, out Vector3 pos, List<Vector3> offsets)
+	{
+		pos = new Vector3();
+
+		float interval = 0.5f;
+
+		for(int i = 0; i<offsets.Count; i++)
+			offsets[i] *= interval;
+
+		while (positions.Count > 0)
+		{
+			pos = positions.Dequeue();
+
+			if (Mathf.Abs(pos.x) > 5.1 || Mathf.Abs(pos.z) > 5.1 || Mathf.Abs(pos.y) > 5.1)
+				continue;
+
+			if (!CheckCollision(collider, pos))
+				if(CheckOnSurface(pos))
+					return true;
+
+			foreach (Vector3 offset in offsets)
+			{
+				if (!m_checkedPoints.Contains(pos + offset))
+				{
+					m_checkedPoints.Add(pos + offset);
+					positions.Enqueue(pos + offset);
+				}
+			}
+		}
+		return false;
+	}
+
+	bool CheckCollision(Collider inCollider, Vector3 position)
+	{
+		Collider[] colliders;
+		if (inCollider.GetType() == typeof(BoxCollider))
+		{
+			BoxCollider boxCollider = (BoxCollider)inCollider;
+			colliders = Physics.OverlapBox(position+ inCollider.transform.rotation*inCollider.transform.localPosition, boxCollider.transform.localScale / 2, boxCollider.transform.rotation);
+		}
+		else
+		{
+			CapsuleCollider capsuleCollider = (CapsuleCollider)inCollider;
+			float radius = capsuleCollider.transform.localScale.x / 2;
+			colliders = Physics.OverlapCapsule(position + new Vector3(0, radius, 0), position + new Vector3(0, capsuleCollider.transform.localScale.y + radius, 0), radius);
+		}
+
+		foreach (Collider collider in colliders)
+		{
+			if (collider.gameObject != m_hitObject && collider != inCollider)
+			{
+					return true;
+			}
+		}
+		return false;
 	}
 }
 

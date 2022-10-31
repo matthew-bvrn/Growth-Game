@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SelectableSurfaceItem : SelectableFreestanding
 {
-	protected override bool TagIsPlaceableSurface(string tag)
+	protected override bool IsHitValid(RaycastHit hit)
 	{
+		string tag = hit.transform.gameObject.tag;
 		return tag == "Floor" || tag == "Surface";
 	}
 }

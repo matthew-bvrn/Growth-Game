@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SelectableFurniture : SelectableFreestanding
 {
-	protected override bool TagIsPlaceableSurface(string tag)
+	protected override bool IsHitValid(RaycastHit hit)
 	{
-		return tag == "Floor";
+		return hit.transform.gameObject.tag == "Floor";
 	}
 }

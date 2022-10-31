@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectableWallMounted : SelectableBase
 {
-	bool IsHitValid(RaycastHit hit)
+	protected override bool IsHitValid(RaycastHit hit)
 	{
 		if (hit.transform.gameObject.tag != "Wall")
 			return false;
@@ -19,18 +19,26 @@ public class SelectableWallMounted : SelectableBase
 		//TODO
 	}
 
+	protected override bool CheckOnSurface(Vector3 position)
+	{
+		return position.y < 5 && position.y > 0;
+	}
+
 	protected override void UpdateObject(RaycastHit[] hits)
 	{
-		m_canPlace = false;
-
 		foreach (RaycastHit hit in hits)
+		{
 			if (IsHitValid(hit))
 			{
-				gameObject.transform.position = hit.point;
 				gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, hit.transform.rotation.eulerAngles.y + 90, gameObject.transform.rotation.z);
-
-				m_canPlace = true;
 				break;
 			}
+		}
+
+		Vector3 right = gameObject.transform.right;
+
+		Vector3 cross = Vector3.Cross(right, Vector3.up);
+
+		FindPlacePoint(hits, false, new List<Vector3> { Vector3.up, Vector3.down, cross, -cross }, delegate (Vector3 pos) { gameObject.transform.position = pos; });
 	}
 }
