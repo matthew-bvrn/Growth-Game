@@ -10,7 +10,8 @@ public enum EGameState
 	ObjectMoving,
 	OpenInventoryPressed,
 	InventoryOpen,
-	Console
+	Console,
+	Inspecting
 }
 
 [Serializable]

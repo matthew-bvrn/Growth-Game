@@ -21,5 +21,6 @@ public enum EActions
 	CancelMoveObject,
 
 	//menus
-	OpenInventory
+	OpenInventory,
+	CloseMenu
 }

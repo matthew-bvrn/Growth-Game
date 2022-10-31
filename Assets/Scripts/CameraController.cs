@@ -32,6 +32,13 @@ public class CameraController : MonoBehaviour
 	[SerializeField] float m_heightSensitivity = 0.1f;
 	[SerializeField] Transform m_pivot;
 
+	Vector3 m_prevCamPos;
+	Vector3 m_newCamPos;
+	Quaternion m_prevCamRot;
+	Quaternion m_newCamRot;
+	float m_cameraMoveTime = 0.5f;
+	float m_selectedCamProgress = 1f;
+
 	public void Start()
 	{
 		StateManager.Get.OnStateChange += OnStateChanged;
@@ -43,6 +50,18 @@ public class CameraController : MonoBehaviour
 			StartMoving();
 		else if (StateManager.Get.PreviousState == EGameState.CameraMoving)
 			StopMoving();
+		else if (state == EGameState.Inspecting)
+		{
+			Vector3 offset = Quaternion.Euler(0, 90, 0) * transform.rotation * new Vector3(2, 0, 0);
+			Vector3 newCamPos = SelectablesManager.Get.Selected.transform.position + new Vector3(0f, 2, 0) + offset;
+			Quaternion newCamRot= Quaternion.Euler(35, transform.eulerAngles.y, 0);
+
+			InitiateMotion(newCamPos, newCamRot);
+		}
+		else if (state == EGameState.Viewing && StateManager.Get.PreviousState == EGameState.Inspecting)
+		{
+			InitiateMotion(m_prevCamPos, m_prevCamRot);
+		}
 	}
 
 	public void StartMoving()
@@ -57,9 +76,38 @@ public class CameraController : MonoBehaviour
 		Cursor.lockState = CursorLockMode.None;
 	}
 
+	void InitiateMotion(Vector3 newCamPos, Quaternion newCamRot, float cameraMoveTime = 0.5f)
+	{
+		m_newCamPos = newCamPos;
+		m_newCamRot = newCamRot;
+		m_cameraMoveTime = cameraMoveTime;
+
+		m_prevCamPos = transform.position;
+		m_prevCamRot = transform.rotation;
+		m_selectedCamProgress = 0;
+	}
+
+	void UpdateMotion()
+	{
+		if (m_selectedCamProgress < 1)
+		{
+			transform.position = m_newCamPos * m_selectedCamProgress + m_prevCamPos * (1 - m_selectedCamProgress);
+			transform.rotation = Quaternion.Lerp(m_prevCamRot, m_newCamRot, m_selectedCamProgress);
+
+			m_selectedCamProgress += Time.deltaTime / m_cameraMoveTime;
+		}
+	}
+
 	void Update()
 	{
 		EGameState state = StateManager.Get.State;
+
+		UpdateMotion();
+
+		if (state == EGameState.Inspecting)
+		{
+			transform.RotateAround(SelectablesManager.Get.Selected.transform.position, Vector3.up, 3 * Time.deltaTime);
+		}
 
 		if (state != EGameState.Viewing && state != EGameState.CameraMoving)
 			return;

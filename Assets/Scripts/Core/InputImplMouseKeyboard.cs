@@ -179,6 +179,7 @@ internal class InputImplMouseKeyboard : InputImpl
 
 		//menus
 		inputs.Add(EActions.OpenInventory, new KeyboardButtonPress(KeyCode.E));
+		inputs.Add(EActions.CloseMenu, new KeyboardButtonPress(KeyCode.Escape));
 	}
 
 	public Vector2 GetSelectionPosition()
