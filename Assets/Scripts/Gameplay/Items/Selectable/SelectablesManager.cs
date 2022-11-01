@@ -97,19 +97,12 @@ public class SelectablesManager : MonoBehaviour
 			return;
 		}
 
-		//RenderTexture currentActiveRT = RenderTexture.active; 
-		m_selectableCamera.targetTexture = m_rt;
-
-		m_selectableCamera.Render();
-
-		RenderTexture.active = m_rt;
-		m_tex.ReadPixels(new Rect((int)pos.x, Screen.height - (int)pos.y, 1, 1), 0, 0, false);
-
-		m_selectableCamera.targetTexture = null;
-		//RenderTexture.active = currentActiveRT;
-		Color colour = m_tex.GetPixel(0, 0);
-
-		TryHighlight(GetSelectable(colour), true);
+		RaycastHit hit;
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		if(Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Selectable")))
+			TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
+		else
+			TryHighlight(null, true);
 
 		if (InputManager.Get.IsJustPressed(EActions.Select) && !HighlightSystem.Get.ElementHighlighted)
 		{
