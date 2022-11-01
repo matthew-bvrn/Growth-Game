@@ -17,8 +17,6 @@ public class SelectablesManager : MonoBehaviour
 		if (Get == null)
 		{
 			Get = this;
-			int resWidth = Screen.width;
-			int resHeight = Screen.height;
 		}
 		else
 		{
