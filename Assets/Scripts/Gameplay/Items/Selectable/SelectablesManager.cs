@@ -81,12 +81,15 @@ public class SelectablesManager : MonoBehaviour
 			return;
 		}
 
-		RaycastHit hit;
-		Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
-		if(Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Selectable")))
-			TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
-		else
-			TryHighlight(null, true);
+		if (StateManager.Get.State == EGameState.Viewing)
+		{
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
+			if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Selectable")))
+				TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
+			else
+				TryHighlight(null, true);
+		}
 
 		if (InputManager.Get.IsJustPressed(EActions.Select) && !HighlightSystem.Get.ElementHighlighted)
 		{
