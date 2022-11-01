@@ -12,10 +12,6 @@ public class SelectablesManager : MonoBehaviour
 	HighlightableComponent m_highlighted;
 	public SelectableBase Selected { get; private set; }
 
-	[SerializeField] Camera m_selectableCamera;
-	RenderTexture m_rt;
-	Texture2D m_tex;
-
 	void Start()
 	{
 		if (Get == null)
@@ -23,8 +19,6 @@ public class SelectablesManager : MonoBehaviour
 			Get = this;
 			int resWidth = Screen.width;
 			int resHeight = Screen.height;
-			m_rt = new RenderTexture(resWidth, resHeight, 24);
-			m_tex = new Texture2D(1, 1, TextureFormat.RGB24, false);
 		}
 		else
 		{
@@ -83,14 +77,6 @@ public class SelectablesManager : MonoBehaviour
 
 	public void Update()
 	{
-		Vector2 pos = InputManager.Get.GetSelectionPosition();
-
-		var view = m_selectableCamera.ScreenToViewportPoint(pos);
-		var isOutside = view.x < 0 || view.x > 1 || view.y < 0 || view.y > 1;
-
-		if (isOutside)
-			return;
-
 		if (StateManager.Get.State != EGameState.Viewing && StateManager.Get.State != EGameState.ObjectSelected)
 		{
 			TryHighlight(null, true);
@@ -98,7 +84,7 @@ public class SelectablesManager : MonoBehaviour
 		}
 
 		RaycastHit hit;
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
 		if(Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Selectable")))
 			TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
 		else
