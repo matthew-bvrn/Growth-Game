@@ -100,21 +100,22 @@ public abstract class SelectableBase : MonoBehaviour
 
 	void CheckSurface()
 	{
-		Ray ray = new Ray(transform.position+new Vector3(0,0.1f,0), Vector3.down);
+		Ray ray = new Ray(transform.position + new Vector3(0, 0.1f, 0), Vector3.down);
 		RaycastHit[] hits = Physics.RaycastAll(ray, 0.25f);
-		foreach(RaycastHit hit in hits)
+		foreach (RaycastHit hit in hits)
 		{
-			if(hit.transform.tag == "Surface")
+			if (hit.transform.tag == "Surface")
 			{
-				hit.transform.parent.GetComponent<SurfaceComponent>().OnSurfaceDestroyed += () => 
+				hit.transform.parent.GetComponent<SurfaceComponent>().OnSurfaceDestroyed += () =>
 				{
 					transform.parent = null;
 					transform.position = Physics.RaycastAll(transform.position, Vector3.down)[0].point;
-					foreach(Behaviour component in GetComponents(typeof(Behaviour)))
+					foreach (Behaviour component in GetComponents(typeof(Behaviour)))
 					{
 						component.enabled = true;
 					}
 				};
+
 				transform.parent = hit.transform.parent;
 				return;
 			}
@@ -131,7 +132,7 @@ public abstract class SelectableBase : MonoBehaviour
 		m_visible = visible;
 	}
 
-	
+
 	protected void FindPlacePoint(RaycastHit[] hits, bool wasRotated, List<Vector3> offsets, Action<Vector3> callback)
 	{
 		Vector3 hitPoint = new Vector3();
@@ -194,14 +195,14 @@ public abstract class SelectableBase : MonoBehaviour
 			m_workingPosition = gameObject.transform.position;
 		}
 	}
-	
+
 	bool RecursiveFindPoint(Collider collider, Queue<Vector3> positions, out Vector3 pos, List<Vector3> offsets)
 	{
 		pos = new Vector3();
 
 		float interval = 0.5f;
 
-		for(int i = 0; i<offsets.Count; i++)
+		for (int i = 0; i < offsets.Count; i++)
 			offsets[i] *= interval;
 
 		while (positions.Count > 0)
@@ -212,7 +213,7 @@ public abstract class SelectableBase : MonoBehaviour
 				continue;
 
 			if (!CheckCollision(collider, pos))
-				if(CheckOnSurface(pos))
+				if (CheckOnSurface(pos))
 					return true;
 
 			foreach (Vector3 offset in offsets)
@@ -233,7 +234,7 @@ public abstract class SelectableBase : MonoBehaviour
 		if (inCollider.GetType() == typeof(BoxCollider))
 		{
 			BoxCollider boxCollider = (BoxCollider)inCollider;
-			colliders = Physics.OverlapBox(position+ inCollider.transform.rotation*inCollider.transform.localPosition, boxCollider.transform.localScale / 2, boxCollider.transform.rotation);
+			colliders = Physics.OverlapBox(position + inCollider.transform.rotation * inCollider.transform.localPosition, boxCollider.transform.localScale / 2, boxCollider.transform.rotation);
 		}
 		else
 		{
@@ -244,9 +245,9 @@ public abstract class SelectableBase : MonoBehaviour
 
 		foreach (Collider collider in colliders)
 		{
-			if (collider.gameObject != m_hitObject && collider != inCollider)
+			if (collider.gameObject != m_hitObject && collider != inCollider && collider.transform.parent != null && collider.transform.parent.parent != transform)
 			{
-					return true;
+				return true;
 			}
 		}
 		return false;
