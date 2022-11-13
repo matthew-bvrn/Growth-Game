@@ -6,7 +6,7 @@ using UnityEngine;
 public partial class PlantManagerRealtime : PlantManagerBase
 {
 	//TODO move somewhere sensible like game manager
-	public static float m_testDeltaMultiplier = 5000;
+	public static float m_testDeltaMultiplier = 1000;
 
 	new public void Start()
 	{
