@@ -7,6 +7,7 @@ public class InspectMenu : MonoBehaviour
 {
 	[SerializeField] GameObject m_menu;
 	[SerializeField] Slider m_healthSlider;
+	[SerializeField] Slider m_waterSlider;
 
 	public void OnInspect()
 	{
@@ -36,6 +37,7 @@ public class InspectMenu : MonoBehaviour
 		{
 			Debug.Log(SelectablesManager.Get.Selected.GetComponent<Parameters.ParametersComponent>().WaterHealth);
 			m_healthSlider.value = SelectablesManager.Get.Selected.GetComponent<Parameters.ParametersComponent>().GrowthFactor;
+			m_waterSlider.value = SelectablesManager.Get.Selected.GetComponent<Parameters.ParametersComponent>().WaterLevel;
 		}
 	}
 

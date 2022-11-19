@@ -42,6 +42,7 @@ public class WaterUptake : MonoBehaviour, IGrowthAffector
 
 		m_waterLevel += s_waterUptakeMultiplier * deltaSeconds * diff * uptakeRate;
 		m_waterSickness = GetComponentInParent<Parameters.ParametersComponent>().UpdateWaterHealth(m_waterLevel);
+		GetComponentInParent<Parameters.ParametersComponent>().WaterLevel = m_waterLevel;
 	}
 
 	internal WaterData GetData()

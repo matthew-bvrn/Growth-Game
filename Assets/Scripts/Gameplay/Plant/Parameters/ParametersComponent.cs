@@ -34,6 +34,7 @@ namespace Parameters
 		public float UptakeRate { get => m_baseUptakeRate * s_uptakeMultiplier; }
 
 		public float GrowthFactor { get; set; }
+		public float WaterLevel { get; set; }
 		public float WaterHealth { get; private set; }
 
 		public float UpdateWaterHealth(float value)
