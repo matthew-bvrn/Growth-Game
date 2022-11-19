@@ -8,7 +8,7 @@ public partial class PlantManagerRealtime : PlantManagerBase
 
 	void DebugWaterAll(int count, params string[] args)
 	{
-		foreach (PlantComponent plant in GetComponentsInChildren<PlantComponent>())
+		foreach (PlantComponent plant in m_plants)
 		{
 			plant.GetComponent<GrowthComponent>().Water();
 		}
@@ -101,7 +101,7 @@ public partial class PlantManagerRealtime : PlantManagerBase
 	{
 		float minDistance = float.PositiveInfinity;
 		PlantComponent minPlant = null;
-		foreach (PlantComponent plant in GetComponentsInChildren<PlantComponent>())
+		foreach (PlantComponent plant in m_plants)
 		{
 			float distance = (plant.transform.position - m_freeCam.transform.position).magnitude;
 
