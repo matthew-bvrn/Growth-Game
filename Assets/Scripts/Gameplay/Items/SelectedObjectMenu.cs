@@ -10,6 +10,7 @@ public class SelectedObjectMenu : MonoBehaviour
 	void Start()
 	{
 		StateManager.Get.OnStateChange += OnStateChange;
+		SelectablesManager.Get.OnSelected += OnSelected;
 	}
 
 	public void OnMove()
@@ -25,11 +26,16 @@ public class SelectedObjectMenu : MonoBehaviour
 
 	void OnStateChange(EGameState state)
 	{
-		if(state == EGameState.ObjectSelected)
+		if (state != EGameState.ObjectSelected)
+			m_menu.SetActive(false);
+	}
+
+	void OnSelected(SelectableBase selectable)
+	{
+		if(selectable)
 		{
 			m_menu.SetActive(true);
 			m_menu.GetComponent<RectTransform>().position = InputManager.Get.GetSelectionPosition(); 
-
 		}
 		else
 		{

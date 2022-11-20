@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+public delegate void OnSelectedEvent(SelectableBase selectable);
+
 public class SelectablesManager : MonoBehaviour
 {
 	public static SelectablesManager Get;
@@ -11,6 +14,7 @@ public class SelectablesManager : MonoBehaviour
 
 	HighlightableComponent m_highlighted;
 	public SelectableBase Selected { get; private set; }
+	public event OnSelectedEvent OnSelected;
 
 	void Start()
 	{
@@ -81,15 +85,13 @@ public class SelectablesManager : MonoBehaviour
 			return;
 		}
 
-		if (StateManager.Get.State == EGameState.Viewing)
-		{
-			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
-			if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Selectable")))
-				TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
-			else
-				TryHighlight(null, true);
-		}
+		RaycastHit hit;
+		Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
+		if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Selectable")))
+			TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
+		else
+			TryHighlight(null, true);
+
 
 		if (InputManager.Get.IsJustPressed(EActions.Select) && !HighlightSystem.Get.ElementHighlighted)
 		{
@@ -98,6 +100,7 @@ public class SelectablesManager : MonoBehaviour
 				if (m_highlighted.transform.parent.GetComponent<SelectableBase>() != null)
 				{
 					Selected = m_highlighted.transform.parent.GetComponent<SelectableBase>();
+					OnSelected.Invoke(Selected);
 					StateManager.Get.TrySetState(EGameState.ObjectSelected);
 				}
 				else
@@ -108,6 +111,7 @@ public class SelectablesManager : MonoBehaviour
 			else //unselect
 			{
 				Selected = null;
+				OnSelected.Invoke(Selected);
 				StateManager.Get.TrySetState(EGameState.Viewing);
 			}
 		}
