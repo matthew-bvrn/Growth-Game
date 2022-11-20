@@ -37,12 +37,16 @@ public class LeafRosette : Leaf
 
 		m_ageProgress = Age / m_maxAge;
 
+		if (m_ageProgress < 2)
+		{
+			float rotation = m_ageProgress * rosetteParams.m_maxRotation + (1 - m_ageProgress) * rosetteParams.m_initialRotation;
+			gameObject.transform.rotation = Quaternion.Euler(rotation, gameObject.transform.rotation.eulerAngles.y, 0);
+		}
+
 		if (m_state == ELeafState.Growing)
 		{
 			m_growth += rosetteParams.m_growthScaleSpeed * m_potFactor * deltaGrowth;
 			gameObject.transform.localScale = m_growth * onesVec;
-			float rotation = m_ageProgress * rosetteParams.m_maxRotation + (1 - m_ageProgress) * rosetteParams.m_initialRotation;
-			gameObject.transform.rotation = Quaternion.Euler(rotation, gameObject.transform.rotation.eulerAngles.y, 0);
 
 			GetComponent<LeafRosetteAnimationComponent>().Age = m_ageProgress;
 
@@ -53,7 +57,7 @@ public class LeafRosette : Leaf
 			}
 
 		}
-		if (m_state == ELeafState.Dying)
+		if (m_state == ELeafState.Dying && gameObject.transform.localScale.x > rosetteParams.m_deadLeafSize)
 		{
 			gameObject.transform.localScale = m_maxSize - (Age - m_maxAge) * rosetteParams.m_deathScaleSpeed * onesVec * m_potFactor;
 			if (gameObject.transform.localScale.x < 0)

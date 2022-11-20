@@ -9,6 +9,6 @@ public class LeafRosetteShaderComponent : MonoBehaviour
 	internal void UpdateShader(float waterHealth, float ageFactor)
 	{
 		m_mesh.material.SetFloat("WaterHealth", waterHealth);
-		m_mesh.material.SetFloat("AgeFactor", ageFactor);
+		m_mesh.material.SetFloat("AgeFactor", Mathf.Min(ageFactor, 1));
 	}
 }

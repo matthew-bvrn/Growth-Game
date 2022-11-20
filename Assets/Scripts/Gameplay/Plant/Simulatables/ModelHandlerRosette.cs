@@ -7,6 +7,7 @@ public class LeafParametersRosette : LeafParametersBase
 {
 	public float m_initialRotation = -50;
 	public float m_maxRotation = -80;
+	public float m_deadLeafSize = 5;
 
 	public float m_growthScaleSpeed = 0.03f;
 	public float m_deathScaleSpeed = 0.01f;
