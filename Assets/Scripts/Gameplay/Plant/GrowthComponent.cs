@@ -13,10 +13,16 @@ public class GrowthComponent : MonoBehaviour
 	[SerializeField] float m_growthFactor;
 
 	static float s_growthMultiplier = 0.05f;
+	static float s_sicknessMultiplier = 0.0005f;
 	static int s_longTermSimulationTimestep = 1;
 
 	public float Growth { get => m_growth; }
 	public float DeltaGrowth { get => m_deltaGrowth; }
+#if UNITY_EDITOR
+	[ReadOnly]
+#endif
+	[SerializeField] float m_sickness = 0;
+	bool m_isDead = false;
 
 	public void Start()
 	{
@@ -80,13 +86,16 @@ public class GrowthComponent : MonoBehaviour
 
 	void SimulateImpl(float deltaTime)
 	{
+		if (m_isDead)
+			return;
+
 		if (GetComponent<SelectableBase>().State != ESelectableState.Placed)
 			return;
 
 		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
 			component.PreSimulate(deltaTime);
 
-		CalculateGrowthFactor(GetComponentInChildren<WaterUptake>().WaterLevel);
+		CalculateGrowthFactor(deltaTime);
 
 		m_deltaGrowth = deltaTime * m_growthFactor * s_growthMultiplier;
 		m_growth += m_deltaGrowth;
@@ -99,7 +108,7 @@ public class GrowthComponent : MonoBehaviour
 			component.Age(deltaTime * s_growthMultiplier);
 	}
 
-	public void CalculateGrowthFactor(float waterLevel)
+	public void CalculateGrowthFactor(float deltaTime)
 	{
 		Parameters.ParametersComponent parametersComponent = GetComponent<Parameters.ParametersComponent>();
 
@@ -108,6 +117,21 @@ public class GrowthComponent : MonoBehaviour
 
 		foreach (IGrowthAffector component in GetComponentsInChildren<IGrowthAffector>())
 			growthFactor *= component.GetGrowthFactor();
+
+
+		if (growthFactor < 0.5)
+			m_sickness += deltaTime * 2*(0.5f-growthFactor) * s_sicknessMultiplier * s_growthMultiplier;
+		else
+			m_sickness -= deltaTime * 2*(growthFactor-0.5f) * s_sicknessMultiplier * s_growthMultiplier;
+
+		m_sickness = Mathf.Clamp(m_sickness, 0, 1);
+
+		if (m_sickness == 1)
+		{
+			m_isDead = true;
+		}
+
+		growthFactor *= (1 - m_sickness);
 
 		parametersComponent.GrowthFactor = growthFactor;
 
