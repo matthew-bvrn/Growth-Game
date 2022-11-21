@@ -23,7 +23,7 @@ public class SoilSaturation : ISimulatable
 
 	bool m_isInitialised = false;
 
-	static float s_standardDrainingTime = 6; //hours
+	static float s_standardDrainingTime = 12; //hours
 
 	public event SaturationEvent SaturationUpdated;
 
