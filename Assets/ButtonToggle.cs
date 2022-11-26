@@ -2,8 +2,10 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonDisable : MonoBehaviour
+public class ButtonToggle : MonoBehaviour
 {
+	bool m_state = false;
+
 	public void Start()
 	{
 		GetComponent<Button>().onClick.AddListener(OnClick);
@@ -11,7 +13,9 @@ public class ButtonDisable : MonoBehaviour
 
 	public void OnClick()
 	{
-		Debug.Log(EventSystem.current.currentSelectedGameObject);
-		EventSystem.current.SetSelectedGameObject(null);
+		m_state = !m_state;
+
+		if(!m_state)
+			EventSystem.current.SetSelectedGameObject(null);
 	}
 }

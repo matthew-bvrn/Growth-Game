@@ -30,7 +30,6 @@ namespace Parameters
 
 		public void UpdateSaturation(float saturation)
 		{
-			Debug.Log(GetComponentInChildren<MeshRenderer>().materials[1]);
 			GetComponentInChildren<MeshRenderer>().materials[1].SetFloat("Saturation", saturation);
 		}
 
