@@ -93,7 +93,7 @@ public class SelectablesManager : MonoBehaviour
 			TryHighlight(null, true);
 
 
-		if (InputManager.Get.IsJustPressed(EActions.Select) && !HighlightSystem.Get.ElementHighlighted)
+		if (InputManager.Get.IsJustPressed(EActions.Select) && !UiEventSystem.Get.ElementHighlighted)
 		{
 			if (m_highlighted != null) //select highlighted object
 			{

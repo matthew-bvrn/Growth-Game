@@ -106,12 +106,12 @@ public class InventoryMenu : MonoBehaviour
 		if (StateManager.Get.State != EGameState.InventoryOpen)
 			return;
 
-		if (InputManager.Get.IsJustPressed(EActions.Select) && !HighlightSystem.Get.ElementHighlighted)
+		if (InputManager.Get.IsJustPressed(EActions.Select) && !UiEventSystem.Get.ElementHighlighted)
 		{
 			StateManager.Get.TrySetState(EGameState.Viewing);
 		}
 
-		if (InputManager.Get.IsJustPressed(EActions.CameraMoving) && !HighlightSystem.Get.ElementHighlighted)
+		if (InputManager.Get.IsJustPressed(EActions.CameraMoving) && !UiEventSystem.Get.ElementHighlighted)
 		{
 			StateManager.Get.TrySetState(EGameState.CameraMoving);
 		}
