@@ -20,12 +20,18 @@ namespace Parameters
 		Terracotta
 	}
 
-	internal class Pot : MonoBehaviour
+	public class Pot : MonoBehaviour
 	{
 		internal void Initialise(EPotSize _size, EPotMaterial _material)
 		{
 			Size = _size;
 			Material = _material;
+		}
+
+		public void UpdateSaturation(float saturation)
+		{
+			Debug.Log(GetComponentInChildren<MeshRenderer>().materials[1]);
+			GetComponentInChildren<MeshRenderer>().materials[1].SetFloat("Saturation", saturation);
 		}
 
 		//TODO make these data driven

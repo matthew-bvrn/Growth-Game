@@ -32,6 +32,11 @@ public class SoilSaturation : ISimulatable
 		m_saturation = Mathf.Clamp(m_saturation + amount, 0, 1);
 	}
 
+	private void Start()
+	{
+		SaturationUpdated += OnSaturationUpdated;
+	}
+
 	public override void Initialise(InitParamsBase initParams)
 	{
 		if (!m_isInitialised)
@@ -72,5 +77,10 @@ public class SoilSaturation : ISimulatable
 	{
 		m_isInitialised = true;
 		m_saturation = data.Saturation;
+	}
+
+	void OnSaturationUpdated(float saturation, float delta)
+	{
+		GetComponentInChildren<Parameters.Pot>().UpdateSaturation(saturation);
 	}
 }
