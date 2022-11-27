@@ -10,7 +10,7 @@ public class SelectedObjectMenu : MonoBehaviour
 	void Start()
 	{
 		StateManager.Get.OnStateChange += OnStateChange;
-		SelectablesManager.Get.OnSelected += OnSelected;
+		HighlightablesManager.Get.SelectedEvent += OnSelected;
 	}
 
 	public void OnMove()
@@ -30,7 +30,7 @@ public class SelectedObjectMenu : MonoBehaviour
 			m_menu.SetActive(false);
 	}
 
-	void OnSelected(SelectableBase selectable)
+	void OnSelected(GameObject selectable)
 	{
 		if(selectable)
 		{

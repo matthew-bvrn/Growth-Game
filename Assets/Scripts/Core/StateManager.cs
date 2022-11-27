@@ -11,7 +11,8 @@ public enum EGameState
 	OpenInventoryPressed,
 	InventoryOpen,
 	Console,
-	Inspecting
+	Inspecting,
+	Pruning
 }
 
 [Serializable]

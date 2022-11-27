@@ -1,24 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-
-
-public delegate void OnSelectedEvent(SelectableBase selectable);
 
 public class SelectablesManager : MonoBehaviour
 {
 	public static SelectablesManager Get;
 
-	HighlightableComponent m_highlighted;
-	public SelectableBase Selected { get; private set; }
-	public event OnSelectedEvent OnSelected;
 
+	public SelectableBase Selected { get; private set; }
+
+	// Start is called before the first frame update
 	void Start()
 	{
 		if (Get == null)
 		{
 			Get = this;
+			HighlightablesManager.Get.SelectedEvent += OnSelected;
 		}
 		else
 		{
@@ -26,24 +23,21 @@ public class SelectablesManager : MonoBehaviour
 		}
 	}
 
-	bool TryHighlight(HighlightableComponent selectable, bool forceIfNull)
+	// Update is called once per frame
+	void Update()
 	{
-		if (m_highlighted != null)
-			m_highlighted.Highlighted = false;
-
-		if (selectable == null && !forceIfNull)
-			return false;
-
-		m_highlighted = selectable;
-		if (m_highlighted != null)
-			m_highlighted.Highlighted = true;
-
-		return true;
+		if (StateManager.Get.State == EGameState.Viewing || StateManager.Get.State == EGameState.ObjectSelected)
+		{
+			if (InputManager.Get.IsJustPressed(EActions.CameraMoving))
+			{
+				StateManager.Get.TrySetState(EGameState.CameraMoving);
+			}
+		}
 	}
 
 	public void SetObjectMovingState(SelectableBase selectable = null)
 	{
-		if(selectable!=null)
+		if (selectable != null)
 		{
 			Selected = selectable;
 		}
@@ -52,48 +46,27 @@ public class SelectablesManager : MonoBehaviour
 		StateManager.Get.TrySetState(EGameState.ObjectMoving);
 	}
 
-	public void Update()
+	void OnSelected(GameObject selected)
 	{
-		if (StateManager.Get.State != EGameState.Viewing && StateManager.Get.State != EGameState.ObjectSelected)
+		if (StateManager.Get.State == EGameState.Viewing || StateManager.Get.State == EGameState.ObjectSelected)
 		{
-			TryHighlight(null, true);
-			return;
-		}
-
-		RaycastHit hit;
-		Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
-		if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Selectable")))
-			TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
-		else
-			TryHighlight(null, true);
-
-
-		if (InputManager.Get.IsJustPressed(EActions.Select) && !UiEventSystem.Get.ElementHighlighted)
-		{
-			if (m_highlighted != null) //select highlighted object
+			if (selected != null)
 			{
-				if (m_highlighted.transform.parent.GetComponent<SelectableBase>() != null)
+				if (selected.GetComponent<SelectableBase>() != null)
 				{
-					Selected = m_highlighted.transform.parent.GetComponent<SelectableBase>();
-					OnSelected.Invoke(Selected);
 					StateManager.Get.TrySetState(EGameState.ObjectSelected);
+					Selected = selected.GetComponent<SelectableBase>();
 				}
 				else
 				{
-					Debug.LogError("Tried to select the parent of " + m_highlighted.name + ", but the parent is not a selectable object.");
+					Debug.LogError("Tried to select the parent of " + selected.name + ", but the parent is not a selectable object.");
 				}
 			}
-			else //unselect
+			else
 			{
 				Selected = null;
-				OnSelected.Invoke(Selected);
 				StateManager.Get.TrySetState(EGameState.Viewing);
 			}
-		}
-
-		if(InputManager.Get.IsJustPressed(EActions.CameraMoving))
-		{
-			StateManager.Get.TrySetState(EGameState.CameraMoving);
 		}
 	}
 }

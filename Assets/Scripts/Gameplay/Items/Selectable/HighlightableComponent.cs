@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class HighlightableComponent : MonoBehaviour
 {
-	int m_id;
-	Color m_colour;
+	public enum EType
+	{
+		Item,
+		Leaf
+	}
+
+	public EType Type = EType.Item;
 
 	internal bool Highlighted
 	{
