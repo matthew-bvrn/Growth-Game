@@ -5,7 +5,8 @@
         "Parameters",
         "Utils",
         "Debug",
-        "Items"
+        "Items",
+        "Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

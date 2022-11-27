@@ -35,6 +35,11 @@ public class ModelHandlerRosette : ModelHandler
 
 	List<LeafRosette> m_leafRemoveBuffer = new List<LeafRosette>();
 
+	private void Start()
+	{
+		HighlightablesManager.Get.SelectedEvent += OnPrune;
+	}
+
 	public sealed override ModelData GetData()
 	{
 		ModelRosetteData modelRosetteData = new ModelRosetteData();
@@ -139,5 +144,18 @@ public class ModelHandlerRosette : ModelHandler
 		}
 
 		m_leafRemoveBuffer.Clear();
+	}
+
+	void OnPrune(GameObject selected)
+	{
+		if (SelectablesManager.Get.Selected.gameObject == transform.parent.gameObject && StateManager.Get.State == EGameState.Pruning)
+		{
+			m_leafRemoveBuffer.Add(selected.GetComponent<LeafRosette>());
+			foreach(LeafRosette leaf in m_leaves)
+			{
+				if (leaf.transform.position.y > selected.transform.position.y)
+					leaf.transform.position += new Vector3(0, -m_newLeafHeightIncrement, 0);
+			}
+		}
 	}
 }
