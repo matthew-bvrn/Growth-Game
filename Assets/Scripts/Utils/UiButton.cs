@@ -64,7 +64,6 @@ public class UiButton : MonoBehaviour
 			if (m_mouseInRegion && State != ButtonState.Highlighted && (UiEventSystem.Get.SelectedMousePos != Input.mousePosition))
 			{
 				SetState(ButtonState.Highlighted);
-				Debug.Log("highlight");
 				UiEventSystem.Get.OnHighlighted(this);
 			}
 			else if (!m_mouseInRegion && State == ButtonState.Highlighted)

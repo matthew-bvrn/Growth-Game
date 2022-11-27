@@ -70,9 +70,8 @@ public class HighlightablesManager : MonoBehaviour
 		else
 			TryHighlight(null, true);
 
-		if (InputManager.Get.IsJustPressed(EActions.Select) && !UiEventSystem.Get.ElementHighlighted)
-		{
-			SelectedEvent.Invoke(m_highlighted.transform.parent.gameObject);
-		}
+		if (m_highlighted)
+			if (InputManager.Get.IsJustPressed(EActions.Select) && !UiEventSystem.Get.ElementHighlighted)
+				SelectedEvent.Invoke(m_highlighted.transform.parent.gameObject);
 	}
 }
