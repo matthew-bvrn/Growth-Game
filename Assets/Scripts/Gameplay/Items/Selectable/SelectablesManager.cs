@@ -10,8 +10,6 @@ public class SelectablesManager : MonoBehaviour
 {
 	public static SelectablesManager Get;
 
-	Dictionary<Vector3Int, HighlightableComponent> m_selectables = new Dictionary<Vector3Int, HighlightableComponent>();
-
 	HighlightableComponent m_highlighted;
 	public SelectableBase Selected { get; private set; }
 	public event OnSelectedEvent OnSelected;
@@ -26,29 +24,6 @@ public class SelectablesManager : MonoBehaviour
 		{
 			Destroy(this);
 		}
-	}
-
-	Vector3Int Convert(Color colour)
-	{
-		return new Vector3Int(Mathf.RoundToInt(colour.r * 10), Mathf.RoundToInt(colour.g * 10), Mathf.RoundToInt(colour.b * 10));
-	}
-
-	public void Register(Color colour, HighlightableComponent selectable)
-	{
-		m_selectables.Add(Convert(colour), selectable);
-	}
-
-	public void Unregister(Color colour)
-	{
-		m_selectables.Remove(Convert(colour));
-	}
-
-	HighlightableComponent GetSelectable(Color colour)
-	{
-		if (m_selectables.ContainsKey(Convert(colour)))
-			return m_selectables[Convert(colour)];
-
-		return null;
 	}
 
 	bool TryHighlight(HighlightableComponent selectable, bool forceIfNull)

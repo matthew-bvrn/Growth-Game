@@ -79,7 +79,6 @@ public class UiButton : MonoBehaviour
 
 		if (m_timer < m_fadeDuration)
 		{
-			Debug.Log(GetComponent<Image>().color);
 			GetComponent<Image>().color = (m_timer / m_fadeDuration) * m_newColor + (1 - m_timer / m_fadeDuration) * m_previousColor;
 			m_timer += Time.deltaTime;
 		}
