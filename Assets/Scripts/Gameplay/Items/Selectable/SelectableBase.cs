@@ -154,7 +154,17 @@ public abstract class SelectableBase : MonoBehaviour
 			}
 		}
 
-		Collider collider = GetComponentInChildren<Collider>();
+		Collider collider = new Collider();
+
+		foreach (HighlightableComponent component in GetComponentsInChildren<HighlightableComponent>())
+		{
+			if(component.Type == HighlightableComponent.EType.Item)
+			{
+				collider = component.GetComponent<Collider>();
+				break;
+			}	
+		}
+
 		Queue<Vector3> positions = new Queue<Vector3>();
 		m_checkedPoints.Clear();
 		m_checkedPoints.Add(hitPoint);
