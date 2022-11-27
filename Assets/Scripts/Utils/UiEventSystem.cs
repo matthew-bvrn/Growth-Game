@@ -67,24 +67,27 @@ public class UiEventSystem : MonoBehaviour
 		}
 		if (Input.GetMouseButtonUp(0))
 		{
-			if (Highlighted.Type == ButtonType.Toggle)
+			if (Highlighted != null)
 			{
-				if (Highlighted.ToggleState == true)
+				if (Highlighted.Type == ButtonType.Toggle)
 				{
-					Highlighted.SetState(ButtonState.Selected);
-					Highlighted.m_onSelected.Invoke();
+					if (Highlighted.ToggleState == true)
+					{
+						Highlighted.SetState(ButtonState.Selected);
+						Highlighted.m_onSelected.Invoke();
+					}
+					else
+					{
+						Highlighted.SetState(ButtonState.Normal);
+						Highlighted.m_onDeselected.Invoke();
+					}
 				}
-				else
+
+				if (Highlighted.Type == ButtonType.Action)
 				{
 					Highlighted.SetState(ButtonState.Normal);
-					Highlighted.m_onDeselected.Invoke();
+					Highlighted.m_onSelected.Invoke();
 				}
-			}
-
-			if (Highlighted.Type == ButtonType.Action)
-			{
-				Highlighted.SetState(ButtonState.Normal);
-				Highlighted.m_onSelected.Invoke();
 			}
 
 			if (Selected != null)
