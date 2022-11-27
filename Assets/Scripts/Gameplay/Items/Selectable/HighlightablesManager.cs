@@ -62,7 +62,11 @@ public class HighlightablesManager : MonoBehaviour
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay(InputManager.Get.GetSelectionPosition());
 		if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Selectable")))
-			TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
+		{
+			HighlightableComponent component = hit.transform.GetComponent<HighlightableComponent>();
+			if(component.Type == type)
+				TryHighlight(hit.transform.GetComponent<HighlightableComponent>(), true);
+		}
 		else
 			TryHighlight(null, true);
 
