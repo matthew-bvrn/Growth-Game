@@ -75,11 +75,13 @@ public class UiEventSystem : MonoBehaviour
 					{
 						Highlighted.SetState(ButtonState.Selected);
 						Highlighted.m_onSelected.Invoke();
+						return;
 					}
 					else
 					{
 						Highlighted.SetState(ButtonState.Normal);
 						Highlighted.m_onDeselected.Invoke();
+						return;
 					}
 				}
 
@@ -87,13 +89,8 @@ public class UiEventSystem : MonoBehaviour
 				{
 					Highlighted.SetState(ButtonState.Normal);
 					Highlighted.m_onSelected.Invoke();
+					return;
 				}
-			}
-
-			if (Selected != null)
-			{
-				Selected.SetState(ButtonState.Selected);
-				Selected.m_onSelected.Invoke();
 			}
 		}
 	}

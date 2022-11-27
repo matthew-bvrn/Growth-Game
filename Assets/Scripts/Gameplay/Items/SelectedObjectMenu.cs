@@ -32,7 +32,7 @@ public class SelectedObjectMenu : MonoBehaviour
 
 	void OnSelected(GameObject selectable)
 	{
-		if(selectable)
+		if(selectable && selectable.GetComponent<SelectableBase>())
 		{
 			m_menu.SetActive(true);
 			m_menu.GetComponent<RectTransform>().position = InputManager.Get.GetSelectionPosition(); 

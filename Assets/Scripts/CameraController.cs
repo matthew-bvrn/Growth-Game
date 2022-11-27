@@ -104,7 +104,7 @@ public class CameraController : MonoBehaviour
 
 		UpdateMotion();
 
-		if (state == EGameState.Inspecting)
+		if (state == EGameState.Inspecting || state == EGameState.Pruning)
 		{
 			transform.RotateAround(SelectablesManager.Get.Selected.transform.position, Vector3.up, 3 * Time.deltaTime);
 		}

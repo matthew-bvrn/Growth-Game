@@ -2143,13 +2143,12 @@ GameObject:
   m_Component:
   - component: {fileID: 730290202}
   - component: {fileID: 730290201}
-  - component: {fileID: 730290204}
-  - component: {fileID: 730290203}
   - component: {fileID: 730290205}
   - component: {fileID: 730290206}
   - component: {fileID: 730290208}
-  - component: {fileID: 730290209}
   - component: {fileID: 730290210}
+  - component: {fileID: 730290211}
+  - component: {fileID: 730290212}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2186,7 +2185,9 @@ MonoBehaviour:
   - m_state: 6
     m_transitions: 0000000001000000
   - m_state: 7
-    m_transitions: 00000000
+    m_transitions: 0000000008000000
+  - m_state: 8
+    m_transitions: 07000000
 --- !u!4 &730290202
 Transform:
   m_ObjectHideFlags: 0
@@ -2202,30 +2203,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &730290203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730290200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fddae0e18705b747b0c1e9fd3e587c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &730290204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730290200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76b9299c06b592e419aab59113e94281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &730290205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,20 +2246,6 @@ MonoBehaviour:
   - {fileID: 2786829352270405766, guid: 552c81b606fa3c341ad4b82e6e573226, type: 3}
   - {fileID: 5023710246415702002, guid: e8e96293117ae274483348bcd4fba367, type: 3}
   - {fileID: 1340410963729321773, guid: e4d9323af9ccab749b6d54916657a5df, type: 3}
---- !u!114 &730290209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730290200}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b4d202eed950a848833aa675feb89d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LastSelectedGameObject: {fileID: 0}
-  currentSelectedGameObject: {fileID: 0}
 --- !u!114 &730290210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2293,6 +2256,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b2ad9a57d25c4e4e96f972349a3e209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &730290211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730290200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b9299c06b592e419aab59113e94281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &730290212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730290200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bbaa3ba0bda2de489875947bcb6e93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &776408670
@@ -3871,10 +3858,34 @@ MonoBehaviour:
   m_fadeDuration: 0.1
   m_onSelected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1800089689}
+        m_TargetAssemblyTypeName: InspectMenu, UI
+        m_MethodName: OnPrunePressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_onDeselected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1800089689}
+        m_TargetAssemblyTypeName: InspectMenu, UI
+        m_MethodName: OnPrunePressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1625143900
 GameObject:
   m_ObjectHideFlags: 0

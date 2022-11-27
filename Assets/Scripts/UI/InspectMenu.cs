@@ -26,7 +26,7 @@ public class InspectMenu : MonoBehaviour
 
 	void OnStateChanged(EGameState state)
 	{
-		if (state == EGameState.Inspecting)
+		if (state == EGameState.Inspecting || state == EGameState.Pruning)
 		{
 			m_menu.SetActive(true);
 		}
@@ -38,7 +38,7 @@ public class InspectMenu : MonoBehaviour
 
 	private void Update()
 	{
-		if(StateManager.Get.State == EGameState.Inspecting)
+		if(StateManager.Get.State == EGameState.Inspecting || StateManager.Get.State == EGameState.Pruning)
 		{
 			float health = SelectablesManager.Get.Selected.GetComponent<Parameters.ParametersComponent>().GrowthFactor;
 			float water = SelectablesManager.Get.Selected.GetComponent<Parameters.ParametersComponent>().WaterLevel;
@@ -75,6 +75,14 @@ public class InspectMenu : MonoBehaviour
 	public void OnWaterPressed()
 	{
 		SelectablesManager.Get.Selected.GetComponent<GrowthComponent>().Water();
+	}
+
+	public void OnPrunePressed()
+	{
+		if(StateManager.Get.State!=EGameState.Pruning)
+			StateManager.Get.TrySetState(EGameState.Pruning);
+		else
+			StateManager.Get.TrySetState(EGameState.Inspecting);
 	}
 
 }
