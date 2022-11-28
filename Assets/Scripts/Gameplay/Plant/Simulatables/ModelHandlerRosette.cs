@@ -158,4 +158,43 @@ public class ModelHandlerRosette : ModelHandler
 			}
 		}
 	}
+
+	public override float GetGrowthFactor()
+	{
+		float leafFactor = 0;
+
+		if (transform.GetComponentInParent<GrowthComponent>().Growth < 7 * m_leafThreshold)
+			leafFactor = 1;
+		else
+		{
+			foreach (Leaf leaf in m_leaves)
+			{
+				if (leaf.AgeProgress < 1)
+					leafFactor += 0.3f * leaf.AgeProgress;
+				else
+					leafFactor += 0.3f * (2 - leaf.AgeProgress);
+
+				if (leafFactor >= 1)
+				{
+					leafFactor = 1;
+					break;
+				}
+			}
+		}
+
+		float leafAgedness = 0;
+
+		foreach (Leaf leaf in m_leaves)
+		{
+			if (leaf.AgeProgress > 1)
+				leafAgedness -= (leaf.AgeProgress - 1) / 20;
+
+			if (leafAgedness < -0.5f)
+				break;
+		}
+
+		float finalFactor = leafFactor + leafAgedness;
+
+		return Mathf.Max(finalFactor, 0);
+	}
 }

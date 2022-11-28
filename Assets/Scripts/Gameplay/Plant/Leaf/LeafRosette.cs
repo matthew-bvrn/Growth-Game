@@ -24,7 +24,7 @@ public class LeafRosette : Leaf
 	void UpdateSickness()
 	{
 		float waterHealth = m_parametersComponent.WaterHealth / 2 + .5f;
-		float ageFactor = Mathf.Max(0, m_ageProgress - 0.5f);
+		float ageFactor = Mathf.Max(0, AgeProgress - 0.5f);
 		
 		GetComponent<LeafRosetteAnimationComponent>().SicknessLevel = m_parametersComponent.GrowthFactor;
 		GetComponent<LeafRosetteShaderComponent>().UpdateShader(waterHealth, ageFactor);
@@ -35,11 +35,11 @@ public class LeafRosette : Leaf
 		LeafParametersRosette rosetteParams = (LeafParametersRosette)leafParams;
 		Vector3 onesVec = new Vector3(1, 1, 1);
 
-		m_ageProgress = Age / m_maxAge;
+		AgeProgress = Age / m_maxAge;
 
-		if (m_ageProgress < 2)
+		if (AgeProgress < 2)
 		{
-			float rotation = m_ageProgress * rosetteParams.m_maxRotation + (1 - m_ageProgress) * rosetteParams.m_initialRotation;
+			float rotation = AgeProgress * rosetteParams.m_maxRotation + (1 - AgeProgress) * rosetteParams.m_initialRotation;
 			gameObject.transform.rotation = Quaternion.Euler(rotation, gameObject.transform.rotation.eulerAngles.y, 0);
 		}
 
@@ -48,7 +48,7 @@ public class LeafRosette : Leaf
 			m_growth += rosetteParams.m_growthScaleSpeed * m_potFactor * deltaGrowth;
 			gameObject.transform.localScale = m_growth * onesVec;
 
-			GetComponent<LeafRosetteAnimationComponent>().Age = m_ageProgress;
+			GetComponent<LeafRosetteAnimationComponent>().Age = AgeProgress;
 
 			if (Age >= m_maxAge)
 			{

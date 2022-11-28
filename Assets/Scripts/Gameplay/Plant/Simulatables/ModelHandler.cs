@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class ModelHandler : ISimulatable, IAgeable
+abstract public class ModelHandler : ISimulatable, IAgeable, IGrowthAffector
 {
 	[SerializeField] protected Transform m_origin;
 
@@ -19,4 +19,5 @@ abstract public class ModelHandler : ISimulatable, IAgeable
 	public abstract void Age(float deltaSeconds);
 	public abstract ModelData GetData();
 	public abstract void SetData(ModelData data);
+	public abstract float GetGrowthFactor();
 }

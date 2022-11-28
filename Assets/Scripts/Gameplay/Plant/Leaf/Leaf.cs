@@ -21,9 +21,9 @@ public abstract class Leaf : MonoBehaviour
 	public ELeafState State { get => m_state; }
 
 	protected float m_growth = 0;
-	public float Age = 0;
+	internal float Age { get; set; } = 0;
 	protected float m_maxAge = 0;
-	protected float m_ageProgress = 0;
+	public float AgeProgress { get; protected set; } = 0;
 	protected float m_potFactor;
 	protected Vector3 m_maxSize;
 	protected ELeafState m_state = ELeafState.Growing;
