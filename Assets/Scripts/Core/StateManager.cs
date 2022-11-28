@@ -37,6 +37,7 @@ public class StateManager : MonoBehaviour
 
 	public EGameState State { get => m_state; }
 	public EGameState PreviousState { get => m_prevState; }
+	public bool StateChanged { get; private set; } = false;
 	public event StateChangeEvent OnStateChange;
 
 	StateManager()
@@ -54,6 +55,11 @@ public class StateManager : MonoBehaviour
 	{
 		m_inputManager = new InputManager();
 		m_inputManager.Initialise(new InputImplMouseKeyboard());
+	}
+
+	public void Update()
+	{
+		StateChanged = false;
 	}
 
 	public bool TrySetState(EGameState state)
@@ -77,6 +83,8 @@ public class StateManager : MonoBehaviour
 			return false;
 		}
 
+
+		StateChanged = true;
 		m_prevState = m_state;
 		m_state = state;
 		OnStateChange.Invoke(state);

@@ -19,6 +19,7 @@ public class HighlightablesManager : MonoBehaviour
 		if (Get == null)
 		{
 			Get = this;
+			SelectedEvent += SelectablesManager.Get.OnSelected;
 		}
 		else
 		{
@@ -43,6 +44,9 @@ public class HighlightablesManager : MonoBehaviour
 
 	public void Update()
 	{
+		if (StateManager.Get.StateChanged)
+			return;
+
 		if (StateManager.Get.State == EGameState.Viewing || StateManager.Get.State == EGameState.ObjectSelected)
 		{
 			HighlightItems(HighlightableComponent.EType.Item);

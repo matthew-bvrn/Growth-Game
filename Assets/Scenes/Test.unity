@@ -2187,7 +2187,7 @@ MonoBehaviour:
   - m_state: 7
     m_transitions: 0000000008000000
   - m_state: 8
-    m_transitions: 07000000
+    m_transitions: 0700000000000000
 --- !u!4 &730290202
 Transform:
   m_ObjectHideFlags: 0
@@ -4973,6 +4973,50 @@ PrefabInstance:
     - target: {fileID: 3759915643629322892, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
       propertyPath: m_Text
       value: Inspect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_pressedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_pressedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_pressedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_pressedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_selectedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_selectedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_selectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_selectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_highlightedColor.b
+      value: 0.65471697
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_highlightedColor.g
+      value: 0.65471697
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_highlightedColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3929492136268866531, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
       propertyPath: m_onSelected.m_PersistentCalls.m_Calls.Array.size

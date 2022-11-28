@@ -15,7 +15,6 @@ public class SelectablesManager : MonoBehaviour
 		if (Get == null)
 		{
 			Get = this;
-			HighlightablesManager.Get.SelectedEvent += OnSelected;
 		}
 		else
 		{
@@ -46,7 +45,7 @@ public class SelectablesManager : MonoBehaviour
 		StateManager.Get.TrySetState(EGameState.ObjectMoving);
 	}
 
-	void OnSelected(GameObject selected)
+	internal void OnSelected(GameObject selected)
 	{
 		if (StateManager.Get.State == EGameState.Viewing || StateManager.Get.State == EGameState.ObjectSelected)
 		{
