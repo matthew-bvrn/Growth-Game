@@ -66,14 +66,14 @@ public class UiButton : MonoBehaviour
 				SetState(ButtonState.Highlighted);
 				UiEventSystem.Get.OnHighlighted(this);
 			}
-			else if (!m_mouseInRegion && State == ButtonState.Highlighted)
-			{
-				if (ToggleState == true)
-					SetState(ButtonState.Selected);
-				else
-					SetState(ButtonState.Normal);
-				UiEventSystem.Get.OnUnhighlighted(this);
-			}
+		}
+		if (!m_mouseInRegion && (State == ButtonState.Highlighted || State == ButtonState.Pressed))
+		{
+			if (ToggleState == true)
+				SetState(ButtonState.Selected);
+			else
+				SetState(ButtonState.Normal);
+			UiEventSystem.Get.OnUnhighlighted(this);
 		}
 
 		if (m_timer < m_fadeDuration)

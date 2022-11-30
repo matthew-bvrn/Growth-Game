@@ -31,13 +31,14 @@ public class UiEventSystem : MonoBehaviour
 	{
 		if (button == Highlighted)
 		{
+			Highlighted.SetState(ButtonState.Normal);
 			Highlighted = null;
 		}
 	}
 
 	public void Update()
 	{
-		if (Input.GetMouseButtonDown(0) && Highlighted != null && Highlighted.isActiveAndEnabled)
+		if (Input.GetMouseButtonDown(0) && Highlighted != null && Highlighted.isActiveAndEnabled && Highlighted.State==ButtonState.Highlighted)
 		{
 			SelectedMousePos = Input.mousePosition;
 			switch (Highlighted.Type)
@@ -65,7 +66,7 @@ public class UiEventSystem : MonoBehaviour
 					break;
 			}
 		}
-		if (Input.GetMouseButtonUp(0))
+		if (Input.GetMouseButtonUp(0) && Highlighted.State == ButtonState.Pressed)
 		{
 			if (Highlighted != null)
 			{
