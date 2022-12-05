@@ -187,9 +187,9 @@ public class ModelHandlerRosette : ModelHandler
 		foreach (Leaf leaf in m_leaves)
 		{
 			if (leaf.AgeProgress > 1)
-				leafAgedness -= (leaf.AgeProgress - 1) / 20;
+				leafAgedness -= (leaf.AgeProgress - 1) / 30;
 
-			if (leafAgedness < -0.5f)
+			if (leafAgedness < leafFactor * -0.5f)
 				break;
 		}
 

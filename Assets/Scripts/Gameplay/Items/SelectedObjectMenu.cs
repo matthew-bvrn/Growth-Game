@@ -35,7 +35,9 @@ public class SelectedObjectMenu : MonoBehaviour
 		if(selectable && selectable.GetComponent<SelectableBase>())
 		{
 			m_menu.SetActive(true);
-			m_menu.GetComponent<RectTransform>().position = InputManager.Get.GetSelectionPosition(); 
+			m_menu.GetComponent<RectTransform>().position = InputManager.Get.GetSelectionPosition();
+			foreach (UiButton button in m_menu.GetComponentsInChildren<UiButton>())
+				button.RestartAnimation();
 		}
 		else
 		{

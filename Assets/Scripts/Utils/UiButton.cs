@@ -10,6 +10,12 @@ internal enum ButtonType
 	Toggle
 }
 
+internal enum ButtonAppearanceChange
+{
+	Colour,
+	Sprites
+}
+
 internal enum ButtonState
 {
 	Normal,
@@ -26,11 +32,22 @@ public class UiButton : MonoBehaviour
 	[SerializeField] internal ButtonType Type;
 	internal ButtonState State;
 
+	[SerializeField] internal ButtonAppearanceChange m_buttonAppearanceChange;
+
 	public Color m_normalColor = new Color(1, 1, 1);
 	public Color m_highlightedColor = new Color(1, 0.6f, 0.6f);
 	public Color m_selectedColor = new Color(0.6f, 0.6f, 1);
 	public Color m_pressedColor = new Color(1, 0, 0);
+
+	public Texture m_normalTexture;
+	public Texture m_highlightedTexture;
+	public Texture m_pressedTexture;
+
 	public float m_fadeDuration = 0.1f;
+
+	float m_animateTime = 0f;
+	public float m_animateDelay = 0f;
+	const float m_animateEndTime = 0.25f;
 
 	public ButtonEvent m_onSelected;
 	public ButtonEvent m_onDeselected;
@@ -76,10 +93,24 @@ public class UiButton : MonoBehaviour
 			UiEventSystem.Get.OnUnhighlighted(this);
 		}
 
-		if (m_timer < m_fadeDuration)
+		if (m_timer < m_fadeDuration && m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
 		{
 			GetComponent<Image>().color = (m_timer / m_fadeDuration) * m_newColor + (1 - m_timer / m_fadeDuration) * m_previousColor;
 			m_timer += Time.deltaTime;
+		}
+
+		if(m_animateTime < m_animateEndTime + m_animateDelay)
+		{
+			m_animateTime += Time.deltaTime;
+
+			if (m_animateTime > m_animateDelay)
+			{
+				float progress = (m_animateTime-m_animateDelay) / m_animateEndTime;
+
+				float size = 1 + 1.9f * Mathf.Pow(progress - 1, 3.0f) + 0.9f * Mathf.Pow(progress - 1, 2.0f);
+
+				GetComponent<RectTransform>().localScale = new Vector3(size, size, size);
+			}
 		}
 	}
 
@@ -106,13 +137,22 @@ public class UiButton : MonoBehaviour
 			switch (state)
 			{
 				case ButtonState.Normal:
-					m_newColor = m_normalColor;
+					if (m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
+						m_newColor = m_normalColor;
+					else
+						GetComponent<RawImage>().texture = m_normalTexture;
 					break;
 				case ButtonState.Highlighted:
-					m_newColor = m_highlightedColor;
+					if (m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
+						m_newColor = m_highlightedColor;
+					else
+						GetComponent<RawImage>().texture = m_highlightedTexture;
 					break;
 				case ButtonState.Pressed:
-					m_newColor = m_pressedColor;
+					if (m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
+						m_newColor = m_pressedColor;
+					else
+						GetComponent<RawImage>().texture = m_pressedTexture;
 					break;
 				case ButtonState.Selected:
 					m_newColor = m_selectedColor;
@@ -124,14 +164,25 @@ public class UiButton : MonoBehaviour
 		}
 	}
 
+	public void RestartAnimation()
+	{
+		m_animateTime = 0;
+		GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
+	}
+
 	void OnEnable()
 	{
-		if (UiEventSystem.Get.Highlighted == this)
-			GetComponent<Image>().color = m_highlightedColor;
-		else if (UiEventSystem.Get.Selected == this)
-			GetComponent<Image>().color = m_selectedColor;
-		else
-			GetComponent<Image>().color = m_normalColor;
+		if (m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
+		{
+			if (UiEventSystem.Get.Highlighted == this)
+				GetComponent<Image>().color = m_highlightedColor;
+			else if (UiEventSystem.Get.Selected == this)
+				GetComponent<Image>().color = m_selectedColor;
+			else
+				GetComponent<Image>().color = m_normalColor;
+		}
+
+		RestartAnimation();
 	}
 
 	void OnDisable()

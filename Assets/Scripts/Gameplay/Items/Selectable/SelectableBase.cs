@@ -257,7 +257,8 @@ public abstract class SelectableBase : MonoBehaviour
 		{
 			if (collider.gameObject != m_hitObject && collider != inCollider && collider.transform.parent != null && collider.transform.parent.parent != transform)
 			{
-				return true;
+				if(!collider.GetComponent<HighlightableComponent>() || collider.GetComponent<HighlightableComponent>().Type != HighlightableComponent.EType.Leaf)
+					return true;
 			}
 		}
 		return false;
