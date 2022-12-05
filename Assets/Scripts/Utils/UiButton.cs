@@ -76,36 +76,50 @@ public class UiButton : MonoBehaviour
 			m_mouseInRegion = false;
 		}
 
-		if (State != ButtonState.Pressed)
-		{
-			if (m_mouseInRegion && State != ButtonState.Highlighted && (UiEventSystem.Get.SelectedMousePos != Input.mousePosition))
+		if(State == ButtonState.Normal)
+			if (m_mouseInRegion)
 			{
 				SetState(ButtonState.Highlighted);
 				UiEventSystem.Get.OnHighlighted(this);
 			}
-		}
-		if (!m_mouseInRegion && (State == ButtonState.Highlighted || State == ButtonState.Pressed))
+
+		if (Type == ButtonType.Toggle)
 		{
-			if (ToggleState == true)
-				SetState(ButtonState.Selected);
-			else
-				SetState(ButtonState.Normal);
-			UiEventSystem.Get.OnUnhighlighted(this);
+			if (State == ButtonState.Selected)
+				if (m_mouseInRegion && UiEventSystem.Get.SelectedMousePos != Input.mousePosition)
+				{
+					SetState(ButtonState.Highlighted);
+					UiEventSystem.Get.OnHighlighted(this);
+				}
 		}
 
+			if (!m_mouseInRegion && (State == ButtonState.Highlighted || State == ButtonState.Pressed))
+			{
+				if (ToggleState == true)
+					SetState(ButtonState.Selected);
+				else
+					SetState(ButtonState.Normal);
+				UiEventSystem.Get.OnUnhighlighted(this);
+			}
+
+		Animate();
+	}
+
+	void Animate()
+	{
 		if (m_timer < m_fadeDuration && m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
 		{
 			GetComponent<Image>().color = (m_timer / m_fadeDuration) * m_newColor + (1 - m_timer / m_fadeDuration) * m_previousColor;
 			m_timer += Time.deltaTime;
 		}
 
-		if(m_animateTime < m_animateEndTime + m_animateDelay)
+		if (m_animateTime < m_animateEndTime + m_animateDelay)
 		{
 			m_animateTime += Time.deltaTime;
 
 			if (m_animateTime > m_animateDelay)
 			{
-				float progress = (m_animateTime-m_animateDelay) / m_animateEndTime;
+				float progress = (m_animateTime - m_animateDelay) / m_animateEndTime;
 
 				float size = 1 + 1.9f * Mathf.Pow(progress - 1, 3.0f) + 0.9f * Mathf.Pow(progress - 1, 2.0f);
 

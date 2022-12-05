@@ -1010,6 +1010,52 @@ RectTransform:
   m_AnchoredPosition: {x: -0.08480072, y: 0}
   m_SizeDelta: {x: -9.9205, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &314553803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7910061705014524109, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+  m_PrefabInstance: {fileID: 3171779535919831177}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &314553809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314553803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d2e6251c18f164d96ed68f4306976c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  m_buttonAppearanceChange: 0
+  m_normalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_highlightedColor: {r: 1, g: 0.6, b: 0.6, a: 1}
+  m_selectedColor: {r: 0.6, g: 0.6, b: 1, a: 1}
+  m_pressedColor: {r: 1, g: 0, b: 0, a: 1}
+  m_normalTexture: {fileID: 0}
+  m_highlightedTexture: {fileID: 0}
+  m_pressedTexture: {fileID: 0}
+  m_fadeDuration: 0.1
+  m_animateDelay: 0
+  m_onSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 336931046}
+        m_TargetAssemblyTypeName: InventoryMenu, UI
+        m_MethodName: OnElementClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_onDeselected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &331891788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1168,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &336931046 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2899990030234171513, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+  m_PrefabInstance: {fileID: 3171779535919831177}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def84509e808e314ab8b0eb82d458008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &377719778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5172,6 +5229,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4894854982574663353, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5021560790904468516, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -5194,6 +5255,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5180601438205185771, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5196228142750236653, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5300513691499318011, guid: 2bf82fa09979ab445a2db01e66c1665e, type: 3}

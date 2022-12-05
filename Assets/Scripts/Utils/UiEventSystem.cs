@@ -92,6 +92,13 @@ public class UiEventSystem : MonoBehaviour
 					Highlighted.m_onSelected.Invoke();
 					return;
 				}
+
+				if(Highlighted.Type == ButtonType.Selectable)
+				{
+					Highlighted.SetState(ButtonState.Selected);
+					Highlighted.m_onSelected.Invoke();
+					return;
+				}
 			}
 		}
 	}

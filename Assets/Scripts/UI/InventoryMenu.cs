@@ -64,7 +64,7 @@ public class InventoryMenu : MonoBehaviour
 	{
 		m_placeButton.gameObject.SetActive(true);
 
-		ItemUiElement selected = EventSystem.current.currentSelectedGameObject.GetComponent<ItemUiElement>();
+		ItemUiElement selected = UiEventSystem.Get.Selected.GetComponent<ItemUiElement>();
 		m_itemGuid = selected.ItemGuid;
 		ItemData itemData = InventoryManager.Get.GetItem(m_itemGuid);
 
