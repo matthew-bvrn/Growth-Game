@@ -195,7 +195,8 @@ public class UiButton : MonoBehaviour
 	public void RestartAnimation()
 	{
 		m_animateTime = 0;
-		GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
+		if (m_animateEndTime > 0)
+			GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
 	}
 
 	void OnEnable()
