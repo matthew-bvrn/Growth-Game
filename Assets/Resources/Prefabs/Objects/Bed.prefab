@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9efa08e92480a443ab0705a80bcb184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 0
 --- !u!54 &7093797356433205080
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -188,6 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Basic Bed
+  m_tags:
+  - Furniture
   Guid: 6e09f4c3-836d-407b-b0e3-5b2379392718
   Offset: {x: 0, y: -3.14, z: 3.89}
   Rotation: {x: 0, y: 0, z: 0}

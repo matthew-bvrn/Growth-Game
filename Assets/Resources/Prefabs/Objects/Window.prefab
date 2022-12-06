@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.07, y: 3.109701e-11, z: 0.00024081957}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4453551424793344385}
   m_Father: {fileID: 5024292111730456833}
@@ -59,6 +60,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 702447187430269668}
   m_RootOrder: 0
@@ -82,6 +84,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -143,6 +146,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.07, y: 0, z: 0}
   m_LocalScale: {x: 0.09608004, y: 2.021847, z: 2.8847454}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5024292111730456833}
   m_RootOrder: 2
@@ -166,6 +170,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -221,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9efa08e92480a443ab0705a80bcb184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 0
 --- !u!1 &5757192161811996774
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +254,7 @@ Transform:
   m_LocalRotation: {x: -0.70710677, y: 0.000000033227625, z: -0.7071068, w: -0.000000041278184}
   m_LocalPosition: {x: 0.104, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5024292111730456833}
   m_RootOrder: 1
@@ -342,6 +349,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 702447187430269668}
   - {fileID: 6086706359086381032}
@@ -361,7 +369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb5381744bd73542ab60808f0ccc892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_model: {fileID: 212873501297653854}
 --- !u!114 &5023710246415702002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +382,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Basic Window
+  m_tags:
+  - Furniture
   Guid: 7dc0c2a9-1385-4af8-8fb0-955274e94fb1
   Offset: {x: 0, y: 0, z: 0}
   Rotation: {x: 0, y: 90, z: 0}

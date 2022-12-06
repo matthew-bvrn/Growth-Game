@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6729276253636945450}
   - {fileID: 1395589877524400783}
@@ -46,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf989e28aa4d454aad103277b46014d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_model: {fileID: 6208460257848474768}
 --- !u!114 &3250731146798733238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Rounded Lamp
+  m_tags:
+  - Furniture
   Guid: bbe09471-20e7-40f1-af70-802234fe5a8f
   Offset: {x: 0, y: -1.55, z: -0.11}
   Rotation: {x: 0, y: 0, z: 0}
@@ -93,6 +95,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0471, y: 1.72, z: 0}
   m_LocalScale: {x: 1, y: 1.8, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4492276726024729731}
   m_RootOrder: 1
@@ -116,6 +119,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -172,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9efa08e92480a443ab0705a80bcb184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 0
 --- !u!1001 &6550917096253751745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -241,11 +246,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdc3b41edd0c91c4fadbcd979107cf88, type: 3}
---- !u!1 &6208460257848474768 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc3b41edd0c91c4fadbcd979107cf88, type: 3}
-  m_PrefabInstance: {fileID: 6550917096253751745}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6729276253636945450 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fdc3b41edd0c91c4fadbcd979107cf88, type: 3}

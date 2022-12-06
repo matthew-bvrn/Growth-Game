@@ -30,17 +30,29 @@ public class UiEventSystem : MonoBehaviour
 
 	public void OnUnhighlighted(UiButton button)
 	{
-		if (button == Highlighted)
-		{
-			Highlighted.SetState(ButtonState.Normal);
-			Highlighted = null;
-			HighlightablesManager.Get.CanSelect = true;
-		}
+		if (Highlighted != null)
+			if (button == Highlighted)
+			{
+				Highlighted.SetState(ButtonState.Normal);
+				Highlighted = null;
+				HighlightablesManager.Get.CanSelect = true;
+			}
+	}
+
+	public void Select(UiButton button)
+	{
+		OnUnhighlighted(Highlighted);
+		OnHighlighted(button);
+		Selected = button;
+
+		Highlighted.SetState(ButtonState.Selected);
+		Highlighted.m_onSelected.Invoke();
+		return;
 	}
 
 	public void Update()
 	{
-		if (Input.GetMouseButtonDown(0) && Highlighted != null && Highlighted.isActiveAndEnabled && Highlighted.State==ButtonState.Highlighted)
+		if (Input.GetMouseButtonDown(0) && Highlighted != null && Highlighted.isActiveAndEnabled && Highlighted.State == ButtonState.Highlighted)
 		{
 			SelectedMousePos = Input.mousePosition;
 			switch (Highlighted.Type)
@@ -95,7 +107,7 @@ public class UiEventSystem : MonoBehaviour
 					return;
 				}
 
-				if(Highlighted.Type == ButtonType.Selectable)
+				if (Highlighted.Type == ButtonType.Selectable)
 				{
 					Highlighted.SetState(ButtonState.Selected);
 					Highlighted.m_onSelected.Invoke();

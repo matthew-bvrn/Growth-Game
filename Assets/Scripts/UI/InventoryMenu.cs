@@ -10,7 +10,7 @@ public class InventoryMenu : MonoBehaviour
 	[SerializeField] RectTransform m_elementTemplate;
 	[SerializeField] Button m_placeButton;
 
-	List<GameObject> m_elements = new List<GameObject>();
+	internal List<GameObject> m_elements = new List<GameObject>();
 
 	string m_selectedGuid;
 	string m_itemGuid;
@@ -51,12 +51,13 @@ public class InventoryMenu : MonoBehaviour
 
 		foreach(ItemData item in InventoryManager.Get.Items)
 		{
-			GameObject element = Instantiate(m_elementTemplate.gameObject, m_scrollView.content);
-			element.SetActive(true);
+			ItemUiElement element = ((GameObject)Instantiate(m_elementTemplate.gameObject, m_scrollView.content)).GetComponent<ItemUiElement>();
+			element.gameObject.SetActive(true);
 			element.GetComponentInChildren<Text>().text = item.Name;
-			element.GetComponent<ItemUiElement>().Guid = item.Guid;
-			element.GetComponent<ItemUiElement>().ItemGuid = item.ItemGuid;
-			m_elements.Add(element);
+			element.Guid = item.Guid;
+			element.ItemGuid = item.ItemGuid;
+			element.Tags = item.Tags;
+			m_elements.Add(element.gameObject);
 		}
 	}
 

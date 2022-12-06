@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9efa08e92480a443ab0705a80bcb184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 0
 --- !u!54 &2771225821128731462
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -244,6 +245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Basic Side Table
+  m_tags:
+  - Furniture
   Guid: d7420f2d-ec4d-4144-ac36-bc10951e5c5f
   Offset: {x: 0, y: 0, z: 0}
   Rotation: {x: 0, y: 0, z: 0}

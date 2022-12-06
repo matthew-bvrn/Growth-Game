@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Aloe Plant
+  m_tags:
+  - Plant
   Guid: 9e689b1f-4379-4e89-9fea-268cb81e5087
   Offset: {x: 0, y: 0, z: 0}
   Rotation: {x: 0, y: 0, z: 0}

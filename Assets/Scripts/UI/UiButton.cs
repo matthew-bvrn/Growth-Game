@@ -47,10 +47,10 @@ public class UiButton : MonoBehaviour
 
 	float m_animateTime = 0f;
 	public float m_animateDelay = 0f;
-	const float m_animateEndTime = 0.25f;
+	public float m_animateEndTime = 0.25f;
 
-	public UnityEvent m_onHighlighted;
-	public UnityEvent m_onUnhighlighted;
+	[System.NonSerialized] public UnityEvent m_onHighlighted = new UnityEvent();
+	[System.NonSerialized] public UnityEvent m_onUnhighlighted = new UnityEvent();
 	public ButtonEvent m_onSelected;
 	public ButtonEvent m_onDeselected;
 
@@ -112,25 +112,34 @@ public class UiButton : MonoBehaviour
 
 	void Animate()
 	{
-		if (m_timer < m_fadeDuration && m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
+		if (m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
 		{
-			GetComponent<Image>().color = (m_timer / m_fadeDuration) * m_newColor + (1 - m_timer / m_fadeDuration) * m_previousColor;
-			m_timer += Time.deltaTime;
-		}
-
-		if (m_animateTime < m_animateEndTime + m_animateDelay)
-		{
-			m_animateTime += Time.deltaTime;
-
-			if (m_animateTime > m_animateDelay)
+			if (m_fadeDuration > 0)
 			{
-				float progress = (m_animateTime - m_animateDelay) / m_animateEndTime;
-
-				float size = 1 + 1.9f * Mathf.Pow(progress - 1, 3.0f) + 0.9f * Mathf.Pow(progress - 1, 2.0f);
-
-				GetComponent<RectTransform>().localScale = new Vector3(size, size, size);
+				if (m_timer < m_fadeDuration)
+				{
+					GetComponent<Image>().color = (m_timer / m_fadeDuration) * m_newColor + (1 - m_timer / m_fadeDuration) * m_previousColor;
+					m_timer += Time.deltaTime;
+				}
 			}
+			else
+				GetComponent<Image>().color = m_newColor;
 		}
+
+		if(m_animateEndTime > 0)
+			if (m_animateTime < m_animateEndTime + m_animateDelay)
+			{
+				m_animateTime += Time.deltaTime;
+
+				if (m_animateTime > m_animateDelay)
+				{
+					float progress = (m_animateTime - m_animateDelay) / m_animateEndTime;
+
+					float size = 1 + 1.9f * Mathf.Pow(progress - 1, 3.0f) + 0.9f * Mathf.Pow(progress - 1, 2.0f);
+
+					GetComponent<RectTransform>().localScale = new Vector3(size, size, size);
+				}
+			}
 	}
 
 	internal void SetState(ButtonState state)
@@ -190,7 +199,7 @@ public class UiButton : MonoBehaviour
 	}
 
 	void OnEnable()
-	{ 
+	{
 		if (m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
 		{
 			if (UiEventSystem.Get.Highlighted == this)
