@@ -25,6 +25,7 @@ public class UiEventSystem : MonoBehaviour
 	public void OnHighlighted(UiButton button)
 	{
 		Highlighted = button;
+		HighlightablesManager.Get.CanSelect = false;
 	}
 
 	public void OnUnhighlighted(UiButton button)
@@ -33,6 +34,7 @@ public class UiEventSystem : MonoBehaviour
 		{
 			Highlighted.SetState(ButtonState.Normal);
 			Highlighted = null;
+			HighlightablesManager.Get.CanSelect = true;
 		}
 	}
 

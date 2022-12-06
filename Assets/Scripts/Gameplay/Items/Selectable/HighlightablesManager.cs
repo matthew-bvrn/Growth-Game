@@ -14,6 +14,8 @@ public class HighlightablesManager : MonoBehaviour
 
 	public event OnSelectedEvent SelectedEvent;
 
+	public bool CanSelect = true;
+
 	void Start()
 	{
 		if (Get == null)
@@ -75,7 +77,7 @@ public class HighlightablesManager : MonoBehaviour
 			TryHighlight(null, true);
 
 		if (m_highlighted)
-			if (InputManager.Get.IsJustPressed(EActions.Select) && !UiEventSystem.Get.ElementHighlighted)
+			if (InputManager.Get.IsJustPressed(EActions.Select) && CanSelect)
 				SelectedEvent.Invoke(m_highlighted.transform.parent.gameObject);
 	}
 }

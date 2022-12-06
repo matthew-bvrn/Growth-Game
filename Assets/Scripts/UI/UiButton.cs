@@ -49,6 +49,8 @@ public class UiButton : MonoBehaviour
 	public float m_animateDelay = 0f;
 	const float m_animateEndTime = 0.25f;
 
+	public UnityEvent m_onHighlighted;
+	public UnityEvent m_onUnhighlighted;
 	public ButtonEvent m_onSelected;
 	public ButtonEvent m_onDeselected;
 
@@ -81,6 +83,7 @@ public class UiButton : MonoBehaviour
 			{
 				SetState(ButtonState.Highlighted);
 				UiEventSystem.Get.OnHighlighted(this);
+				m_onHighlighted.Invoke();
 			}
 
 		if (Type == ButtonType.Toggle)
@@ -90,6 +93,7 @@ public class UiButton : MonoBehaviour
 				{
 					SetState(ButtonState.Highlighted);
 					UiEventSystem.Get.OnHighlighted(this);
+					m_onHighlighted.Invoke();
 				}
 		}
 
@@ -100,6 +104,7 @@ public class UiButton : MonoBehaviour
 				else
 					SetState(ButtonState.Normal);
 				UiEventSystem.Get.OnUnhighlighted(this);
+				m_onUnhighlighted.Invoke();
 			}
 
 		Animate();
@@ -115,6 +120,8 @@ public class UiButton : MonoBehaviour
 
 		if (m_animateTime < m_animateEndTime + m_animateDelay)
 		{
+			Debug.Log(m_animateTime);
+
 			m_animateTime += Time.deltaTime;
 
 			if (m_animateTime > m_animateDelay)
@@ -185,7 +192,7 @@ public class UiButton : MonoBehaviour
 	}
 
 	void OnEnable()
-	{
+	{ 
 		if (m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
 		{
 			if (UiEventSystem.Get.Highlighted == this)
