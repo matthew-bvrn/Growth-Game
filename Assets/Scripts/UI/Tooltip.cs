@@ -19,7 +19,6 @@ public class Tooltip : MonoBehaviour
 
 	void OnHighlighted()
 	{
-		Debug.Log("hello");
 		m_tooltip = (GameObject)Instantiate(m_prefab, transform.parent);
 		m_tooltip.GetComponentInChildren<UiButton>().RestartAnimation();
 		m_tooltip.GetComponentInChildren<TMP_Text>().text = m_text;

@@ -120,8 +120,6 @@ public class UiButton : MonoBehaviour
 
 		if (m_animateTime < m_animateEndTime + m_animateDelay)
 		{
-			Debug.Log(m_animateTime);
-
 			m_animateTime += Time.deltaTime;
 
 			if (m_animateTime > m_animateDelay)
