@@ -24,12 +24,19 @@ internal enum ButtonState
 	Pressed
 }
 
+internal enum ButtonTag
+{
+	Button,
+	Tab
+}
+
 [System.Serializable]
 public class ButtonEvent : UnityEvent { }
 
 public class UiButton : MonoBehaviour
 {
 	[SerializeField] internal ButtonType Type;
+	[SerializeField] internal ButtonTag Tag = ButtonTag.Button;
 	internal ButtonState State;
 
 	[SerializeField] internal ButtonAppearanceChange m_buttonAppearanceChange;
@@ -78,34 +85,77 @@ public class UiButton : MonoBehaviour
 			m_mouseInRegion = false;
 		}
 
-		if(State == ButtonState.Normal)
-			if (m_mouseInRegion)
-			{
-				SetState(ButtonState.Highlighted);
-				UiEventSystem.Get.OnHighlighted(this);
-				m_onHighlighted.Invoke();
-			}
-
-		if (Type == ButtonType.Toggle)
+		//set highlighted
+		if (Type != ButtonType.Toggle)
 		{
-			if (State == ButtonState.Selected)
+			if (State == ButtonState.Normal)
+			{
+				if (m_mouseInRegion)
+				{
+					SetState(ButtonState.Highlighted);
+					UiEventSystem.Get.Highlight(this);
+					m_onHighlighted.Invoke();
+				}
+			}
+		}
+		else
+		{
+			if (State == ButtonState.Selected || State == ButtonState.Normal)
+			{
 				if (m_mouseInRegion && UiEventSystem.Get.SelectedMousePos != Input.mousePosition)
 				{
 					SetState(ButtonState.Highlighted);
-					UiEventSystem.Get.OnHighlighted(this);
+					UiEventSystem.Get.Highlight(this);
 					m_onHighlighted.Invoke();
 				}
+			}
 		}
 
-			if (!m_mouseInRegion && (State == ButtonState.Highlighted || State == ButtonState.Pressed))
+		//set unhighlighted
+		if (!m_mouseInRegion && (State == ButtonState.Highlighted || State == ButtonState.Pressed))
+		{
+			if (Type == ButtonType.Toggle && ToggleState == true)
+				SetState(ButtonState.Selected);
+			else
+				SetState(ButtonState.Normal);
+			UiEventSystem.Get.Unhighlight(this);
+			m_onUnhighlighted.Invoke();
+		}
+
+		//set pressed
+		if (Input.GetMouseButtonDown(0) && State == ButtonState.Highlighted)
+		{
+			SetState(ButtonState.Pressed);
+			ToggleState = !ToggleState;
+		}
+
+		//set selected
+		if (Input.GetMouseButtonUp(0) && State == ButtonState.Pressed)
+		{
+			if (Type == ButtonType.Toggle)
 			{
-				if (ToggleState == true)
+				if (ToggleState)
+				{
+					UiEventSystem.Get.Select(this);
 					SetState(ButtonState.Selected);
+				}
 				else
+				{
+					UiEventSystem.Get.Unselect(this);
 					SetState(ButtonState.Normal);
-				UiEventSystem.Get.OnUnhighlighted(this);
-				m_onUnhighlighted.Invoke();
+				}
 			}
+			else if (Type == ButtonType.Action)
+			{
+				m_onSelected.Invoke();
+				UiEventSystem.Get.Unhighlight(this);
+			}
+			else
+			{
+				UiEventSystem.Get.Select(this);
+				SetState(ButtonState.Selected);
+			}
+		}
 
 		Animate();
 	}
@@ -126,7 +176,7 @@ public class UiButton : MonoBehaviour
 				GetComponent<Image>().color = m_newColor;
 		}
 
-		if(m_animateEndTime > 0)
+		if (m_animateEndTime > 0)
 			if (m_animateTime < m_animateEndTime + m_animateDelay)
 			{
 				m_animateTime += Time.deltaTime;
@@ -201,7 +251,7 @@ public class UiButton : MonoBehaviour
 
 	void OnEnable()
 	{
-		if (m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
+		if (Type != ButtonType.Inert && m_buttonAppearanceChange == ButtonAppearanceChange.Colour)
 		{
 			if (UiEventSystem.Get.Highlighted == this)
 				GetComponent<Image>().color = m_highlightedColor;
@@ -216,6 +266,7 @@ public class UiButton : MonoBehaviour
 
 	void OnDisable()
 	{
-		UiEventSystem.Get.OnUnhighlighted(this);
+		UiEventSystem.Get.Unhighlight(this);
+		UiEventSystem.Get.Unselect(this);
 	}
 }

@@ -8,9 +8,11 @@ public class UiEventSystem : MonoBehaviour
 {
 	public static UiEventSystem Get;
 
-	public UiButton Selected { get; private set; }
-	public bool ElementHighlighted { get => Highlighted != null; }
-	public UiButton Highlighted { get; private set; } = null;
+	internal UiButton Selected;
+	internal UiButton SelectedTab;
+	public bool ElementHighlighted { get => Highlighted != null || HighlightedTab != null; }
+	internal UiButton Highlighted = null;
+	internal UiButton HighlightedTab = null;
 
 	internal Vector3 SelectedMousePos { get; private set; }
 
@@ -22,98 +24,74 @@ public class UiEventSystem : MonoBehaviour
 			Destroy(this);
 	}
 
-	public void OnHighlighted(UiButton button)
+	internal void Highlight(UiButton button)
 	{
-		Highlighted = button;
+		if (button.Tag == ButtonTag.Button)
+			Highlighted = button;
+		else if (button.Tag == ButtonTag.Tab)
+			HighlightedTab = button;
+
+		Debug.Log("Highlighted: " + button);
+
 		HighlightablesManager.Get.CanSelect = false;
 	}
 
-	public void OnUnhighlighted(UiButton button)
+	internal void Unhighlight(UiButton button)
 	{
 		if (Highlighted != null)
 			if (button == Highlighted)
 			{
-				Highlighted.SetState(ButtonState.Normal);
+				if (Highlighted != Selected)
+					Highlighted.SetState(ButtonState.Normal);
+
 				Highlighted = null;
+				HighlightablesManager.Get.CanSelect = true;
+			}
+			else if (button == HighlightedTab)
+			{
+				if (HighlightedTab != SelectedTab)
+					HighlightedTab.SetState(ButtonState.Normal);
+
+				HighlightedTab = null;
 				HighlightablesManager.Get.CanSelect = true;
 			}
 	}
 
-	public void Select(UiButton button)
+	internal void Unselect(ButtonTag tag)
 	{
-		OnUnhighlighted(Highlighted);
-		OnHighlighted(button);
-		Selected = button;
-
-		Highlighted.SetState(ButtonState.Selected);
-		Highlighted.m_onSelected.Invoke();
-		return;
+		if (tag == ButtonTag.Button)
+			Unselect(Selected);
+		else
+			Unselect(SelectedTab);
 	}
 
-	public void Update()
+	internal void Unselect(UiButton button)
 	{
-		if (Input.GetMouseButtonDown(0) && Highlighted != null && Highlighted.isActiveAndEnabled && Highlighted.State == ButtonState.Highlighted)
-		{
-			SelectedMousePos = Input.mousePosition;
-			switch (Highlighted.Type)
-			{
-				case ButtonType.Selectable:
-					if (Selected != null)
-						Selected.SetState(ButtonState.Normal);
-					Selected = Highlighted;
-					Selected.SetState(ButtonState.Pressed);
-					break;
-				case ButtonType.Action:
-					Highlighted.SetState(ButtonState.Pressed);
-					break;
-				case ButtonType.Toggle:
-					Highlighted.SetState(ButtonState.Pressed);
-					Highlighted.ToggleState = !Highlighted.ToggleState;
-					if (Highlighted.ToggleState)
-					{
-						Selected = Highlighted;
-					}
-					else
-					{
-						Selected = null;
-					}
-					break;
-			}
-		}
-		if (Input.GetMouseButtonUp(0) && Highlighted.State == ButtonState.Pressed)
-		{
-			if (Highlighted != null)
-			{
-				if (Highlighted.Type == ButtonType.Toggle)
-				{
-					if (Highlighted.ToggleState == true)
-					{
-						Highlighted.SetState(ButtonState.Selected);
-						Highlighted.m_onSelected.Invoke();
-						return;
-					}
-					else
-					{
-						Highlighted.SetState(ButtonState.Normal);
-						Highlighted.m_onDeselected.Invoke();
-						return;
-					}
-				}
+		SelectedMousePos = Input.mousePosition;
 
-				if (Highlighted.Type == ButtonType.Action)
-				{
-					Highlighted.SetState(ButtonState.Normal);
-					Highlighted.m_onSelected.Invoke();
-					return;
-				}
+		if (button == null)
+			return;
 
-				if (Highlighted.Type == ButtonType.Selectable)
-				{
-					Highlighted.SetState(ButtonState.Selected);
-					Highlighted.m_onSelected.Invoke();
-					return;
-				}
-			}
-		}
+		if (button.Tag == ButtonTag.Button)
+			Selected = null;
+		else
+			SelectedTab = null;
+
+		button.SetState(ButtonState.Normal);
+	}
+
+	internal void Select(UiButton button)
+	{
+		SelectedMousePos = Input.mousePosition;
+
+		Unselect(button.Tag);
+
+		if (button.Tag == ButtonTag.Button)
+			Selected = button;
+		else
+			SelectedTab = button;
+
+		Unhighlight(button);
+		button.m_onSelected.Invoke();
 	}
 }

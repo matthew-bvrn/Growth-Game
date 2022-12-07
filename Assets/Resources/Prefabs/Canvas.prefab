@@ -138,7 +138,6 @@ GameObject:
   - component: {fileID: 3724020311858573601}
   - component: {fileID: 4733025850068829324}
   - component: {fileID: 6553648820653812967}
-  - component: {fileID: 577313227393027770}
   - component: {fileID: 4231780622222393985}
   m_Layer: 5
   m_Name: PlaceButton
@@ -206,7 +205,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &577313227393027770
+--- !u!114 &4231780622222393985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,39 +214,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1031314749583129907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: b8d2e6251c18f164d96ed68f4306976c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 6553648820653812967}
-  m_OnClick:
+  Type: 2
+  Tag: 0
+  m_buttonAppearanceChange: 0
+  m_normalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_highlightedColor: {r: 1, g: 1, b: 1, a: 1}
+  m_selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  m_pressedColor: {r: 1, g: 1, b: 1, a: 1}
+  m_normalTexture: {fileID: 0}
+  m_highlightedTexture: {fileID: 0}
+  m_pressedTexture: {fileID: 0}
+  m_fadeDuration: 0.1
+  m_animateDelay: 0
+  m_animateEndTime: 0.25
+  m_onSelected:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2899990030234171513}
@@ -262,33 +245,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4231780622222393985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031314749583129907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d2e6251c18f164d96ed68f4306976c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 0
-  m_buttonAppearanceChange: 0
-  m_normalColor: {r: 0, g: 0, b: 0, a: 0}
-  m_highlightedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_selectedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_pressedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_normalTexture: {fileID: 0}
-  m_highlightedTexture: {fileID: 0}
-  m_pressedTexture: {fileID: 0}
-  m_fadeDuration: 0.1
-  m_animateDelay: 0
-  m_animateEndTime: 0.25
-  m_onSelected:
-    m_PersistentCalls:
-      m_Calls: []
   m_onDeselected:
     m_PersistentCalls:
       m_Calls: []
@@ -463,6 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
+  Tag: 1
   m_buttonAppearanceChange: 0
   m_normalColor: {r: 1, g: 1, b: 1, a: 1}
   m_highlightedColor: {r: 1, g: 0.6, b: 0.6, a: 1}
@@ -1361,6 +1318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
+  Tag: 0
   m_buttonAppearanceChange: 1
   m_normalColor: {r: 1, g: 1, b: 1, a: 1}
   m_highlightedColor: {r: 1, g: 0.6, b: 0.6, a: 1}
@@ -1616,6 +1574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
+  Tag: 1
   m_buttonAppearanceChange: 0
   m_normalColor: {r: 1, g: 1, b: 1, a: 1}
   m_highlightedColor: {r: 1, g: 0.6, b: 0.6, a: 1}
@@ -1816,7 +1775,7 @@ MonoBehaviour:
   m_menu: {fileID: 8869939252975815075}
   m_scrollView: {fileID: 6696286340775718385}
   m_elementTemplate: {fileID: 4668741425512477241}
-  m_placeButton: {fileID: 577313227393027770}
+  m_placeButton: {fileID: 4231780622222393985}
 --- !u!114 &9094947377429783980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2002,6 +1961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
+  Tag: 1
   m_buttonAppearanceChange: 0
   m_normalColor: {r: 1, g: 1, b: 1, a: 1}
   m_highlightedColor: {r: 1, g: 0.6, b: 0.6, a: 1}
@@ -2145,6 +2105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  Tag: 0
   m_buttonAppearanceChange: 0
   m_normalColor: {r: 1, g: 1, b: 1, a: 0}
   m_highlightedColor: {r: 0, g: 0, b: 0, a: 0}
@@ -2732,6 +2693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
+  Tag: 0
   m_buttonAppearanceChange: 1
   m_normalColor: {r: 1, g: 1, b: 1, a: 1}
   m_highlightedColor: {r: 1, g: 0.6, b: 0.6, a: 1}
@@ -2927,6 +2889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
+  Tag: 0
   m_buttonAppearanceChange: 1
   m_normalColor: {r: 1, g: 1, b: 1, a: 1}
   m_highlightedColor: {r: 1, g: 0.6, b: 0.6, a: 1}
