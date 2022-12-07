@@ -8,7 +8,6 @@ public enum EGameState
 	CameraMoving,
 	ObjectSelected,
 	ObjectMoving,
-	OpenInventoryPressed,
 	InventoryOpen,
 	Console,
 	Inspecting,
