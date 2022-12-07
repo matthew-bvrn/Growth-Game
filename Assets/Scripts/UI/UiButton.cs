@@ -73,8 +73,6 @@ public class UiButton : MonoBehaviour
 	{
 		RectTransform rect = GetComponent<RectTransform>();
 
-		//Debug.Log(rect.position.x+rect.rect.min.x);
-
 		if (Input.mousePosition.x > rect.position.x + rect.rect.min.x && Input.mousePosition.x < rect.position.x + rect.rect.max.x
 			&& Input.mousePosition.y > rect.position.y + rect.rect.min.y && Input.mousePosition.y < rect.position.y + rect.rect.max.y)
 		{
