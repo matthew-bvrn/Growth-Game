@@ -179,6 +179,7 @@ internal class InputImplMouseKeyboard : InputImpl
 
 		//menus
 		inputs.Add(EActions.OpenInventory, new KeyboardButtonPress(KeyCode.E));
+		inputs.Add(EActions.OpenShop, new KeyboardButtonPress(KeyCode.Q));
 		inputs.Add(EActions.CloseMenu, new KeyboardButtonPress(KeyCode.Escape));
 	}
 

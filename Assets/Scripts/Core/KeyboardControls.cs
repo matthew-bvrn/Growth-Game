@@ -11,6 +11,9 @@ public class KeyboardControls : MonoBehaviour
 		if (InputManager.Get.IsJustPressed(EActions.OpenInventory))
 			StateManager.Get.TrySetState(EGameState.InventoryOpen);
 
+		if (InputManager.Get.IsJustPressed(EActions.OpenShop))
+			StateManager.Get.TrySetState(EGameState.ShopOpen);
+
 		if (InputManager.Get.IsJustPressed(EActions.CloseMenu))
 			StateManager.Get.TrySetState(EGameState.Viewing);
 	}

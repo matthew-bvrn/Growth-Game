@@ -22,5 +22,6 @@ public enum EActions
 
 	//menus
 	OpenInventory,
-	CloseMenu
+	CloseMenu,
+	OpenShop
 }
