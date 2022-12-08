@@ -38,23 +38,24 @@ public class UiEventSystem : MonoBehaviour
 
 	internal void Unhighlight(UiButton button)
 	{
-		if (Highlighted != null)
-			if (button == Highlighted)
-			{
-				if (Highlighted != Selected)
-					Highlighted.SetState(ButtonState.Normal);
+		Debug.Log("Highlighted: none");
 
-				Highlighted = null;
-				HighlightablesManager.Get.CanSelect = true;
-			}
-			else if (button == HighlightedTab)
-			{
-				if (HighlightedTab != SelectedTab)
-					HighlightedTab.SetState(ButtonState.Normal);
+		if (button == Highlighted)
+		{
+			if (Highlighted != Selected)
+				Highlighted.SetState(ButtonState.Normal);
 
-				HighlightedTab = null;
-				HighlightablesManager.Get.CanSelect = true;
-			}
+			Highlighted = null;
+			HighlightablesManager.Get.CanSelect = true;
+		}
+		else if (button == HighlightedTab)
+		{
+			if (HighlightedTab != SelectedTab)
+				HighlightedTab.SetState(ButtonState.Normal);
+
+			HighlightedTab = null;
+			HighlightablesManager.Get.CanSelect = true;
+		}
 	}
 
 	internal void Unselect(ButtonTag tag)
