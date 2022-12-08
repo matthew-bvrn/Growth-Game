@@ -6,7 +6,7 @@ public abstract class UiItemScrollView : MonoBehaviour
 {
 	[SerializeField] protected GameObject m_menu;
 	[SerializeField] protected ScrollRect m_scrollView;
-	[SerializeField] RectTransform m_elementTemplate;
+	[SerializeField] protected RectTransform m_elementTemplate;
 
 	internal List<GameObject> m_elements = new List<GameObject>();
 	GameObject m_sampleObject;
@@ -20,6 +20,7 @@ public abstract class UiItemScrollView : MonoBehaviour
 	virtual protected void AdditionalOnActivated() { }
 	virtual protected void AdditionalOnElementClicked() { }
 	abstract protected EGameState GetState();
+	abstract protected void CreateMenuElements();
 
 	protected void OnStateChanged(EGameState state)
 	{
@@ -33,27 +34,6 @@ public abstract class UiItemScrollView : MonoBehaviour
 		{
 			RemoveSampleObject();
 			m_menu.SetActive(false);
-		}
-	}
-
-	void CreateMenuElements()
-	{
-		foreach (GameObject element in m_elements)
-		{
-			Destroy(element);
-		}
-
-		m_elements.Clear();
-
-		foreach (ItemData item in InventoryManager.Get.Items)
-		{
-			ItemUiElement element = ((GameObject)Instantiate(m_elementTemplate.gameObject, m_scrollView.content)).GetComponent<ItemUiElement>();
-			element.gameObject.SetActive(true);
-			element.GetComponentInChildren<Text>().text = item.Name;
-			element.Guid = item.Guid;
-			element.ItemGuid = item.ItemGuid;
-			element.Tags = item.Tags;
-			m_elements.Add(element.gameObject);
 		}
 	}
 
