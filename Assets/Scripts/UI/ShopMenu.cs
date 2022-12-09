@@ -8,7 +8,4 @@ public class ShopMenu : UiItemScrollView
 	{
 		return EGameState.ShopOpen;
 	}
-
-	protected override void CreateMenuElements()
-	{ }
 }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : ItemListManager
 {
-	public List<ItemData> Items { get; private set; } = new List<ItemData>();
-
 	public static InventoryManager Get;
+
+	public int Money { get; private set; } = 9999;
 
 	void Start()
 	{
@@ -20,11 +20,6 @@ public class InventoryManager : MonoBehaviour
 	{
 		Items.Add(item.GetItemData());
 		Destroy(item.gameObject);
-	}
-
-	public ItemData GetItem(string itemGuid)
-	{
-		return Items.Find((x) => x.ItemGuid == itemGuid);
 	}
 
 	public void PlaceItem(string itemGuid)
