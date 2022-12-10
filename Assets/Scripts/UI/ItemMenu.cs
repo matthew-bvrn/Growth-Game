@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public abstract class UiItemScrollView : MonoBehaviour
+public abstract class ItemMenu : MonoBehaviour
 {
 	[SerializeField] protected GameObject m_menu;
 	[SerializeField] protected ScrollRect m_scrollView;
@@ -94,20 +94,16 @@ public abstract class UiItemScrollView : MonoBehaviour
 		}
 	}
 
-	public void Update()
+	public void LateUpdate()
 	{
 		if (StateManager.Get.State != GetState())
 			return;
 
-		if (InputManager.Get.IsJustPressed(EActions.Select) && !UiEventSystem.Get.ElementHighlighted)
-		{
+		if (InputManager.Get.IsJustPressed(EActions.Select) && !UiEventSystem.Get.IsMouseOverUi)
 			StateManager.Get.TrySetState(EGameState.Viewing);
-		}
 
-		if (InputManager.Get.IsJustPressed(EActions.CameraMoving) && !UiEventSystem.Get.ElementHighlighted)
-		{
+		if (InputManager.Get.IsJustPressed(EActions.CameraMoving) && !UiEventSystem.Get.IsMouseOverUi)
 			StateManager.Get.TrySetState(EGameState.CameraMoving);
-		}
 	}
 }
 

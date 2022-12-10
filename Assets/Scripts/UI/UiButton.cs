@@ -33,7 +33,7 @@ internal enum ButtonTag
 [System.Serializable]
 public class ButtonEvent : UnityEvent { }
 
-public class UiButton : MonoBehaviour
+public class UiButton : UiElement
 {
 	[SerializeField] internal ButtonType Type;
 	[SerializeField] internal ButtonTag Tag = ButtonTag.Button;
@@ -67,21 +67,9 @@ public class UiButton : MonoBehaviour
 
 	internal bool ToggleState = false;
 
-	bool m_mouseInRegion;
-
 	public void Update()
 	{
-		RectTransform rect = GetComponent<RectTransform>();
-
-		if (Input.mousePosition.x > rect.position.x + rect.rect.min.x && Input.mousePosition.x < rect.position.x + rect.rect.max.x
-			&& Input.mousePosition.y > rect.position.y + rect.rect.min.y && Input.mousePosition.y < rect.position.y + rect.rect.max.y)
-		{
-			m_mouseInRegion = true;
-		}
-		else
-		{
-			m_mouseInRegion = false;
-		}
+		base.Update();
 
 		//set highlighted
 		if (Type != ButtonType.Toggle)

@@ -8,7 +8,7 @@ public class UiTabManager : MonoBehaviour
 	{
 		m_activeTag = value;
 
-		foreach(GameObject element in GetComponent<UiItemScrollView>().m_elements)
+		foreach(GameObject element in GetComponent<ItemMenu>().m_elements)
 			{
 				if (m_activeTag == "All")
 					element.SetActive(true);

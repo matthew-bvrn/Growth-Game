@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryMenu : UiItemScrollView
+public class InventoryMenu : ItemMenu
 {
 	[SerializeField] UiButton m_placeButton;
 

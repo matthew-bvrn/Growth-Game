@@ -3009,7 +3009,6 @@ GameObject:
   - component: {fileID: 3114237785754844327}
   - component: {fileID: 8719606691292592825}
   - component: {fileID: 4848177020660531866}
-  - component: {fileID: 3451759446069453658}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -3106,37 +3105,6 @@ MonoBehaviour:
   m_HorizontalScrollbarSpacing: -3
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &3451759446069453658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4790498396793538924}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d2e6251c18f164d96ed68f4306976c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 0
-  Tag: 0
-  m_buttonAppearanceChange: 0
-  m_normalColor: {r: 1, g: 1, b: 1, a: 0}
-  m_highlightedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_selectedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_pressedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_normalTexture: {fileID: 0}
-  m_highlightedTexture: {fileID: 0}
-  m_pressedTexture: {fileID: 0}
-  m_fadeDuration: 0.1
-  m_animateDelay: 0
-  m_animateEndTime: 0.25
-  m_onSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  m_onDeselected:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &5162387502631102673

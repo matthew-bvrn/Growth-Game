@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopMenu : UiItemScrollView
+public class ShopMenu : ItemMenu
 {
 	[SerializeField] GameObject m_price;
 

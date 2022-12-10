@@ -16,6 +16,14 @@ public class UiEventSystem : MonoBehaviour
 
 	internal Vector3 SelectedMousePos { get; private set; }
 
+	public bool IsMouseOverUi { get { return m_isMouseOverUi; } internal set { HighlightablesManager.Get.CanSelect = !value; m_isMouseOverUi = value; Debug.Log(HighlightablesManager.Get.CanSelect); } }
+	bool m_isMouseOverUi;
+
+	private void Update()
+	{
+		IsMouseOverUi = false;
+	}
+
 	private void Start()
 	{
 		if (Get == null)
@@ -33,7 +41,7 @@ public class UiEventSystem : MonoBehaviour
 
 		Debug.Log("Highlighted: " + button);
 
-		HighlightablesManager.Get.CanSelect = false;
+
 	}
 
 	internal void Unhighlight(UiButton button)
@@ -46,7 +54,6 @@ public class UiEventSystem : MonoBehaviour
 				Highlighted.SetState(ButtonState.Normal);
 
 			Highlighted = null;
-			HighlightablesManager.Get.CanSelect = true;
 		}
 		else if (button == HighlightedTab)
 		{
@@ -54,7 +61,6 @@ public class UiEventSystem : MonoBehaviour
 				HighlightedTab.SetState(ButtonState.Normal);
 
 			HighlightedTab = null;
-			HighlightablesManager.Get.CanSelect = true;
 		}
 	}
 
