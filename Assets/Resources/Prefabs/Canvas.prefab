@@ -3009,6 +3009,7 @@ GameObject:
   - component: {fileID: 3114237785754844327}
   - component: {fileID: 8719606691292592825}
   - component: {fileID: 4848177020660531866}
+  - component: {fileID: 3386264607578032949}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -3107,6 +3108,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3386264607578032949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790498396793538924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 798dfa1ef5040834e92a4171138292dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5162387502631102673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3310,7 +3323,7 @@ GameObject:
   - component: {fileID: 6425886097525825289}
   - component: {fileID: 7060873986067518448}
   - component: {fileID: 6696286340775718385}
-  - component: {fileID: 4894854982574663353}
+  - component: {fileID: 7669583464655765771}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -3409,7 +3422,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4894854982574663353
+--- !u!114 &7669583464655765771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3418,28 +3431,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5457568356664599170}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d2e6251c18f164d96ed68f4306976c, type: 3}
+  m_Script: {fileID: 11500000, guid: 798dfa1ef5040834e92a4171138292dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
-  Tag: 0
-  m_buttonAppearanceChange: 0
-  m_normalColor: {r: 1, g: 1, b: 1, a: 0}
-  m_highlightedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_selectedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_pressedColor: {r: 0, g: 0, b: 0, a: 0}
-  m_normalTexture: {fileID: 0}
-  m_highlightedTexture: {fileID: 0}
-  m_pressedTexture: {fileID: 0}
-  m_fadeDuration: 0.1
-  m_animateDelay: 0
-  m_animateEndTime: 0.25
-  m_onSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  m_onDeselected:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &5474291893069996673
 GameObject:
   m_ObjectHideFlags: 0
