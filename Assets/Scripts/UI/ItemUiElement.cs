@@ -8,4 +8,5 @@ public class ItemUiElement : MonoBehaviour
 
 	public string Guid { get; set; }
 	public string ItemGuid { get; set; }
+	public int Price { get; set; }
 }

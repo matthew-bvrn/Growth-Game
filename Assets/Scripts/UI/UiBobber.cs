@@ -21,6 +21,6 @@ public class UiBobber : MonoBehaviour
 	void Update()
 	{
 		m_timer += Time.deltaTime;
-		GetComponent<RectTransform>().position = m_pos + new Vector3(0, m_phase + Mathf.Sin(Mathf.PI * m_timer / m_speedSeconds), 0)*m_displacement;
+		GetComponent<RectTransform>().position = m_pos + new Vector3(0, m_phase + Mathf.Abs(Mathf.Sin(Mathf.PI * m_timer / m_speedSeconds)), 0)*m_displacement;
 	}
 }

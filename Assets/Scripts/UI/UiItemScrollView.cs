@@ -12,6 +12,7 @@ public abstract class UiItemScrollView : MonoBehaviour
 	internal List<GameObject> m_elements = new List<GameObject>();
 	GameObject m_sampleObject;
 	protected string m_itemGuid;
+	protected ItemUiElement m_selected;
 
 	private void Start()
 	{
@@ -19,7 +20,7 @@ public abstract class UiItemScrollView : MonoBehaviour
 	}
 
 	virtual protected void AdditionalOnActivated() { }
-	virtual protected void AdditionalOnElementClicked() { }
+	virtual protected void AddAdditionalElementData(ref ItemUiElement element, ItemData item) { }
 	abstract protected EGameState GetState();
 
 	protected void OnStateChanged(EGameState state)
@@ -37,16 +38,14 @@ public abstract class UiItemScrollView : MonoBehaviour
 		}
 	}
 
-	public void OnElementClicked()
+	virtual public void OnElementClicked()
 	{
-		AdditionalOnElementClicked();
-
-		ItemUiElement selected = UiEventSystem.Get.Selected.GetComponent<ItemUiElement>();
-		m_itemGuid = selected.ItemGuid;
+		m_selected = UiEventSystem.Get.Selected.GetComponent<ItemUiElement>();
+		m_itemGuid = m_selected.ItemGuid;
 		ItemData itemData = m_itemListManager.GetItem(m_itemGuid);
 
 		RemoveSampleObject();
-		m_sampleObject = Instantiate(ItemLookupManager.Get.LookupItem(selected.Guid));
+		m_sampleObject = Instantiate(ItemLookupManager.Get.LookupItem(m_selected.Guid));
 		m_sampleObject.GetComponent<SelectableBase>().SetInventoryPreviewState();
 
 		if (itemData.additionalData != null)
@@ -81,6 +80,7 @@ public abstract class UiItemScrollView : MonoBehaviour
 			element.Guid = item.Guid;
 			element.ItemGuid = item.ItemGuid;
 			element.Tags = item.Tags;
+			element.Price = item.Price;
 			m_elements.Add(element.gameObject);
 		}
 	}

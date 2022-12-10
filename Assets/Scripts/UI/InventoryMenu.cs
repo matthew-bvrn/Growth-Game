@@ -11,9 +11,10 @@ public class InventoryMenu : UiItemScrollView
 		m_placeButton.gameObject.SetActive(false);
 	}
 
-	protected override void AdditionalOnElementClicked()
+	public override void OnElementClicked()
 	{
 		m_placeButton.gameObject.SetActive(true);
+		base.OnElementClicked();
 	}
 
 	protected override EGameState GetState()

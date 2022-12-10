@@ -247,6 +247,7 @@ MonoBehaviour:
   m_name: Basic Side Table
   m_tags:
   - Furniture
+  m_price: 180
   Guid: d7420f2d-ec4d-4144-ac36-bc10951e5c5f
   Offset: {x: 0, y: 0, z: 0}
   Rotation: {x: 0, y: 0, z: 0}

@@ -9,13 +9,14 @@ public class ItemComponent : MonoBehaviour
 {
 	[SerializeField] string m_name;
 	[SerializeField] public List<string> m_tags;
+	[SerializeField] int m_price;
 	[UniqueIdentifier] public string Guid;
 	public Vector3 Offset;
 	public Vector3 Rotation;
 
 	public ItemData GetItemData()
 	{
-		ItemData itemData = new ItemData(m_name, Guid, System.Guid.NewGuid().ToString(), m_tags);
+		ItemData itemData = new ItemData(m_name, Guid, System.Guid.NewGuid().ToString(), m_tags, m_price);
 
 		AdditionalDataFetcher fetcher = GetComponent<AdditionalDataFetcher>();
 
