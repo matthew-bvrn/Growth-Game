@@ -148,7 +148,7 @@ public class ModelHandlerRosette : ModelHandler
 
 	void OnPrune(GameObject selected)
 	{
-		if (SelectablesManager.Get.Selected.gameObject == transform.parent.gameObject && StateManager.Get.State == EGameState.Pruning)
+		if (StateManager.Get.State == EGameState.Pruning && SelectablesManager.Get.Selected.gameObject == transform.parent.gameObject)
 		{
 			m_leafRemoveBuffer.Add(selected.GetComponent<LeafRosette>());
 			foreach(LeafRosette leaf in m_leaves)

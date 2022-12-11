@@ -14,7 +14,7 @@ public class ItemData
 	public string Name { get; private set; }
 	public List<string> Tags { get; private set; }
 	public string Guid { get; private set; }
-	public string ItemGuid { get; private set; }
+	public string ItemGuid { get; set; }
 	public int Price { get; private set; }
 	public AdditionalData additionalData;
 }

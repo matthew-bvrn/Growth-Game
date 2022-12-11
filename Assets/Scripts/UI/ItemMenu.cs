@@ -13,6 +13,7 @@ public abstract class ItemMenu : MonoBehaviour
 	GameObject m_sampleObject;
 	protected string m_itemGuid;
 	protected ItemUiElement m_selected;
+	protected ItemData m_selectedData;
 
 	private void Start()
 	{
@@ -42,15 +43,15 @@ public abstract class ItemMenu : MonoBehaviour
 	{
 		m_selected = UiEventSystem.Get.Selected.GetComponent<ItemUiElement>();
 		m_itemGuid = m_selected.ItemGuid;
-		ItemData itemData = m_itemListManager.GetItem(m_itemGuid);
+		m_selectedData = m_itemListManager.GetItem(m_itemGuid);
 
 		RemoveSampleObject();
 		m_sampleObject = Instantiate(ItemLookupManager.Get.LookupItem(m_selected.Guid));
 		m_sampleObject.GetComponent<SelectableBase>().SetInventoryPreviewState();
 
-		if (itemData.additionalData != null)
+		if (m_selectedData.additionalData != null)
 		{
-			itemData.additionalData.LoadData(m_sampleObject);
+			m_selectedData.additionalData.LoadData(m_sampleObject);
 		}
 
 		foreach (MeshRenderer renderer in m_sampleObject.GetComponentsInChildren<MeshRenderer>())

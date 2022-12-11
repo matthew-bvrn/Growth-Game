@@ -25,4 +25,14 @@ public class ShopMenu : ItemMenu
 		m_price.GetComponentInChildren<TMPro.TMP_Text>().text = m_selected.Price.ToString();
 
 	}
+
+	public void OnPurchasePressed()
+	{
+		if(InventoryManager.Get.Money >= m_selected.Price)
+		{
+			InventoryManager.Get.Money -= m_selected.Price;
+			m_selectedData.ItemGuid = System.Guid.NewGuid().ToString();
+			InventoryManager.Get.Items.Add(m_selectedData);
+		}
+	}
 }

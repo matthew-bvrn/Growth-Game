@@ -196,7 +196,7 @@ MonoBehaviour:
   m_scrollView: {fileID: 4848177020660531866}
   m_elementTemplate: {fileID: 5521478211633004483}
   m_itemListManager: {fileID: 0}
-  m_price: {fileID: 5474291893069996673}
+  m_price: {fileID: 2076642205043506409}
 --- !u!1 &828554607820447816
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +711,44 @@ MonoBehaviour:
       m_Calls: []
   m_tabManager: {fileID: 9094947377429783980}
   m_tag: Plant
+--- !u!1 &2076642205043506409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7171674774347361826}
+  m_Layer: 5
+  m_Name: Bottom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7171674774347361826
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076642205043506409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5011419967980651986}
+  - {fileID: 2984189972029162906}
+  m_Father: {fileID: 4535078366053434883}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.0000038146973, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2146033719290254657
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,8 +3503,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7826671466737608422}
-  m_Father: {fileID: 4535078366053434883}
-  m_RootOrder: 5
+  m_Father: {fileID: 7171674774347361826}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -3897,8 +3935,7 @@ RectTransform:
   - {fileID: 8355976231012054065}
   - {fileID: 627568774330538813}
   - {fileID: 3353184300999386647}
-  - {fileID: 2984189972029162906}
-  - {fileID: 5011419967980651986}
+  - {fileID: 7171674774347361826}
   m_Father: {fileID: 2238997755155468528}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4278,7 +4315,7 @@ MonoBehaviour:
   m_onSelected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2899990030234171513}
         m_TargetAssemblyTypeName: InventoryMenu, UI
         m_MethodName: OnElementClicked
         m_Mode: 1
@@ -4649,7 +4686,7 @@ GameObject:
   - component: {fileID: 7689346633218667348}
   - component: {fileID: 7190805462112075210}
   m_Layer: 5
-  m_Name: PlaceButton
+  m_Name: Purchase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4668,8 +4705,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8018923310486359757}
-  m_Father: {fileID: 4535078366053434883}
-  m_RootOrder: 6
+  m_Father: {fileID: 7171674774347361826}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4742,9 +4779,9 @@ MonoBehaviour:
   m_onSelected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2899990030234171513}
-        m_TargetAssemblyTypeName: InventoryMenu, UI
-        m_MethodName: OnPlaceButton
+      - m_Target: {fileID: 5984790275757897961}
+        m_TargetAssemblyTypeName: ShopMenu, UI
+        m_MethodName: OnPurchasePressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

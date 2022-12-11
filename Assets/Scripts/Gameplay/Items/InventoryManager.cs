@@ -6,7 +6,7 @@ public class InventoryManager : ItemListManager
 {
 	public static InventoryManager Get;
 
-	public int Money { get; private set; } = 9999;
+	public int Money { get; set; } = 9999;
 
 	void Start()
 	{

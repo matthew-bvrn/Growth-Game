@@ -16,7 +16,7 @@ public class UiEventSystem : MonoBehaviour
 
 	internal Vector3 SelectedMousePos { get; private set; }
 
-	public bool IsMouseOverUi { get { return m_isMouseOverUi; } internal set { HighlightablesManager.Get.CanSelect = !value; m_isMouseOverUi = value; Debug.Log(HighlightablesManager.Get.CanSelect); } }
+	public bool IsMouseOverUi { get { return m_isMouseOverUi; } internal set { HighlightablesManager.Get.CanSelect = !value; m_isMouseOverUi = value;} }
 	bool m_isMouseOverUi;
 
 	private void Update()
