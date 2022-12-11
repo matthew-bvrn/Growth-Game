@@ -19,6 +19,7 @@ public partial class PlantManagerRealtime : PlantManagerBase
 		GameConsole.Instance.AddCommand("waternearest", DebugWaterNearest);
 		GameConsole.Instance.AddCommand("changepotnearest", DebugChangePotNearest);
 		GameConsole.Instance.AddCommand("createplant", DebugCreatePlant);
+		GameConsole.Instance.AddCommand("savejson", DebugSaveJson);
 #endif
 	}
 

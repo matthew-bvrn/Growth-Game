@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public partial class PlantManagerRealtime : PlantManagerBase
 {
@@ -95,6 +96,19 @@ public partial class PlantManagerRealtime : PlantManagerBase
 		}
 		
 		Instantiate(prefab, pos, new Quaternion(), this.transform);
+	}
+
+	void DebugSaveJson(int count, params string[] args)
+	{
+		PlantComponent plant = GetClosestPlant();
+		ItemData data = plant.GetComponent<ItemComponent>().GetItemData();
+		string json = JsonConvert.SerializeObject(data, Formatting.Indented, new JsonSerializerSettings()
+		{
+			ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+			TypeNameHandling = TypeNameHandling.All
+		});
+
+		System.IO.File.WriteAllText(Application.persistentDataPath + "Debug/" + data.ItemGuid, json);
 	}
 
 	PlantComponent GetClosestPlant()
