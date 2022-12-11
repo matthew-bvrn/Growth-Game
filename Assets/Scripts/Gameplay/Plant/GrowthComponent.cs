@@ -44,6 +44,8 @@ public class GrowthComponent : MonoBehaviour
 		data.Age = m_age;
 		data.Growth = Growth;
 		data.GrowthFactor = m_growthFactor;
+		data.Sickness = m_sickness;
+		data.IsDead = m_isDead;
 	}
 
 	internal void SetData(PlantData data)
@@ -51,6 +53,8 @@ public class GrowthComponent : MonoBehaviour
 		m_age = data.Age;
 		m_growth = data.Growth;
 		m_growthFactor = data.GrowthFactor;
+		m_sickness = data.Sickness;
+		m_isDead = data.IsDead;
 	}
 
 	public void Water()

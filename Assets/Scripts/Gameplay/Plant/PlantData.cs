@@ -21,6 +21,8 @@ public class PlantData : AdditionalData
 	public float Age;
 	public float Growth;
 	public float GrowthFactor;
+	public float Sickness;
+	public bool IsDead;
 	public ModelData modelData;
 	public SoilData soilData;
 	public WaterData waterData;
