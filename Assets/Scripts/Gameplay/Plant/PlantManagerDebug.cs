@@ -108,7 +108,7 @@ public partial class PlantManagerRealtime : PlantManagerBase
 			TypeNameHandling = TypeNameHandling.All
 		});
 
-		System.IO.File.WriteAllText(Application.persistentDataPath + "Debug/" + data.ItemGuid, json);
+		System.IO.File.WriteAllText(Application.persistentDataPath + "/" + data.ItemGuid, json);
 	}
 
 	PlantComponent GetClosestPlant()

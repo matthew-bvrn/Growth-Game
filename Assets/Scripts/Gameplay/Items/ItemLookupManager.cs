@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class ItemLookupManager : MonoBehaviour
 {
@@ -32,5 +33,14 @@ public class ItemLookupManager : MonoBehaviour
 		GameObject gameObject = null;
 		m_objects.TryGetValue(guid, out gameObject);
 		return gameObject;
+	}
+
+	public ItemData LoadItemDataFromFile(string filename)
+	{
+		string data = Resources.Load("Data/" + filename).ToString();
+		return JsonConvert.DeserializeObject<ItemData>(data, new JsonSerializerSettings
+		{
+			TypeNameHandling = TypeNameHandling.All
+		});
 	}
 }
