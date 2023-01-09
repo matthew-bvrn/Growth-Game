@@ -10,6 +10,8 @@ public class PlantComponent : MonoBehaviour, AdditionalDataFetcher
 	[SerializeField] string m_plantName;
 
 	public string Name { get => m_plantName; }
+	public PlantComponent Parent = null;
+	public List<PlantComponent> m_babies = new List<PlantComponent>();
 
 	//TODO temporary until loop for getting new plants is implemented
 	public void Start()

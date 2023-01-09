@@ -57,13 +57,20 @@ public class SoilSaturation : ISimulatable
 
 	private void UpdateSaturation(float delta)
 	{
-		float dryRate = s_standardDrainingTime * (1/GetComponentInParent<Parameters.ParametersComponent>().DrainingFactor);
+		if (GetComponentInParent<PlantComponent>().Parent == null)
+		{
+			float dryRate = s_standardDrainingTime * (1 / GetComponentInParent<Parameters.ParametersComponent>().DrainingFactor);
 
-		float timeInHours = delta / 3600;
-		float equivTime = -dryRate * Mathf.Log(Saturation);
-		float totalTime = timeInHours + equivTime;
-		m_saturation = Mathf.Exp(-totalTime / dryRate);
-		SaturationUpdated.Invoke(Saturation, delta);
+			float timeInHours = delta / 3600;
+			float equivTime = -dryRate * Mathf.Log(Saturation);
+			float totalTime = timeInHours + equivTime;
+			m_saturation = Mathf.Exp(-totalTime / dryRate);
+			SaturationUpdated.Invoke(Saturation, delta);
+		}
+		else
+		{
+			m_saturation = GetComponentInParent<PlantComponent>().Parent.GetComponentInChildren<SoilSaturation>().Saturation;
+		}
 	}
 
 	internal SoilData GetData()

@@ -15,29 +15,29 @@ public class LeafRosette : Leaf
 		base.Initialise(parameters);
 	}
 
-	internal override void UpdateLeaf(float deltaGrowth, LeafParametersBase leafParams)
+	internal override void UpdateLeaf(float deltaGrowth, LeafParametersBase leafParams, bool isChild)
 	{
-		UpdateGrowth(deltaGrowth, leafParams);
-		UpdateSickness();
+		UpdateGrowth(deltaGrowth, leafParams, isChild);
+		UpdateSickness(isChild);
 	}
 
-	void UpdateSickness()
+	void UpdateSickness(bool isChild)
 	{
 		float waterHealth = m_parametersComponent.WaterHealth / 2 + .5f;
 		float ageFactor = Mathf.Max(0, AgeProgress - 0.5f);
 		
 		GetComponent<LeafRosetteAnimationComponent>().SicknessLevel = m_parametersComponent.GrowthFactor;
-		GetComponent<LeafRosetteShaderComponent>().UpdateShader(waterHealth, ageFactor);
+		GetComponent<LeafRosetteShaderComponent>().UpdateShader(waterHealth, ageFactor, isChild);
 	}
 
-	void UpdateGrowth(float deltaGrowth, LeafParametersBase leafParams)
+	void UpdateGrowth(float deltaGrowth, LeafParametersBase leafParams, bool isChild)
 	{
 		LeafParametersRosette rosetteParams = (LeafParametersRosette)leafParams;
 		Vector3 onesVec = new Vector3(1, 1, 1);
 
 		AgeProgress = Age / m_maxAge;
 
-		if (AgeProgress < 2)
+		if (AgeProgress < 1 || (!isChild && AgeProgress < 2))
 		{
 			float rotation = AgeProgress * rosetteParams.m_maxRotation + (1 - AgeProgress) * rosetteParams.m_initialRotation;
 			gameObject.transform.rotation = Quaternion.Euler(rotation, gameObject.transform.rotation.eulerAngles.y, 0);
@@ -57,7 +57,7 @@ public class LeafRosette : Leaf
 			}
 
 		}
-		if (m_state == ELeafState.Dying && gameObject.transform.localScale.x > rosetteParams.m_deadLeafSize)
+		if (m_state == ELeafState.Dying && gameObject.transform.localScale.x > rosetteParams.m_deadLeafSize && !isChild)
 		{
 			gameObject.transform.localScale = m_maxSize - (Age - m_maxAge) * rosetteParams.m_deathScaleSpeed * onesVec * m_potFactor;
 			if (gameObject.transform.localScale.x < 0)

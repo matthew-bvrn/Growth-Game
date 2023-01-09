@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_plantName
       value: Aloe
       objectReference: {fileID: 0}
+    - target: {fileID: 2450521972573996369, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+      propertyPath: m_simulatables
+      value: 
+      objectReference: {fileID: 7500356660346122090}
     - target: {fileID: 2450521972573996370, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -111,6 +115,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5780945700814890973, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
   m_PrefabInstance: {fileID: 5338065614250700218}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2624654998173191576 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7960177986952683554, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
+  m_PrefabInstance: {fileID: 5338065614250700218}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7500356660346122090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2450521972036698832, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
@@ -138,6 +147,11 @@ MonoBehaviour:
     m_deathScaleSpeed: 0.015
   m_newLeafRotIncrement: 100
   m_newLeafHeightIncrement: 0.005
+  m_minBabyGrowth: 5000
+  m_babyThreshhold: 1000
+  m_maxBabies: 2
+  m_baby: {fileID: 3212646592868658855, guid: f73c7cd99db8fa249852250d0c1a54e0, type: 3}
+  m_potOrigin: {fileID: 2624654998173191576}
 --- !u!1 &7500356660883613929 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2450521972573996371, guid: bf5ab151e38f980499f14d0b076e28cc, type: 3}
@@ -158,6 +172,7 @@ MonoBehaviour:
   m_name: Aloe Plant
   m_tags:
   - Plant
+  m_price: 0
   Guid: 9e689b1f-4379-4e89-9fea-268cb81e5087
   Offset: {x: 0, y: 0, z: 0}
   Rotation: {x: 0, y: 0, z: 0}

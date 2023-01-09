@@ -23,8 +23,14 @@ public class GrowthComponent : MonoBehaviour
 #endif
 	[SerializeField] float m_sickness = 0;
 	bool m_isDead = false;
+	[SerializeField] GameObject m_simulatables;
 
 	public void Start()
+	{
+		Initialise();
+	}
+
+	public void Initialise()
 	{
 		//TODO temp testing code, should be called when plant is created by other means
 		InitParamsSoilSaturation initParams = new InitParamsSoilSaturation(0.5f);
@@ -90,10 +96,15 @@ public class GrowthComponent : MonoBehaviour
 
 	void SimulateImpl(float deltaTime)
 	{
+		bool isChild = GetComponent<PlantComponent>().Parent != null;
+
 		if (m_isDead)
 			return;
 
-		if (GetComponent<SelectableBase>().State != ESelectableState.Placed)
+		if (!isChild && GetComponent<SelectableBase>().State != ESelectableState.Placed)
+			return;
+
+		if (isChild && GetComponent<PlantComponent>().Parent.GetComponent<SelectableBase>().State != ESelectableState.Placed)
 			return;
 
 		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
@@ -101,15 +112,27 @@ public class GrowthComponent : MonoBehaviour
 
 		CalculateGrowthFactor(deltaTime);
 
-		m_deltaGrowth = deltaTime * m_growthFactor * s_growthMultiplier;
-		m_growth += m_deltaGrowth;
+		if (!isChild)
+		{
+			m_deltaGrowth = deltaTime * m_growthFactor * s_growthMultiplier;
+			m_growth += m_deltaGrowth;
+		}
+		else
+		{
+			m_deltaGrowth = m_growth > 2000 ? 0 : GetComponent<PlantComponent>().Parent.GetComponent<GrowthComponent>().DeltaGrowth;
+			m_growth += m_deltaGrowth;
+		}
+
 		m_age += deltaTime * s_growthMultiplier;
 
-		foreach (ISimulatable component in GetComponentsInChildren<ISimulatable>())
+		foreach (ISimulatable component in m_simulatables.GetComponents<ISimulatable>())
 			component.Simulate(m_growth, m_deltaGrowth);
 
-		foreach (IAgeable component in GetComponentsInChildren<IAgeable>())
+		foreach (IAgeable component in m_simulatables.GetComponents<IAgeable>())
 			component.Age(deltaTime * s_growthMultiplier);
+
+		foreach (PlantComponent baby in GetComponent<PlantComponent>().m_babies)
+			baby.GetComponent<GrowthComponent>().Simulate(deltaTime);
 	}
 
 	public void CalculateGrowthFactor(float deltaTime)
