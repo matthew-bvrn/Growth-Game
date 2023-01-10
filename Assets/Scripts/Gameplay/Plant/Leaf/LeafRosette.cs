@@ -57,7 +57,7 @@ public class LeafRosette : Leaf
 			}
 
 		}
-		if (m_state == ELeafState.Dying && gameObject.transform.localScale.x > rosetteParams.m_deadLeafSize && !isChild)
+		if (m_state == ELeafState.Dying && (gameObject.transform.localScale.x > rosetteParams.m_deadLeafSize || m_isSettingData) && !isChild)
 		{
 			gameObject.transform.localScale = m_maxSize - (Age - m_maxAge) * rosetteParams.m_deathScaleSpeed * onesVec * m_potFactor;
 			if (gameObject.transform.localScale.x < 0)

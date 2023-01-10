@@ -77,8 +77,11 @@ public class ModelHandlerRosette : ModelHandler
 		{
 			Leaf newLeaf = ((GameObject)Instantiate(leafPrefab, leafData.Position, leafData.Rotation, transform)).GetComponent<Leaf>();
 			newLeaf.Initialise(GetComponentInParent<Parameters.ParametersComponent>());
+			//used to allow dead leaf size to be set correctly 
+			newLeaf.m_isSettingData = true;
 			newLeaf.SetData(leafData);
 			newLeaf.UpdateLeaf(0, m_leafParameters, isChild);
+			newLeaf.m_isSettingData = false;
 			m_leaves.Add((LeafRosette)newLeaf);
 		}
 	}

@@ -27,6 +27,7 @@ public abstract class Leaf : MonoBehaviour
 	protected float m_potFactor;
 	protected Vector3 m_maxSize;
 	protected ELeafState m_state = ELeafState.Growing;
+	internal bool m_isSettingData = false;
 	 
 	internal abstract void UpdateLeaf(float deltaGrowth, LeafParametersBase parameters, bool isChild);
 
