@@ -7,7 +7,8 @@ public class HighlightableComponent : MonoBehaviour
 	public enum EType
 	{
 		Item,
-		Leaf
+		Leaf,
+		Baby
 	}
 
 	public EType Type = EType.Item;

@@ -26,7 +26,7 @@ public class InspectMenu : MonoBehaviour
 
 	void OnStateChanged(EGameState state)
 	{
-		if (state == EGameState.Inspecting || state == EGameState.Pruning)
+		if (state == EGameState.Inspecting || state == EGameState.Pruning || state == EGameState.TakeCutting)
 		{
 			m_menu.SetActive(true);
 		}
@@ -81,6 +81,14 @@ public class InspectMenu : MonoBehaviour
 	{
 		if(StateManager.Get.State!=EGameState.Pruning)
 			StateManager.Get.TrySetState(EGameState.Pruning);
+		else
+			StateManager.Get.TrySetState(EGameState.Inspecting);
+	}
+
+	public void OnTakeCuttingPressed()
+	{
+		if (StateManager.Get.State != EGameState.TakeCutting)
+			StateManager.Get.TrySetState(EGameState.TakeCutting);
 		else
 			StateManager.Get.TrySetState(EGameState.Inspecting);
 	}

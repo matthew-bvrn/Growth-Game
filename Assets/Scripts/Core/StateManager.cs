@@ -12,6 +12,7 @@ public enum EGameState
 	Console,
 	Inspecting,
 	Pruning,
+	TakeCutting,
 	ShopOpen,
 }
 

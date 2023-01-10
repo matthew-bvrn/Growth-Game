@@ -57,6 +57,10 @@ public class HighlightablesManager : MonoBehaviour
 		{
 			HighlightItems(HighlightableComponent.EType.Leaf);
 		}
+		else if (StateManager.Get.State == EGameState.TakeCutting)
+		{
+			HighlightItems(HighlightableComponent.EType.Baby);
+		}
 		else
 		{
 			TryHighlight(null, true);
